@@ -25,3 +25,41 @@ TEST(Point, componentsMatchInitializationInputs) {
   ASSERT_FLOAT_EQ(p.y, 2.0);
   ASSERT_FLOAT_EQ(p.z, 3.0);
 }
+
+TEST(Point, copyConstruct) {
+  Point p1(1.0, 2.0, 3.0);
+  Point p2(p1);
+}
+
+TEST(Point, copiedComponentsMatch) {
+  Point p1(1.0, 2.0, 3.0);
+  Point p2(p1);
+  ASSERT_FLOAT_EQ(p1.x, p2.x);
+  ASSERT_FLOAT_EQ(p1.y, p2.y);
+  ASSERT_FLOAT_EQ(p1.z, p2.z);
+}
+
+TEST(Point, callPointComparator) {
+  Point p1, p2;
+  p1 == p2;
+}
+
+TEST(Point, equalToSelf) {
+  Point p;
+  ASSERT_TRUE(p == p);
+}
+
+TEST(Point, equalToCopy) {
+  Point p1, p2(p1);
+  ASSERT_TRUE(p1 == p2);
+}
+
+TEST(Point, notEqualToDifferentPoint) {
+  Point p1, p2(1.0, 2.0, 3.0);
+  ASSERT_FALSE(p1 == p2);
+}
+
+TEST(Point, equalToVeryNearPoint) {
+  Point p1, p2(0.0, 0.0, 0.000001);
+  ASSERT_TRUE(p1 == p2);
+}
