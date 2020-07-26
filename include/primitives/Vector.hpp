@@ -18,6 +18,7 @@ public:
   Point operator+(const Point &rhs) const;
 
   double magnitude() const;
+  Vector normalize() const;
 
   double x;
   double y;

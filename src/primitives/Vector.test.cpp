@@ -185,3 +185,16 @@ TEST(Vector, calculateMagnitude) {
   ASSERT_FLOAT_EQ(Vector(1, 2, 3).magnitude(), std::sqrt(14));
   ASSERT_FLOAT_EQ(Vector(-1, -2, -3).magnitude(), std::sqrt(14));
 }
+
+TEST(Vector, normalize) { Vector().normalize(); }
+
+TEST(Vector, getVectorFromNormalization) {
+  Vector r = Vector(1, 0, 0).normalize();
+}
+
+TEST(Vector, calculateUnitVector) {
+  ASSERT_EQ(Vector(4, 0, 0).normalize(), Vector(1, 0, 0));
+  ASSERT_EQ(Vector(1, 2, 3).normalize(),
+            Vector(1 / std::sqrt(14), 2 / std::sqrt(14), 3 / std::sqrt(14)));
+  ASSERT_FLOAT_EQ(Vector(1, 2, 3).normalize().magnitude(), 1.0);
+}

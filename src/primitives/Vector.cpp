@@ -38,6 +38,11 @@ Point Vector::operator+(const Point &rhs) const {
 
 double Vector::magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 
+Vector Vector::normalize() const {
+  const auto R = magnitude();
+  return Vector(x / R, y / R, z / R);
+}
+
 Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
 
 Vector operator-(const Point &lhs, const Point &rhs) {
