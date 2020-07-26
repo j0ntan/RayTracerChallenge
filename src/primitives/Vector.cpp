@@ -27,6 +27,10 @@ Vector Vector::operator*(double rhs) const {
   return Vector(x * rhs, y * rhs, z * rhs);
 }
 
+Vector Vector::operator/(double rhs) const {
+  return Vector(x / rhs, y / rhs, z / rhs);
+}
+
 Point Vector::operator+(const Point &rhs) const {
   return Point(x + rhs.x, y + rhs.y, z + rhs.z);
 }
