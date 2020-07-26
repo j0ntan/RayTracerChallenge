@@ -6,6 +6,8 @@ public:
   Vector();
   Vector(double x, double y, double z);
 
+  bool operator==(const Vector &rhs) const;
+
   const double x;
   const double y;
   const double z;
