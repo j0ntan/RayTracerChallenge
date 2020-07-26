@@ -121,3 +121,15 @@ TEST(Vector, getPointFromPointVectorSubtraction) {
 TEST(Vector, subtractComponentsInPointVectorSubtraction) {
   ASSERT_EQ(Point(4.0, 5.0, 6.0) - Vector(1.0, 2.0, 3.0), Point(3.0, 3.0, 3.0));
 }
+
+TEST(Vector, subtractTwoVectors) { Vector() - Vector(); }
+
+TEST(Vector, getVectorFromVectorVectorSubtraction) {
+  Vector v = Vector() - Vector();
+}
+
+TEST(Vector, subtractComponentsInVectorVectorSubtraction) {
+  Vector v1(4.0, 5.0, 6.0), v2(1.0, 2.0, 3.0);
+  ASSERT_EQ(v1 - v2, Vector(3.0, 3.0, 3.0));
+  ASSERT_EQ(v2 - v1, Vector(-3.0, -3.0, -3.0));
+}
