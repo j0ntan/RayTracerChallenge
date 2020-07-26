@@ -208,3 +208,12 @@ TEST(Vector, getFloatingPointFromDotProduct) {
 TEST(Vector, calculateDotProduct) {
   ASSERT_FLOAT_EQ(Vector(1, 2, 3).dot(Vector(2, 3, 4)), 20);
 }
+
+TEST(Vector, takeCrossProduct) { Vector().cross(Vector()); }
+
+TEST(Vector, getVectorFromCrossProduct) { Vector v = Vector().cross(Vector()); }
+
+TEST(Vector, calculateCrossProduct) {
+  ASSERT_EQ(Vector(1, 2, 3).cross(Vector(2, 3, 4)), Vector(-1, 2, -1));
+  ASSERT_EQ(Vector(2, 3, 4).cross(Vector(1, 2, 3)), Vector(1, -2, 1));
+}

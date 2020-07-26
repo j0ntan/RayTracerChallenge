@@ -21,6 +21,7 @@ public:
   Vector normalize() const;
 
   double dot(const Vector &rhs) const;
+  Vector cross(const Vector &rhs) const;
 
   double x;
   double y;
