@@ -133,3 +133,18 @@ TEST(Vector, subtractComponentsInVectorVectorSubtraction) {
   ASSERT_EQ(v1 - v2, Vector(3.0, 3.0, 3.0));
   ASSERT_EQ(v2 - v1, Vector(-3.0, -3.0, -3.0));
 }
+
+TEST(Vector, negateVector) {
+  Vector v(1.0, 0.0, 0.0);
+  -v;
+}
+
+TEST(Vector, getVectorFromNegation) {
+  Vector v1(1.0, 0.0, 0.0);
+  Vector v2 = -v1;
+}
+
+TEST(Vector, negateComponentsOfNegatedVector) {
+  Vector v(0.0, 1.0, 2.0);
+  ASSERT_EQ(-v, Vector(0.0, -1.0, -2.0));
+}
