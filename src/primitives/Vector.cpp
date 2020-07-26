@@ -13,6 +13,10 @@ bool Vector::operator==(const Vector &rhs) const {
          float_equals(z, rhs.z);
 }
 
+Vector Vector::operator+(const Vector &rhs) const {
+  return Vector(x + rhs.x, y + rhs.y, z + rhs.z);
+}
+
 Point Vector::operator+(const Point &rhs) const {
   return Point(x + rhs.x, y + rhs.y, z + rhs.z);
 }

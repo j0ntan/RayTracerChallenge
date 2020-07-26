@@ -88,3 +88,14 @@ TEST(Vector, addComponentsFromVectorPointAddition) {
 TEST(Vector, addVectorToPoint) {
   ASSERT_EQ(Point(4.0, 5.0, 6.0) + Vector(1.0, 2.0, 3.0), Point(5.0, 7.0, 9.0));
 }
+
+TEST(Vector, addTwoVectors) { Vector() + Vector(); }
+
+TEST(Vector, getVectorFromVectorVectorAddition) {
+  Vector v = Vector() + Vector();
+}
+
+TEST(Vector, addComponentsInVectorVectorAddition) {
+  ASSERT_EQ(Vector(1.0, 2.0, 3.0) + Vector(4.0, 5.0, 6.0),
+            Vector(5.0, 7.0, 9.0));
+}
