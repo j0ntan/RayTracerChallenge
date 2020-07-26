@@ -20,6 +20,8 @@ public:
   double magnitude() const;
   Vector normalize() const;
 
+  double dot(const Vector &rhs) const;
+
   double x;
   double y;
   double z;

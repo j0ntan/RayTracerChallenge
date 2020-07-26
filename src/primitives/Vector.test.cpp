@@ -198,3 +198,13 @@ TEST(Vector, calculateUnitVector) {
             Vector(1 / std::sqrt(14), 2 / std::sqrt(14), 3 / std::sqrt(14)));
   ASSERT_FLOAT_EQ(Vector(1, 2, 3).normalize().magnitude(), 1.0);
 }
+
+TEST(Vector, takeDotProduct) { Vector().dot(Vector()); }
+
+TEST(Vector, getFloatingPointFromDotProduct) {
+  double a = Vector().dot(Vector());
+}
+
+TEST(Vector, calculateDotProduct) {
+  ASSERT_FLOAT_EQ(Vector(1, 2, 3).dot(Vector(2, 3, 4)), 20);
+}

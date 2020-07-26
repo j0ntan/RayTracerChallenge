@@ -43,6 +43,10 @@ Vector Vector::normalize() const {
   return Vector(x / R, y / R, z / R);
 }
 
+double Vector::dot(const Vector &rhs) const {
+  return x * rhs.x + y * rhs.y + z * rhs.z;
+}
+
 Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
 
 Vector operator-(const Point &lhs, const Point &rhs) {
