@@ -20,5 +20,6 @@ public:
 
 Point operator+(const Point &lhs, const Vector &rhs);
 Vector operator-(const Point &lhs, const Point &rhs);
+Point operator-(const Point &lhs, const Vector &rhs);
 
 #endif

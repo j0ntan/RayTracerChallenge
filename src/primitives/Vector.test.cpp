@@ -111,3 +111,13 @@ TEST(Vector, subtractComponentsInPointPointSubtraction) {
   ASSERT_EQ(p1 - p2, Vector(3.0, 3.0, 3.0));
   ASSERT_EQ(p2 - p1, Vector(-3.0, -3.0, -3.0));
 }
+
+TEST(Vector, subtractVectorFromPoint) { Point() - Vector(); }
+
+TEST(Vector, getPointFromPointVectorSubtraction) {
+  Point p = Point() - Vector();
+}
+
+TEST(Vector, subtractComponentsInPointVectorSubtraction) {
+  ASSERT_EQ(Point(4.0, 5.0, 6.0) - Vector(1.0, 2.0, 3.0), Point(3.0, 3.0, 3.0));
+}

@@ -26,3 +26,7 @@ Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
 Vector operator-(const Point &lhs, const Point &rhs) {
   return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
+
+Point operator-(const Point &lhs, const Vector &rhs) {
+  return Point(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+}
