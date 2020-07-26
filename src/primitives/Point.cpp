@@ -12,3 +12,7 @@ bool Point::operator==(const Point &rhs) const {
   return float_equals(x, rhs.x) && float_equals(y, rhs.y) &&
          float_equals(z, rhs.z);
 }
+
+Point Point::operator+(const Point &rhs) const {
+  return Point(x + rhs.x, y + rhs.y, z + rhs.z);
+}
