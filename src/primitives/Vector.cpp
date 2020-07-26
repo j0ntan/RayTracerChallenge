@@ -1,3 +1,4 @@
+#include <cmath>
 #include <primitives/Vector.hpp>
 #include <utility/Float_compare.hpp>
 
@@ -34,6 +35,8 @@ Vector Vector::operator/(double rhs) const {
 Point Vector::operator+(const Point &rhs) const {
   return Point(x + rhs.x, y + rhs.y, z + rhs.z);
 }
+
+double Vector::magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 
 Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
 

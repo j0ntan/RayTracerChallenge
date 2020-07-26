@@ -17,6 +17,8 @@ public:
   Vector operator/(double rhs) const;
   Point operator+(const Point &rhs) const;
 
+  double magnitude() const;
+
   double x;
   double y;
   double z;

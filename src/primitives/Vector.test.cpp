@@ -1,3 +1,4 @@
+#include <cmath>
 #include <gtest/gtest.h>
 #include <primitives/Vector.hpp>
 
@@ -169,4 +170,18 @@ TEST(Vector, getVectorFromScalarDivision) { Vector v = Vector() / 1.0; }
 
 TEST(Vector, divideComponentsInVectorScalarDivision) {
   ASSERT_EQ(Vector(2.0, 4.0, 6.0) / 2.0, Vector(1.0, 2.0, 3.0));
+}
+
+TEST(Vector, getMagnitude) { Vector().magnitude(); }
+
+TEST(Vector, getFloatingPointMagnitudeValue) {
+  double r = Vector().magnitude();
+}
+
+TEST(Vector, calculateMagnitude) {
+  ASSERT_FLOAT_EQ(Vector(1, 0, 0).magnitude(), 1.0);
+  ASSERT_FLOAT_EQ(Vector(0, 1, 0).magnitude(), 1.0);
+  ASSERT_FLOAT_EQ(Vector(0, 0, 1).magnitude(), 1.0);
+  ASSERT_FLOAT_EQ(Vector(1, 2, 3).magnitude(), std::sqrt(14));
+  ASSERT_FLOAT_EQ(Vector(-1, -2, -3).magnitude(), std::sqrt(14));
 }
