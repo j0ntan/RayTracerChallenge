@@ -1,6 +1,8 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+#include "Point.hpp"
+
 class Vector {
 public:
   Vector();
@@ -8,9 +10,13 @@ public:
 
   bool operator==(const Vector &rhs) const;
 
+  Point operator+(const Point &rhs) const;
+
   double x;
   double y;
   double z;
 };
+
+Point operator+(const Point &lhs, const Vector &rhs);
 
 #endif

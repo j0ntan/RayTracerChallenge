@@ -76,3 +76,15 @@ TEST(Vector, assignFromVector) {
   v1 = v2;
   ASSERT_EQ(v1, v2);
 }
+
+TEST(Vector, addPointToVector) { Vector() + Point(); }
+
+TEST(Vector, getPointByAddingPointToVector) { Point p = Vector() + Point(); }
+
+TEST(Vector, addComponentsFromVectorPointAddition) {
+  ASSERT_EQ(Vector(1.0, 2.0, 3.0) + Point(4.0, 5.0, 6.0), Point(5.0, 7.0, 9.0));
+}
+
+TEST(Vector, addVectorToPoint) {
+  ASSERT_EQ(Point(4.0, 5.0, 6.0) + Vector(1.0, 2.0, 3.0), Point(5.0, 7.0, 9.0));
+}
