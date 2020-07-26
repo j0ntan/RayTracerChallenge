@@ -148,3 +148,17 @@ TEST(Vector, negateComponentsOfNegatedVector) {
   Vector v(0.0, 1.0, 2.0);
   ASSERT_EQ(-v, Vector(0.0, -1.0, -2.0));
 }
+
+TEST(Vector, multiplyByScalar) { Vector() * 1.0; }
+
+TEST(Vector, getVectorFromScalarMultiplication) { Vector v = Vector() * 1.0; }
+
+TEST(Vector, multiplyComponentsInScalarMultiplication) {
+  ASSERT_EQ(Vector(1.0, 2.0, 3.0) * 0.5, Vector(0.5, 1.0, 1.5));
+  ASSERT_EQ(Vector(1.0, 2.0, 3.0) * -2.0, Vector(-2.0, -4.0, -6.0));
+}
+
+TEST(Vector, multiplyScalarByVector) {
+  ASSERT_EQ(0.5 * Vector(1.0, 2.0, 3.0), Vector(0.5, 1.0, 1.5));
+  ASSERT_EQ(-2.0 * Vector(1.0, 2.0, 3.0), Vector(-2.0, -4.0, -6.0));
+}

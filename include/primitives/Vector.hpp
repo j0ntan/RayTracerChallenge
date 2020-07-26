@@ -13,6 +13,7 @@ public:
   Vector operator+(const Vector &rhs) const;
   Vector operator-(const Vector &rhs) const;
   Vector operator-() const;
+  Vector operator*(double rhs) const;
   Point operator+(const Point &rhs) const;
 
   double x;
@@ -23,5 +24,6 @@ public:
 Point operator+(const Point &lhs, const Vector &rhs);
 Vector operator-(const Point &lhs, const Point &rhs);
 Point operator-(const Point &lhs, const Vector &rhs);
+Vector operator*(double lhs, const Vector &rhs);
 
 #endif

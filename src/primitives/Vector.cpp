@@ -23,6 +23,10 @@ Vector Vector::operator-(const Vector &rhs) const {
 
 Vector Vector::operator-() const { return Vector(-x, -y, -z); }
 
+Vector Vector::operator*(double rhs) const {
+  return Vector(x * rhs, y * rhs, z * rhs);
+}
+
 Point Vector::operator+(const Point &rhs) const {
   return Point(x + rhs.x, y + rhs.y, z + rhs.z);
 }
@@ -36,3 +40,5 @@ Vector operator-(const Point &lhs, const Point &rhs) {
 Point operator-(const Point &lhs, const Vector &rhs) {
   return Point(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
+
+Vector operator*(double lhs, const Vector &rhs) { return rhs * lhs; }
