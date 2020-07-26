@@ -99,3 +99,15 @@ TEST(Vector, addComponentsInVectorVectorAddition) {
   ASSERT_EQ(Vector(1.0, 2.0, 3.0) + Vector(4.0, 5.0, 6.0),
             Vector(5.0, 7.0, 9.0));
 }
+
+TEST(Vector, subtractTwoPoints) { Point() - Point(); }
+
+TEST(Vector, getVectorFromPointPointsubtraction) {
+  Vector v = Point() - Point();
+}
+
+TEST(Vector, subtractComponentsInPointPointSubtraction) {
+  Point p1(4.0, 5.0, 6.0), p2(1.0, 2.0, 3.0);
+  ASSERT_EQ(p1 - p2, Vector(3.0, 3.0, 3.0));
+  ASSERT_EQ(p2 - p1, Vector(-3.0, -3.0, -3.0));
+}
