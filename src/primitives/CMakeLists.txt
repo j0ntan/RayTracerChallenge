@@ -7,3 +7,7 @@ add_library(Vector Vector.cpp)
 target_link_libraries(Vector PRIVATE Float_compare Point)
 add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector gtest_main)
+
+add_library(Color Color.cpp)
+add_executable(test_Color Color.test.cpp)
+target_link_libraries(test_Color Color gtest_main)
