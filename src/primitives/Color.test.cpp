@@ -63,3 +63,10 @@ TEST(Color, equalToNearlyIdenticalColor) {
   Color c1, c2(0, 0, 0.0000001);
   ASSERT_TRUE(c1 == c2);
 }
+
+TEST(Color, changeRGBComponentValues) {
+  Color c;
+  c.red = .1f;
+  c.green = .2f;
+  c.blue = .3f;
+}

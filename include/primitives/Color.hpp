@@ -8,9 +8,9 @@ public:
 
   bool operator==(const Color &rhs) const;
 
-  const float red;
-  const float green;
-  const float blue;
+  float red;
+  float green;
+  float blue;
 };
 
 #endif
