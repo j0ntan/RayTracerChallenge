@@ -6,6 +6,8 @@ public:
   Color();
   Color(float r, float g, float b);
 
+  bool operator==(const Color &rhs) const;
+
   const float red;
   const float green;
   const float blue;

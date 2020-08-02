@@ -25,3 +25,41 @@ TEST(Color, matchComponentsToInitializationValue) {
   ASSERT_EQ(c.green, .2f);
   ASSERT_EQ(c.blue, .3f);
 }
+
+TEST(Color, copyConstruct) {
+  Color c1;
+  Color c2(c1);
+}
+
+TEST(Color, matchCopiedColorComponents) {
+  Color c1(.1f, .2f, .3f);
+  Color c2(c1);
+  ASSERT_EQ(c1.red, c2.red);
+  ASSERT_EQ(c1.green, c2.green);
+  ASSERT_EQ(c1.blue, c2.blue);
+}
+
+TEST(Color, compareForEquality) {
+  Color c1, c2;
+  c1 == c2;
+}
+
+TEST(Color, equalToItself) {
+  Color c;
+  ASSERT_TRUE(c == c);
+}
+
+TEST(Color, equalToCopy) {
+  Color c1, c2(c1);
+  ASSERT_TRUE(c1 == c2);
+}
+
+TEST(Color, notEqualToDiffentColor) {
+  Color c1, c2(.1f, 0, 0);
+  ASSERT_FALSE(c1 == c2);
+}
+
+TEST(Color, equalToNearlyIdenticalColor) {
+  Color c1, c2(0, 0, 0.0000001);
+  ASSERT_TRUE(c1 == c2);
+}

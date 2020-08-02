@@ -9,5 +9,6 @@ add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector gtest_main)
 
 add_library(Color Color.cpp)
+target_link_libraries(Color PRIVATE Float_compare)
 add_executable(test_Color Color.test.cpp)
 target_link_libraries(test_Color Color gtest_main)
