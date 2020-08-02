@@ -63,3 +63,16 @@ TEST(Point, equalToVeryNearPoint) {
   Point p1, p2(0.0, 0.0, 0.000001);
   ASSERT_TRUE(p1 == p2);
 }
+
+TEST(Point, changeCoordinates) {
+  Point p;
+  p.x = 1.0;
+  p.y = 2.0;
+  p.z = 3.0;
+}
+
+TEST(Point, assignFromPoint) {
+  Point p1, p2(1.0, 2.0, 3.0);
+  p1 = p2;
+  ASSERT_EQ(p1, p2);
+}
