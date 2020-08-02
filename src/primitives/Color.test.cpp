@@ -70,3 +70,27 @@ TEST(Color, changeRGBComponentValues) {
   c.green = .2f;
   c.blue = .3f;
 }
+
+TEST(Color, addWithAnotherColor) { Color() + Color(); }
+
+TEST(Color, getColorFromAdditionWithColor) { Color c = Color() + Color(); }
+
+TEST(Color, addRGBValuesFromColorAddition) {
+  Color c1(.1f, .2f, .3f), c2(.4f, .5f, .6f);
+  Color c3(c1 + c2);
+  ASSERT_FLOAT_EQ(c3.red, .5f);
+  ASSERT_FLOAT_EQ(c3.green, .7f);
+  ASSERT_FLOAT_EQ(c3.blue, .9f);
+}
+
+TEST(Color, subtractWithAnotherColor) { Color() - Color(); }
+
+TEST(Color, getColorFromSubtractionWithColor) { Color c = Color() - Color(); }
+
+TEST(Color, subtractRGBValuesFromColorSubtraction) {
+  Color c1(.1f, .2f, .3f), c2(.4f, .5f, .6f);
+  Color c3(c2 - c1);
+  ASSERT_FLOAT_EQ(c3.red, .3f);
+  ASSERT_FLOAT_EQ(c3.green, .3f);
+  ASSERT_FLOAT_EQ(c3.blue, .3f);
+}

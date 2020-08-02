@@ -12,3 +12,11 @@ bool Color::operator==(const Color &rhs) const {
   return float_equals(red, rhs.red) && float_equals(green, rhs.green) &&
          float_equals(blue, rhs.blue);
 }
+
+Color Color::operator+(const Color &rhs) const {
+  return Color(red + rhs.red, green + rhs.green, blue + rhs.blue);
+}
+
+Color Color::operator-(const Color &rhs) const {
+  return Color(red - rhs.red, green - rhs.green, blue - rhs.blue);
+}
