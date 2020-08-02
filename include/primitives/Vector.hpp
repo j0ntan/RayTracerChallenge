@@ -8,9 +8,9 @@ public:
 
   bool operator==(const Vector &rhs) const;
 
-  const double x;
-  const double y;
-  const double z;
+  double x;
+  double y;
+  double z;
 };
 
 #endif

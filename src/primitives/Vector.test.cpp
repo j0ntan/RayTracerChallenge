@@ -63,3 +63,16 @@ TEST(Vector, equalToVeryNearVector) {
   Vector v1, v2(0.0, 0.0, 0.000001);
   ASSERT_TRUE(v1 == v2);
 }
+
+TEST(Vector, changeCoordinates) {
+  Vector v;
+  v.x = 1.0;
+  v.y = 2.0;
+  v.z = 3.0;
+}
+
+TEST(Vector, assignFromVector) {
+  Vector v1, v2(1.0, 2.0, 3.0);
+  v1 = v2;
+  ASSERT_EQ(v1, v2);
+}
