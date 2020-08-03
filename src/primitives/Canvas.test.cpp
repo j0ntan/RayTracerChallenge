@@ -79,3 +79,37 @@ TEST_F(Canvas_PPM_F, writePPMDefaultPixelsData) {
   auto output_pixels_data = str_stream.str().substr(HEADER.length());
   ASSERT_EQ(output_pixels_data, DEFAULT_PIXELS_DATA);
 }
+
+TEST_F(Canvas_PPM_F, writeSingleWhitePixelData) {
+  const std::string SINGLE_WHITE_PIXEL_DATA =
+      "255 255 255 0 0 0 0 0 0 0 0 0 0 0 0\n"
+      "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+      "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+  canvas.write(0, 0, Color(1, 1, 1));
+  canvas.to_ppm(str_stream);
+  auto output_pixels_data = str_stream.str().substr(HEADER.length());
+  ASSERT_EQ(output_pixels_data, SINGLE_WHITE_PIXEL_DATA);
+}
+
+TEST_F(Canvas_PPM_F, writeFractionalColorsPixelData) {
+  const Color c(.2, .4, .8); // these values scale up to an integer
+  const std::string FRACTIONAL_COLOR_PIXEL_DATA =
+      "51 102 204 0 0 0 0 0 0 0 0 0 0 0 0\n"
+      "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+      "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+  canvas.write(0, 0, c);
+  canvas.to_ppm(str_stream);
+  auto output_pixels_data = str_stream.str().substr(HEADER.length());
+  ASSERT_EQ(output_pixels_data, FRACTIONAL_COLOR_PIXEL_DATA);
+}
+
+TEST_F(Canvas_PPM_F, roundFractionalColorsAfterScaling) {
+  const Color c(.123, .5, .789);
+  const std::string ROUNDED_PIXEL_DATA = "31 128 201 0 0 0 0 0 0 0 0 0 0 0 0\n"
+                                         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+                                         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+  canvas.write(0, 0, c);
+  canvas.to_ppm(str_stream);
+  auto output_pixels_data = str_stream.str().substr(HEADER.length());
+  ASSERT_EQ(output_pixels_data, ROUNDED_PIXEL_DATA);
+}

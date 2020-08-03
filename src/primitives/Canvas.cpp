@@ -1,4 +1,9 @@
+#include <cmath>
 #include <primitives/Canvas.hpp>
+
+namespace {
+int scale(double num) { return static_cast<unsigned>(std::round(num * 255)); }
+} // namespace
 
 Canvas::Canvas(const unsigned int width, const unsigned int height)
     : width{width}, height{height}, pixels{std::vector<std::vector<Color>>(
@@ -21,10 +26,8 @@ void Canvas::to_ppm(std::ostream &out) const {
   for (size_t y = 0; y < height; ++y)
     for (size_t x = 0; x < width; ++x) {
       const auto &color = pixels[x][y];
-      const auto &r = color.red;
-      const auto &g = color.green;
-      const auto &b = color.blue;
-      out << r << ' ' << g << ' ' << b;
+      out << scale(color.red) << ' ' << scale(color.green) << ' '
+          << scale(color.blue);
       if (x == (width - 1))
         out << '\n';
       else
