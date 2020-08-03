@@ -1,10 +1,19 @@
 #include <gtest/gtest.h>
 #include <primitives/Canvas.hpp>
+#include <sstream>
 
 class Canvas_F : public ::testing::Test {
 public:
   const unsigned int WIDTH = 100, HEIGHT = 100;
   Canvas canvas{WIDTH, HEIGHT};
+};
+
+class Canvas_PPM_F : public ::testing::Test {
+public:
+  const unsigned int WIDTH = 5, HEIGHT = 3;
+  Canvas canvas{WIDTH, HEIGHT};
+  std::stringstream str_stream;
+  const std::string HEADER = "P3\n5 3\n255\n";
 };
 
 TEST_F(Canvas_F, constructBasicCanvas) { Canvas c(WIDTH, HEIGHT); }
@@ -49,4 +58,24 @@ TEST_F(Canvas_F, writeAndReadDifferentColors) {
   canvas.write(4, 8, blue);
   ASSERT_EQ(canvas.pixel(2, 3), red);
   ASSERT_EQ(canvas.pixel(4, 8), blue);
+}
+
+TEST_F(Canvas_F, outputIntoStreamAsPPM) {
+  std::stringstream ss;
+  canvas.to_ppm(ss);
+}
+
+TEST_F(Canvas_PPM_F, writePPMHeader) {
+  canvas.to_ppm(str_stream);
+  auto output_header = str_stream.str().substr(0, HEADER.length());
+  ASSERT_EQ(output_header, HEADER);
+}
+
+TEST_F(Canvas_PPM_F, writePPMDefaultPixelsData) {
+  const std::string DEFAULT_PIXELS_DATA = "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+                                          "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+                                          "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+  canvas.to_ppm(str_stream);
+  auto output_pixels_data = str_stream.str().substr(HEADER.length());
+  ASSERT_EQ(output_pixels_data, DEFAULT_PIXELS_DATA);
 }
