@@ -32,3 +32,21 @@ TEST_F(Canvas_F, allPixelsDefaultToBlack) {
     for (unsigned y = 0; y < HEIGHT; ++y)
       ASSERT_EQ(canvas.pixel(x, y), black);
 }
+
+TEST_F(Canvas_F, writeColorToPixelAtXYCoordinates) {
+  canvas.write(0, 0, Color());
+}
+
+TEST_F(Canvas_F, readBackWrittenColor) {
+  const Color red(1, 0, 0);
+  canvas.write(0, 0, red);
+  ASSERT_EQ(canvas.pixel(0, 0), red);
+}
+
+TEST_F(Canvas_F, writeAndReadDifferentColors) {
+  const Color red(1, 0, 0), blue(0, 1, 0);
+  canvas.write(2, 3, red);
+  canvas.write(4, 8, blue);
+  ASSERT_EQ(canvas.pixel(2, 3), red);
+  ASSERT_EQ(canvas.pixel(4, 8), blue);
+}
