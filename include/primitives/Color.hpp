@@ -10,6 +10,7 @@ public:
 
   Color operator+(const Color &rhs) const;
   Color operator-(const Color &rhs) const;
+  Color operator*(const Color &rhs) const;
 
   float red;
   float green;

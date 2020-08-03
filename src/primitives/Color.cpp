@@ -20,3 +20,7 @@ Color Color::operator+(const Color &rhs) const {
 Color Color::operator-(const Color &rhs) const {
   return Color(red - rhs.red, green - rhs.green, blue - rhs.blue);
 }
+
+Color Color::operator*(const Color &rhs) const {
+  return Color(red * rhs.red, green * rhs.green, blue * rhs.blue);
+}

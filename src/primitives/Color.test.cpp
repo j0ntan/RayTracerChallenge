@@ -94,3 +94,17 @@ TEST(Color, subtractRGBValuesFromColorSubtraction) {
   ASSERT_FLOAT_EQ(c3.green, .3f);
   ASSERT_FLOAT_EQ(c3.blue, .3f);
 }
+
+TEST(Color, multiplyWithAnotherColor) { Color() * Color(); }
+
+TEST(Color, getColorFromMultiplicationWithColor) {
+  Color c = Color() * Color();
+}
+
+TEST(Color, multiplyRGBValuesFromColorMultiplication) {
+  Color c1(.1f, .2f, .3f), c2(.4f, .5f, .6f);
+  Color c3(c1 * c2);
+  ASSERT_FLOAT_EQ(c3.red, .04f);
+  ASSERT_FLOAT_EQ(c3.green, .1f);
+  ASSERT_FLOAT_EQ(c3.blue, .18f);
+}
