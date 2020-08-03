@@ -113,3 +113,22 @@ TEST_F(Canvas_PPM_F, roundFractionalColorsAfterScaling) {
   auto output_pixels_data = str_stream.str().substr(HEADER.length());
   ASSERT_EQ(output_pixels_data, ROUNDED_PIXEL_DATA);
 }
+
+TEST_F(Canvas_PPM_F, pixelDataLengthIs70CharactersOrLess) {
+  Canvas large_canvas(10, 2);
+  const std::string THIS_HEADER = "P3\n10 2\n255\n";
+  const std::string WRAP_AROUND_PIXEL_DATA =
+      "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n"
+      "255 255 255 255 255 255 255 255 255 255 255 255 255\n"
+      "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n"
+      "255 255 255 255 255 255 255 255 255 255 255 255 255\n";
+
+  // fill with white color, which is written as 3 digits after scaling
+  for (size_t x = 0; x < 10; ++x)
+    for (size_t y = 0; y < 2; ++y)
+      large_canvas.write(x, y, Color(1, 1, 1));
+
+  large_canvas.to_ppm(str_stream);
+  auto output_pixels_data = str_stream.str().substr(THIS_HEADER.length());
+  ASSERT_EQ(output_pixels_data, WRAP_AROUND_PIXEL_DATA);
+}
