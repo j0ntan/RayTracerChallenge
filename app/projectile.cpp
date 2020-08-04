@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <primitives/Canvas.hpp>
 #include <primitives/Point.hpp>
@@ -13,7 +14,7 @@ struct Projectile {
 
 struct Environment {
   Vector wind;
-  const Vector gravity{-9, 0, 0};
+  const Vector gravity{-0.04, 0, 0};
 };
 
 Projectile tick(const Environment &env, const Projectile &current) {
@@ -29,26 +30,31 @@ std::ostream &operator<<(std::ostream &out, const Projectile &projectile) {
 }
 
 int main() {
-  // Let's place a projectile with an altitude of 100 meters & velocity of 10
-  // going forward, i.e. in the +z direction.
-  const double INITIAL_ALTITUDE = 400;
-  Projectile projectile{{INITIAL_ALTITUDE, 0, 0}, {0, 0, 10}};
-  std::cout << "Projectile's initial position: " << projectile << "\n\n";
+  // Let's place a projectile from the ground with a strong upward velocity &
+  // forward component, i.e. strong x- and z-value.
+  const Point INIT_POS = {0, 0, 0};
+  const Vector INIT_VELOCITY = {6.5, 0, 3.2};
+  Projectile projectile{INIT_POS, INIT_VELOCITY};
 
   // Let's have the wind blowing in a direction up and to the right with
   // respect to the projectile, with a small component against the
   // projectile's forward direction.
-  const Environment environment{{2.5, 3.3, -0.2}};
+  const Environment environment{{0.01, 0.1, -0.002}};
 
   const unsigned int WIDTH = 1280, HEIGHT = 720;
   Canvas canvas(WIDTH, HEIGHT);
 
-  std::size_t counter = 0;
-  while (projectile.position.x > 0) {
+  while (projectile.position.x >= 0) {
+    const auto X = static_cast<unsigned>(std::round(projectile.position.z));
+    const auto Y =
+        static_cast<unsigned>(std::round(HEIGHT - 1 - projectile.position.x));
+    if (X >= 0 && X < WIDTH && Y >= 0 && Y < HEIGHT)
+      canvas.write(X, Y, Color(1, 0, 0));
+    else
+      std::cout << "Out of bounds! " << projectile << '\n';
+
     projectile = tick(environment, projectile);
-    std::cout << "tick " << ++counter << ' ' << projectile << '\n';
   }
 
-  std::cout << "\nThe projectile reached the ground after " << counter
-            << " ticks.\n";
+  canvas.to_ppm_file("projectile");
 }
