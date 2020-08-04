@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <primitives/Point.hpp>
+#include <math/Point.hpp>
 
 TEST(Point, defaultConstruct) { Point p; }
 

@@ -1,4 +1,4 @@
-#include <primitives/Color.hpp>
+#include <graphics/Color.hpp>
 #include <utility/Float_compare.hpp>
 
 Color::Color() : red{0}, green{0}, blue{0} {}

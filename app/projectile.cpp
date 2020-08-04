@@ -1,8 +1,8 @@
 #include <cmath>
+#include <graphics/Canvas.hpp>
 #include <iostream>
-#include <primitives/Canvas.hpp>
-#include <primitives/Point.hpp>
-#include <primitives/Vector.hpp>
+#include <math/Point.hpp>
+#include <math/Vector.hpp>
 
 /* Note: We take the plane containing the x and y components as being the plane
  * in which we run into if we move forward in the z direction. */

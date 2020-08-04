@@ -1,6 +1,6 @@
 #include <cmath>
 #include <gtest/gtest.h>
-#include <primitives/Vector.hpp>
+#include <math/Vector.hpp>
 
 TEST(Vector, defaultConstruct) { Vector v; }
 

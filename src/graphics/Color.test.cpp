@@ -1,5 +1,5 @@
+#include <graphics/Color.hpp>
 #include <gtest/gtest.h>
-#include <primitives/Color.hpp>
 
 TEST(Color, defaultConstruct) { Color c; }
 

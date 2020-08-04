@@ -1,5 +1,5 @@
 #include <cmath>
-#include <primitives/Vector.hpp>
+#include <math/Vector.hpp>
 #include <utility/Float_compare.hpp>
 
 Vector::Vector() : x{0}, y{0}, z{0} {}

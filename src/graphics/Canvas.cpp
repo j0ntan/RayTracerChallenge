@@ -1,6 +1,6 @@
 #include <cmath>
 #include <fstream>
-#include <primitives/Canvas.hpp>
+#include <graphics/Canvas.hpp>
 #include <string>
 
 namespace {

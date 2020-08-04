@@ -1,4 +1,5 @@
 include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(utility)
-add_subdirectory(primitives)
+add_subdirectory(math)
+add_subdirectory(graphics)

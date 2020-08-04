@@ -1,4 +1,4 @@
-#include <primitives/Point.hpp>
+#include <math/Point.hpp>
 #include <utility/Float_compare.hpp>
 
 Point::Point() : x{0}, y{0}, z{0} {}

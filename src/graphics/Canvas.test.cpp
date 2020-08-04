@@ -1,5 +1,5 @@
+#include <graphics/Canvas.hpp>
 #include <gtest/gtest.h>
-#include <primitives/Canvas.hpp>
 #include <sstream>
 
 class Canvas_F : public ::testing::Test {
