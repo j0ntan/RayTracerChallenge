@@ -1,6 +1,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+#include "Tuple.hpp"
 #include <algorithm>
 #include <array>
 #include <utility/Float_compare.hpp>
@@ -53,10 +54,31 @@ template <std::size_t n = 2> struct Matrix {
     return values[row * n + column];
   }
 
+  Matrix operator*(const Matrix &rhs) const {
+    auto &lhs = *this;
+    Matrix<n> result;
+
+    for (size_t row = 0; row < n; ++row)
+      for (size_t col = 0; col < n; ++col)
+        for (size_t pair = 0; pair < n; ++pair)
+          result(row, col) += lhs(row, pair) * rhs(pair, col);
+
+    return result;
+  }
+
   std::array<double, n * n> values;
   static const std::size_t size;
 };
 
 template <std::size_t n> const std::size_t Matrix<n>::size = n;
+
+template <std::size_t n>
+Tuple<n> operator*(const Matrix<n> &lhs, Tuple<n> &rhs) {
+  Tuple<n> result;
+  for (std::size_t index = 0; index < n; ++index)
+    for (std::size_t pair = 0; pair < n; ++pair)
+      result[index] += lhs(index, pair) * rhs[pair];
+  return result;
+}
 
 #endif

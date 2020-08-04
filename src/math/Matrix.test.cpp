@@ -115,3 +115,14 @@ TEST(Matrix, isEqualToVerySimilarMatrix) {
   ASSERT_TRUE(m1 == m2);
   ASSERT_TRUE(m2 == m1);
 }
+
+TEST(Matrix, multiplyWithAnotherMatrix) {
+  Matrix<2> m1{{1, 2}, {3, 4}}, m2{{5, 6}, {7, 8}};
+  ASSERT_EQ(m1 * m2, (Matrix<2>{{19, 22}, {43, 50}}));
+}
+
+TEST(Matrix, multiplyWithTuple) {
+  Matrix<2> m{{1, 2}, {3, 4}};
+  Tuple<2> t{5, 6};
+  ASSERT_EQ(m * t, (Tuple<2>{17, 39}));
+}
