@@ -13,3 +13,8 @@ add_library(Vector Vector.cpp)
 target_link_libraries(Vector Point)
 add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector gtest_main)
+
+add_library(Matrix INTERFACE)
+target_include_directories(Matrix INTERFACE ${CMAKE_SOURCE_DIR}/include)
+add_executable(test_Matrix Matrix.test.cpp)
+target_link_libraries(test_Matrix Matrix gtest_main)
