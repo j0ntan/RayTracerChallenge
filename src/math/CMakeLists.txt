@@ -16,5 +16,6 @@ target_link_libraries(test_Vector Vector gtest_main)
 
 add_library(Matrix INTERFACE)
 target_include_directories(Matrix INTERFACE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(Matrix INTERFACE Float_compare)
 add_executable(test_Matrix Matrix.test.cpp)
 target_link_libraries(test_Matrix Matrix gtest_main)

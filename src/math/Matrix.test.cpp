@@ -98,3 +98,20 @@ TEST(Matrix, useNestedListWithMixedSize) {
   ASSERT_FLOAT_EQ(m(3, 2), 0);
   ASSERT_FLOAT_EQ(m(3, 3), 0);
 }
+
+TEST(Matrix, isEqualToItself) {
+  Matrix<> m;
+  ASSERT_TRUE(m == m);
+}
+
+TEST(Matrix, isNotEqualToDifferentMatrix) {
+  Matrix<2> m1{{1, 2}, {3, 4}}, m2{{5, 6}, {7, 8}};
+  ASSERT_FALSE(m1 == m2);
+  ASSERT_FALSE(m2 == m1);
+}
+
+TEST(Matrix, isEqualToVerySimilarMatrix) {
+  Matrix<2> m1{{1, 2}, {3, 4}}, m2{{1, 2.0000001}, {3.000002, 4.0000009}};
+  ASSERT_TRUE(m1 == m2);
+  ASSERT_TRUE(m2 == m1);
+}

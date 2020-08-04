@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <array>
+#include <utility/Float_compare.hpp>
 #include <utility>
 
 template <std::size_t n = 2> struct Matrix {
@@ -35,6 +36,14 @@ template <std::size_t n = 2> struct Matrix {
 
     if (index < n * n)
       std::fill_n(values.begin() + index, (n * n - index), 0);
+  }
+
+  bool operator==(const Matrix &rhs) const {
+    if (this == &rhs)
+      return true;
+
+    return std::equal(values.begin(), values.end(), rhs.values.begin(),
+                      float_equals);
   }
 
   double &operator()(std::size_t row, std::size_t column) {
