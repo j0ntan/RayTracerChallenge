@@ -132,3 +132,5 @@ TEST_F(Canvas_PPM_F, pixelDataLengthIs70CharactersOrLess) {
   auto output_pixels_data = str_stream.str().substr(THIS_HEADER.length());
   ASSERT_EQ(output_pixels_data, WRAP_AROUND_PIXEL_DATA);
 }
+
+TEST_F(Canvas_PPM_F, writeOutputFile) { canvas.to_ppm_file("sample_ppm"); }

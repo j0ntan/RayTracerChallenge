@@ -13,6 +13,7 @@ public:
   void write(const unsigned int x, const unsigned int y, const Color &color);
 
   void to_ppm(std::ostream &out) const;
+  void to_ppm_file(const char *filename) const;
 
   const unsigned int width, height;
 

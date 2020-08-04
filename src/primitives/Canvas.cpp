@@ -1,5 +1,7 @@
 #include <cmath>
+#include <fstream>
 #include <primitives/Canvas.hpp>
+#include <string>
 
 namespace {
 int scale(double num) { return static_cast<unsigned>(std::round(num * 255)); }
@@ -58,4 +60,9 @@ void Canvas::to_ppm(std::ostream &out) const {
       current_line_length += BLUE_STR.length();
       out << whitespace(BLUE_STR, "", current_line_length, x == (width - 1));
     }
+}
+
+void Canvas::to_ppm_file(const char *filename) const {
+  std::ofstream output_file(std::string(filename) + ".ppm");
+  to_ppm(output_file);
 }
