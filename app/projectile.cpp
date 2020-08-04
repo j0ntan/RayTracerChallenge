@@ -1,4 +1,5 @@
 #include <iostream>
+#include <primitives/Canvas.hpp>
 #include <primitives/Point.hpp>
 #include <primitives/Vector.hpp>
 
@@ -38,6 +39,9 @@ int main() {
   // respect to the projectile, with a small component against the
   // projectile's forward direction.
   const Environment environment{{2.5, 3.3, -0.2}};
+
+  const unsigned int WIDTH = 1280, HEIGHT = 720;
+  Canvas canvas(WIDTH, HEIGHT);
 
   std::size_t counter = 0;
   while (projectile.position.x > 0) {
