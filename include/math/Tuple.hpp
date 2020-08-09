@@ -12,6 +12,9 @@ template <std::size_t n = 0> struct Tuple {
   }
   Tuple(const std::array<double, n> &array) { elements = array; }
 
+  double operator[](const std::size_t &index) const { return elements[index]; }
+  double &operator[](const std::size_t &index) { return elements[index]; }
+
   std::array<double, n> elements;
   const std::size_t &size = elements.size();
 };

@@ -43,3 +43,23 @@ TEST(Tuple, matchValuesInInitializationArray) {
   ASSERT_FLOAT_EQ(t.elements[1], 2);
   ASSERT_FLOAT_EQ(t.elements[2], 3);
 }
+
+TEST(Tuple, accessElementsOperator) {
+  const Tuple<3> ct = {1, 2, 3};
+  const double first = ct[0];
+  const double second = ct[1];
+  const double third = ct[2];
+}
+
+TEST(Tuple, matchAccessedElementsWithInitializationValues) {
+  const Tuple<3> ct = {1.1, 2.2, 3.3};
+  ASSERT_FLOAT_EQ(ct[0], 1.1);
+  ASSERT_FLOAT_EQ(ct[1], 2.2);
+  ASSERT_FLOAT_EQ(ct[2], 3.3);
+}
+
+TEST(Tuple, rewriteAccessedElement) {
+  Tuple<3> t = {1, 2, 3};
+  t[0] = 123.123;
+  ASSERT_FLOAT_EQ(t[0], 123.123);
+}
