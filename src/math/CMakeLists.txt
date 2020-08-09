@@ -1,4 +1,5 @@
 add_library(Tuple INTERFACE)
+target_link_libraries(Tuple INTERFACE Float_compare)
 add_executable(test_Tuple Tuple.test.cpp)
 target_link_libraries(test_Tuple Tuple gtest_main)
 

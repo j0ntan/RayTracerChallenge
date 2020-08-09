@@ -63,3 +63,23 @@ TEST(Tuple, rewriteAccessedElement) {
   t[0] = 123.123;
   ASSERT_FLOAT_EQ(t[0], 123.123);
 }
+
+TEST(Tuple, compareForEquality) { Tuple<3>() == Tuple<3>(); }
+
+TEST(Tuple, equalToSelf) {
+  Tuple<> t;
+  ASSERT_TRUE(t == t);
+}
+
+TEST(Tuple, equalToCopy) {
+  Tuple<1> t1, t2(t1);
+  ASSERT_TRUE(t1 == t2);
+}
+
+TEST(Tuple, notEqualToDifferentTuple) {
+  ASSERT_FALSE(Tuple<1>{1} == Tuple<1>{2});
+}
+
+TEST(Tuple, equalToVerySimilarTuple) {
+  ASSERT_TRUE(Tuple<1>{1.} == Tuple<1>{1.000001});
+}
