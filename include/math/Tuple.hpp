@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <array>
 #include <functional>
+#include <numeric>
 #include <utility/Float_compare.hpp>
 
 template <std::size_t n = 0> struct Tuple {
@@ -55,6 +56,35 @@ Tuple<n> operator*(const Tuple<n> &lhs, const Tuple<n> &rhs) {
                  rhs.elements.cbegin(), result.elements.begin(),
                  std::multiplies<double>());
   return result;
+}
+
+template <std::size_t n>
+Tuple<n> operator*(const Tuple<n> &lhs, double scalar) {
+  Tuple<n> result;
+  std::transform(lhs.elements.cbegin(), lhs.elements.cend(),
+                 result.elements.begin(),
+                 [=](double element) { return element * scalar; });
+  return result;
+}
+
+template <std::size_t n = 0>
+Tuple<n> operator*(double scalar, const Tuple<n> &rhs) {
+  return rhs * scalar;
+}
+
+template <std::size_t n>
+Tuple<n> operator/(const Tuple<n> &lhs, double scalar) {
+  Tuple<n> result;
+  std::transform(lhs.elements.cbegin(), lhs.elements.cend(),
+                 result.elements.begin(),
+                 [=](double element) { return element / scalar; });
+  return result;
+}
+
+template <std::size_t n>
+double inner_product(const Tuple<n> &lhs, const Tuple<n> &rhs) {
+  return std::inner_product(lhs.elements.cbegin(), lhs.elements.cend(),
+                            rhs.elements.cbegin(), 0.);
 }
 
 #endif

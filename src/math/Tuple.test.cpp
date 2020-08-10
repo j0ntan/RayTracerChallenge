@@ -117,3 +117,34 @@ TEST(Tuple, multiplyingTuplesMultipliesElements) {
   Tuple<2> t2 = {3.3, 4.4};
   ASSERT_EQ((Tuple<2>{3.63, 9.68}), t2 * t1);
 }
+
+TEST(Tuple, takeInnerProduct) {
+  const double result = inner_product(Tuple<3>(), Tuple<3>());
+}
+
+TEST(Tuple, calculateInnerProductValue) {
+  const Tuple<2> t1 = {1.1, 2.2};
+  const Tuple<2> t2 = {3.3, 4.4};
+  ASSERT_FLOAT_EQ(inner_product(t1, t2), 13.31);
+}
+
+TEST(Tuple, multiplyByScalar) { Tuple<>() * 1.; }
+
+TEST(Tuple, getTupleFromScalarMultiplication) { Tuple<3> t = Tuple<3>() * 1.; }
+
+TEST(Tuple, calculateScalarMultiplication) {
+  ASSERT_EQ((Tuple<3>{1, 2, 3} * 2.), (Tuple<3>{2, 4, 6}));
+}
+
+TEST(Tuple, multiplyScalarByTuple) {
+  Tuple<3> t = {1, 2, 3};
+  ASSERT_EQ(2 * t, t * 2);
+}
+
+TEST(Tuple, divideByScalar) { Tuple<>() / 1.; }
+
+TEST(Tuple, getTupleFromScalarDivision) { Tuple<3> t = Tuple<3>() / 1.; }
+
+TEST(Tuple, calculateScalarDivision) {
+  ASSERT_EQ((Tuple<3>{12, 34, 56} / 2.), (Tuple<3>{6, 17, 28}));
+}
