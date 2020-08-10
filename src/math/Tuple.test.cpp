@@ -83,3 +83,37 @@ TEST(Tuple, notEqualToDifferentTuple) {
 TEST(Tuple, equalToVerySimilarTuple) {
   ASSERT_TRUE(Tuple<1>{1.} == Tuple<1>{1.000001});
 }
+
+TEST(Tuple, addTwoTuples) { Tuple<3>() + Tuple<3>(); }
+
+TEST(Tuple, getTuplefromTupleAddition) { Tuple<3> t = Tuple<3>() + Tuple<3>(); }
+
+TEST(Tuple, addingTuplesAddsElements) {
+  Tuple<2> t1 = {1.1, 2.2};
+  Tuple<2> t2 = {3.3, 4.4};
+  ASSERT_EQ((Tuple<2>{4.4, 6.6}), t1 + t2);
+}
+
+TEST(Tuple, subtractTwoTuples) { Tuple<3>() - Tuple<3>(); }
+
+TEST(Tuple, getTuplefromTupleSubtraction) {
+  Tuple<3> t = Tuple<3>() - Tuple<3>();
+}
+
+TEST(Tuple, subtractingTuplesSubtractsElements) {
+  Tuple<2> t1 = {1.1, 2.2};
+  Tuple<2> t2 = {3.3, 4.4};
+  ASSERT_EQ((Tuple<2>{2.2, 2.2}), t2 - t1);
+}
+
+TEST(Tuple, multiplyTwoTuples) { Tuple<3>() * Tuple<3>(); }
+
+TEST(Tuple, getTuplefromTupleMultiplication) {
+  Tuple<3> t = Tuple<3>() * Tuple<3>();
+}
+
+TEST(Tuple, multiplyingTuplesMultipliesElements) {
+  Tuple<2> t1 = {1.1, 2.2};
+  Tuple<2> t2 = {3.3, 4.4};
+  ASSERT_EQ((Tuple<2>{3.63, 9.68}), t2 * t1);
+}

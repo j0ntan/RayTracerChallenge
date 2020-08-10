@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <array>
+#include <functional>
 #include <utility/Float_compare.hpp>
 
 template <std::size_t n = 0> struct Tuple {
@@ -27,6 +28,33 @@ bool operator==(const Tuple<n> &lhs, const Tuple<n> &rhs) {
 
   return std::equal(lhs.elements.cbegin(), lhs.elements.cend(),
                     rhs.elements.cbegin(), float_equals);
+}
+
+template <std::size_t n>
+Tuple<n> operator+(const Tuple<n> &lhs, const Tuple<n> &rhs) {
+  Tuple<n> result;
+  std::transform(lhs.elements.cbegin(), lhs.elements.cend(),
+                 rhs.elements.cbegin(), result.elements.begin(),
+                 std::plus<double>());
+  return result;
+}
+
+template <std::size_t n>
+Tuple<n> operator-(const Tuple<n> &lhs, const Tuple<n> &rhs) {
+  Tuple<n> result;
+  std::transform(lhs.elements.cbegin(), lhs.elements.cend(),
+                 rhs.elements.cbegin(), result.elements.begin(),
+                 std::minus<double>());
+  return result;
+}
+
+template <std::size_t n>
+Tuple<n> operator*(const Tuple<n> &lhs, const Tuple<n> &rhs) {
+  Tuple<n> result;
+  std::transform(lhs.elements.cbegin(), lhs.elements.cend(),
+                 rhs.elements.cbegin(), result.elements.begin(),
+                 std::multiplies<double>());
+  return result;
 }
 
 #endif
