@@ -76,18 +76,3 @@ TEST(Point, assignFromPoint) {
   p1 = p2;
   ASSERT_EQ(p1, p2);
 }
-
-TEST(Point, addTwoPoints) {
-  Point p1, p2;
-  p1 + p2;
-}
-
-TEST(Point, getPointFromAddingTwoPoints) {
-  Point p1, p2;
-  Point p3 = p1 + p2;
-}
-
-TEST(Point, addingPointsAddsComponents) {
-  Point p1(1.0, 2.0, 3.0), p2(4.0, 5.0, 6.0);
-  ASSERT_EQ(p1 + p2, Point(5.0, 7.0, 9.0));
-}

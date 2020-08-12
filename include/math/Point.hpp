@@ -7,8 +7,6 @@ struct Point {
 
   bool operator==(const Point &rhs) const;
 
-  Point operator+(const Point &rhs) const;
-
   double x;
   double y;
   double z;
