@@ -1,14 +1,16 @@
 add_library(Tuple INTERFACE)
+target_include_directories(Tuple INTERFACE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(Tuple INTERFACE Float_compare)
 add_executable(test_Tuple Tuple.test.cpp)
 target_link_libraries(test_Tuple Tuple gtest_main)
 
 add_library(Point Point.cpp)
+target_include_directories(Point PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(Point PRIVATE Float_compare)
 add_executable(test_Point Point.test.cpp)
 target_link_libraries(test_Point Point gtest_main)
 
 add_library(Vector Vector.cpp)
-target_link_libraries(Vector PRIVATE Float_compare Point)
+target_link_libraries(Vector PUBLIC Point PRIVATE Float_compare)
 add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector gtest_main)

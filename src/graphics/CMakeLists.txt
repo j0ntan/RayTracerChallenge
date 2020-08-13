@@ -1,4 +1,5 @@
 add_library(Color Color.cpp)
+target_include_directories(Color PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(Color PRIVATE Float_compare)
 add_executable(test_Color Color.test.cpp)
 target_link_libraries(test_Color Color gtest_main)
