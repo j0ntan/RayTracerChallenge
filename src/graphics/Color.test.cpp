@@ -52,6 +52,12 @@ TEST(Color, changeRGBComponentValues) {
   c.blue = .3f;
 }
 
+TEST(Color, assignFromColor) {
+  Color c1, c2(1.0, 2.0, 3.0);
+  c1 = c2;
+  ASSERT_EQ(c1, c2);
+}
+
 TEST(Color, addWithAnotherColor) {
   Color c1(.1f, .2f, .3f), c2(.4f, .5f, .6f);
   Color c3(c1 + c2);

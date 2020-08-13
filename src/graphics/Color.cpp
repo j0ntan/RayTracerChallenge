@@ -1,28 +1,25 @@
 #include <graphics/Color.hpp>
 #include <utility/Float_compare.hpp>
 
-Color::Color() : red{0}, green{0}, blue{0} {}
+Color::Color(double r, double g, double b) : Tuple<3>{r, g, b} {}
 
-Color::Color(float r, float g, float b) : red{r}, green{g}, blue{b} {}
+Color::Color(const Tuple<3> &values) : Tuple<3>(values) {}
 
-bool Color::operator==(const Color &rhs) const {
-  if (this == &rhs)
-    return true;
-
-  return float_equals(red, rhs.red) && float_equals(green, rhs.green) &&
-         float_equals(blue, rhs.blue);
+Color &Color::operator=(const Color &rhs) {
+  elements = rhs.elements;
+  return *this;
 }
 
-Color Color::operator+(const Color &rhs) const {
-  return Color(red + rhs.red, green + rhs.green, blue + rhs.blue);
+Color operator+(const Color &lhs, const Color &rhs) {
+  return Color(static_cast<Tuple<3>>(lhs) + static_cast<Tuple<3>>(rhs));
 }
 
-Color Color::operator-(const Color &rhs) const {
-  return Color(red - rhs.red, green - rhs.green, blue - rhs.blue);
+Color operator-(const Color &lhs, const Color &rhs) {
+  return Color(static_cast<Tuple<3>>(lhs) - static_cast<Tuple<3>>(rhs));
 }
 
-Color Color::operator*(const Color &rhs) const {
-  return Color(red * rhs.red, green * rhs.green, blue * rhs.blue);
+Color operator*(const Color &lhs, const Color &rhs) {
+  return Color(static_cast<Tuple<3>>(lhs) * static_cast<Tuple<3>>(rhs));
 }
 
 Color operator*(const Color &lhs, double rhs) {

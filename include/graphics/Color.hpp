@@ -1,23 +1,24 @@
 #ifndef COLOR_HPP
 #define COLOR_HPP
 
-class Color {
-public:
-  Color();
-  Color(float r, float g, float b);
+#include <math/Tuple.hpp>
 
-  bool operator==(const Color &rhs) const;
+struct Color final : public Tuple<3> {
+  Color() = default;
+  Color(double r, double g, double b);
+  Color(const Tuple<3> &values);
 
-  Color operator+(const Color &rhs) const;
-  Color operator-(const Color &rhs) const;
-  Color operator*(const Color &rhs) const;
+  Color &operator=(const Color &rhs);
 
-  float red;
-  float green;
-  float blue;
+  double &red = elements[0];
+  double &green = elements[1];
+  double &blue = elements[2];
 };
 
+Color operator+(const Color &lhs, const Color &rhs);
+Color operator-(const Color &lhs, const Color &rhs);
 Color operator*(const Color &lhs, double rhs);
 Color operator*(double lhs, const Color &rhs);
+Color operator*(const Color &lhs, const Color &rhs);
 
 #endif
