@@ -1,15 +1,18 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
-struct Point {
-  Point();
+#include "Tuple.hpp"
+
+struct Point final : public Tuple<3> {
+  Point() = default;
   Point(double x, double y, double z);
+  explicit Point(const Tuple<3> &values);
 
-  bool operator==(const Point &rhs) const;
+  Point &operator=(const Point &rhs);
 
-  double x;
-  double y;
-  double z;
+  double &x = elements[0];
+  double &y = elements[1];
+  double &z = elements[2];
 };
 
 #endif
