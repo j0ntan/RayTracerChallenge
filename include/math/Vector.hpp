@@ -2,20 +2,21 @@
 #define VECTOR_HPP
 
 #include "Point.hpp"
+#include "Tuple.hpp"
 
-class Vector {
-public:
-  Vector();
+struct Vector final : public Tuple<3> {
+  Vector() = default;
   Vector(double x, double y, double z);
+  explicit Vector(const Tuple<3> &values);
 
-  bool operator==(const Vector &rhs) const;
+  Vector &operator=(const Vector &rhs);
 
   double magnitude() const;
   Vector normalize() const;
 
-  double x;
-  double y;
-  double z;
+  double &x = elements[0];
+  double &y = elements[1];
+  double &z = elements[2];
 };
 
 Point operator+(const Vector &lhs, const Point &rhs);
