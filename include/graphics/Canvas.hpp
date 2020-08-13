@@ -18,7 +18,7 @@ public:
   const unsigned int width, height;
 
 private:
-  std::vector<std::vector<Color>> pixels;
+  std::vector<Color> pixels;
 };
 
 #endif
