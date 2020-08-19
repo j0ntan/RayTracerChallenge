@@ -32,9 +32,7 @@ std::ostream &operator<<(std::ostream &out, const Projectile &projectile) {
 int main() {
   // Let's place a projectile from the ground with a strong upward velocity &
   // forward component, i.e. strong x- and z-value.
-  const Point INIT_POS = {0, 0, 0};
-  const Vector INIT_VELOCITY = {6.5, 0, 3.2};
-  Projectile projectile{INIT_POS, INIT_VELOCITY};
+  Projectile projectile{{0, 0, 0}, {6.5, 0, 3.2}};
 
   // Let's have the wind blowing in a direction up and to the right with
   // respect to the projectile, with a small component against the
