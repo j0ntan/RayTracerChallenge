@@ -14,28 +14,6 @@ bool Vector::operator==(const Vector &rhs) const {
          float_equals(z, rhs.z);
 }
 
-Vector Vector::operator+(const Vector &rhs) const {
-  return Vector(x + rhs.x, y + rhs.y, z + rhs.z);
-}
-
-Vector Vector::operator-(const Vector &rhs) const {
-  return Vector(x - rhs.x, y - rhs.y, z - rhs.z);
-}
-
-Vector Vector::operator-() const { return Vector(-x, -y, -z); }
-
-Vector Vector::operator*(double rhs) const {
-  return Vector(x * rhs, y * rhs, z * rhs);
-}
-
-Vector Vector::operator/(double rhs) const {
-  return Vector(x / rhs, y / rhs, z / rhs);
-}
-
-Point Vector::operator+(const Point &rhs) const {
-  return Point(x + rhs.x, y + rhs.y, z + rhs.z);
-}
-
 double Vector::magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 
 Vector Vector::normalize() const {
@@ -43,23 +21,45 @@ Vector Vector::normalize() const {
   return Vector(x / R, y / R, z / R);
 }
 
-double Vector::dot(const Vector &rhs) const {
-  return x * rhs.x + y * rhs.y + z * rhs.z;
-}
-
-Vector Vector::cross(const Vector &rhs) const {
-  return Vector(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z,
-                x * rhs.y - y * rhs.x);
+Point operator+(const Vector &lhs, const Point &rhs) {
+  return Point(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
 }
 
 Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
-
-Vector operator-(const Point &lhs, const Point &rhs) {
-  return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
-}
 
 Point operator-(const Point &lhs, const Vector &rhs) {
   return Point(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
 
+Vector operator+(const Vector &lhs, const Vector &rhs) {
+  return Vector(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+}
+
+Vector operator-(const Vector &vector) { return -1 * vector; }
+
+Vector operator-(const Point &lhs, const Point &rhs) {
+  return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+}
+
+Vector operator-(const Vector &lhs, const Vector &rhs) {
+  return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+}
+
+Vector operator*(const Vector &lhs, double rhs) {
+  return Vector(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs);
+}
+
 Vector operator*(double lhs, const Vector &rhs) { return rhs * lhs; }
+
+Vector operator/(const Vector &lhs, double rhs) {
+  return Vector(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
+}
+
+double dot(const Vector &lhs, const Vector &rhs) {
+  return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+}
+
+Vector cross(const Vector &lhs, const Vector &rhs) {
+  return Vector(lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z,
+                lhs.x * rhs.y - lhs.y * rhs.x);
+}

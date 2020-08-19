@@ -10,27 +10,27 @@ public:
 
   bool operator==(const Vector &rhs) const;
 
-  Vector operator+(const Vector &rhs) const;
-  Vector operator-(const Vector &rhs) const;
-  Vector operator-() const;
-  Vector operator*(double rhs) const;
-  Vector operator/(double rhs) const;
-  Point operator+(const Point &rhs) const;
-
   double magnitude() const;
   Vector normalize() const;
-
-  double dot(const Vector &rhs) const;
-  Vector cross(const Vector &rhs) const;
 
   double x;
   double y;
   double z;
 };
 
+Point operator+(const Vector &lhs, const Point &rhs);
 Point operator+(const Point &lhs, const Vector &rhs);
-Vector operator-(const Point &lhs, const Point &rhs);
 Point operator-(const Point &lhs, const Vector &rhs);
+
+Vector operator+(const Vector &lhs, const Vector &rhs);
+Vector operator-(const Vector &vector);
+Vector operator-(const Point &lhs, const Point &rhs);
+Vector operator-(const Vector &lhs, const Vector &rhs);
+Vector operator*(const Vector &lhs, double rhs);
 Vector operator*(double lhs, const Vector &rhs);
+Vector operator/(const Vector &lhs, double rhs);
+
+double dot(const Vector &lhs, const Vector &rhs);
+Vector cross(const Vector &lhs, const Vector &rhs);
 
 #endif

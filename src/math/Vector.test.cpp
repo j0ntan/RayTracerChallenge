@@ -136,13 +136,13 @@ TEST(Vector, normalize) {
 }
 
 TEST(Vector, takeDotProduct) {
-  double result = Vector(1, 2, 3).dot(Vector(2, 3, 4));
+  double result = dot(Vector(1, 2, 3), Vector(2, 3, 4));
   ASSERT_FLOAT_EQ(result, 20.);
 }
 
 TEST(Vector, takeCrossProduct) {
-  Vector v1 = Vector(1, 2, 3).cross(Vector(2, 3, 4));
-  Vector v2 = Vector(2, 3, 4).cross(Vector(1, 2, 3));
+  Vector v1 = cross(Vector(1, 2, 3), Vector(2, 3, 4));
+  Vector v2 = cross(Vector(2, 3, 4), Vector(1, 2, 3));
   ASSERT_EQ(v1, Vector(-1, 2, -1));
   ASSERT_EQ(v2, Vector(1, -2, 1));
 }
