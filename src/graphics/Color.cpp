@@ -24,3 +24,9 @@ Color Color::operator-(const Color &rhs) const {
 Color Color::operator*(const Color &rhs) const {
   return Color(red * rhs.red, green * rhs.green, blue * rhs.blue);
 }
+
+Color operator*(const Color &lhs, double rhs) {
+  return Color(rhs * lhs.red, 2 * lhs.green, 2 * lhs.blue);
+}
+
+Color operator*(double lhs, const Color &rhs) { return rhs * lhs; }

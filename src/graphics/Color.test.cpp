@@ -68,6 +68,11 @@ TEST(Color, subtractWithAnotherColor) {
   ASSERT_FLOAT_EQ(c3.blue, .3f);
 }
 
+TEST(Color, multiplyByScalar) {
+  ASSERT_EQ(Color(0.2, 0.3, 0.4) * 2., Color(0.4, 0.6, 0.8));
+  ASSERT_EQ(2 * Color(0.2, 0.3, 0.4), Color(0.4, 0.6, 0.8));
+}
+
 TEST(Color, multiplyWithAnotherColor) {
   Color c1(.1f, .2f, .3f), c2(.4f, .5f, .6f);
   Color c3(c1 * c2);

@@ -17,4 +17,7 @@ public:
   float blue;
 };
 
+Color operator*(const Color &lhs, double rhs);
+Color operator*(double lhs, const Color &rhs);
+
 #endif
