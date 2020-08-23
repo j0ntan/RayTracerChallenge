@@ -1,5 +1,5 @@
-#include "Float_compare.hpp"
 #include <gtest/gtest.h>
+#include <utility/Float_compare.hpp>
 
 TEST(Float_compare, takesTwoFloatingPointNumbers) { float_equals(1.0, 2.0); }
 
