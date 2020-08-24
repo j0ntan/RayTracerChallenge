@@ -81,6 +81,15 @@ Tuple<n> operator*(const Matrix<n> &lhs, Tuple<n> &rhs) {
   return result;
 }
 
+template <std::size_t n> Matrix<n> transpose(const Matrix<n> &matrix) {
+  Matrix<n> result(matrix);
+  for (std::size_t diagonal_index = 0; diagonal_index < n; ++diagonal_index)
+    for (std::size_t swap_index = 0; swap_index < diagonal_index; ++swap_index)
+      std::swap(result(diagonal_index, swap_index),
+                result(swap_index, diagonal_index));
+  return result;
+}
+
 const Matrix<4> identity{
     {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
 

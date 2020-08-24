@@ -131,3 +131,13 @@ TEST(Identity, multiplyWithIdentity) {
   Matrix<4> m{0, 1, 2, 4, 1, 2, 4, 8, 2, 4, 8, 16, 4, 8, 16, 32};
   ASSERT_EQ(m * identity, m);
 }
+
+TEST(Transpose, transposeMatrix) {
+  Matrix<4> m{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+  ASSERT_EQ(
+      transpose(m),
+      (Matrix<4>{
+          {1, 5, 9, 13}, {2, 6, 10, 14}, {3, 7, 11, 15}, {4, 8, 12, 16}}));
+}
+
+TEST(Transpose, transposeIdentity) { ASSERT_EQ(transpose(identity), identity); }
