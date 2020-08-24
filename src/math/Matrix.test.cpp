@@ -126,3 +126,8 @@ TEST(Matrix, multiplyWithTuple) {
   Tuple<2> t{5, 6};
   ASSERT_EQ(m * t, (Tuple<2>{17, 39}));
 }
+
+TEST(Identity, multiplyWithIdentity) {
+  Matrix<4> m{0, 1, 2, 4, 1, 2, 4, 8, 2, 4, 8, 16, 4, 8, 16, 32};
+  ASSERT_EQ(m * identity, m);
+}

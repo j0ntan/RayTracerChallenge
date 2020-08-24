@@ -81,4 +81,7 @@ Tuple<n> operator*(const Matrix<n> &lhs, Tuple<n> &rhs) {
   return result;
 }
 
+const Matrix<4> identity{
+    {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
+
 #endif
