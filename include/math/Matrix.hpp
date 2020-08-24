@@ -92,6 +92,21 @@ template <std::size_t n> Matrix<n> transpose(const Matrix<n> &matrix) {
 double determinant(const Matrix<2> &matrix) {
   return matrix(0, 0) * matrix(1, 1) - matrix(0, 1) * matrix(1, 0);
 }
+template <std::size_t n>
+Matrix<n - 1> submatrix(const Matrix<n> &matrix, std::size_t row,
+                        std::size_t column) {
+  Matrix<n - 1> result;
+  for (std::size_t i = 0, result_i = 0; i < n; ++i)
+    if (i != row) {
+      for (std::size_t j = 0, result_j = 0; j < n; ++j)
+        if (j != column) {
+          result(result_i, result_j) = matrix(i, j);
+          ++result_j;
+        }
+      ++result_i;
+    }
+  return result;
+}
 
 const Matrix<4> identity{
     {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};

@@ -146,3 +146,14 @@ TEST(Inverse, calculate2x2Determinant) {
   Matrix<2> m{1, 5, -3, 2};
   ASSERT_FLOAT_EQ(determinant(m), 17);
 }
+
+TEST(Inverse, getSubmatrixOf3x3Matrix) {
+  Matrix<3> m{{1, 5, 0}, {-3, 2, 7}, {0, 6, -3}};
+  ASSERT_EQ(submatrix(m, 0, 2), (Matrix<2>{{-3, 2}, {0, 6}}));
+}
+
+TEST(Inverse, getSubmatrixOf4x4Matrix) {
+  Matrix<4> m{{-6, 1, 1, 6}, {-8, 5, 8, 6}, {-1, 0, 8, 2}, {-7, 1, -1, 1}};
+  ASSERT_EQ(submatrix(m, 2, 1),
+            (Matrix<3>{{-6, 1, 6}, {-8, 8, 6}, {-7, -1, 1}}));
+}
