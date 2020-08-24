@@ -115,6 +115,12 @@ template <std::size_t n>
 double cofactor(const Matrix<n> &matrix, std::size_t row, std::size_t column) {
   return ((row + column) % 2 == 0 ? 1 : -1) * minor(matrix, row, column);
 }
+template <std::size_t n> double determinant(const Matrix<n> &matrix) {
+  double result = 0.;
+  for (std::size_t index = 0; index < n; ++index)
+    result += matrix(0, index) * cofactor(matrix, 0, index);
+  return result;
+}
 
 const Matrix<4> identity{
     {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};

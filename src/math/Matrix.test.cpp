@@ -168,3 +168,18 @@ TEST(Inverse, calculateCofactorOf3x3Matrix) {
   ASSERT_FLOAT_EQ(cofactor(m, 0, 0), -12);
   ASSERT_FLOAT_EQ(cofactor(m, 1, 0), -25);
 }
+
+TEST(Inverse, calculateDeterminantOfLargerMatrices) {
+  Matrix<3> m1{{1, 2, 6}, {-5, 8, -4}, {2, 6, 4}};
+  ASSERT_FLOAT_EQ(cofactor(m1, 0, 0), 56);
+  ASSERT_FLOAT_EQ(cofactor(m1, 0, 1), 12);
+  ASSERT_FLOAT_EQ(cofactor(m1, 0, 2), -46);
+  ASSERT_FLOAT_EQ(determinant(m1), -196);
+
+  Matrix<4> m2{{-2, -8, 3, 5}, {-3, 1, 7, 3}, {1, 2, -9, 6}, {-6, 7, 7, -9}};
+  ASSERT_FLOAT_EQ(cofactor(m2, 0, 0), 690);
+  ASSERT_FLOAT_EQ(cofactor(m2, 0, 1), 447);
+  ASSERT_FLOAT_EQ(cofactor(m2, 0, 2), 210);
+  ASSERT_FLOAT_EQ(cofactor(m2, 0, 3), 51);
+  ASSERT_FLOAT_EQ(determinant(m2), -4071);
+}
