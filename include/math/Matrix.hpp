@@ -89,6 +89,9 @@ template <std::size_t n> Matrix<n> transpose(const Matrix<n> &matrix) {
                 result(swap_index, diagonal_index));
   return result;
 }
+double determinant(const Matrix<2> &matrix) {
+  return matrix(0, 0) * matrix(1, 1) - matrix(0, 1) * matrix(1, 0);
+}
 
 const Matrix<4> identity{
     {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};

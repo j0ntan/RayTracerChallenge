@@ -141,3 +141,8 @@ TEST(Transpose, transposeMatrix) {
 }
 
 TEST(Transpose, transposeIdentity) { ASSERT_EQ(transpose(identity), identity); }
+
+TEST(Inverse, calculate2x2Determinant) {
+  Matrix<2> m{1, 5, -3, 2};
+  ASSERT_FLOAT_EQ(determinant(m), 17);
+}
