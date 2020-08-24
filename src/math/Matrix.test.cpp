@@ -157,3 +157,8 @@ TEST(Inverse, getSubmatrixOf4x4Matrix) {
   ASSERT_EQ(submatrix(m, 2, 1),
             (Matrix<3>{{-6, 1, 6}, {-8, 8, 6}, {-7, -1, 1}}));
 }
+
+TEST(Inverse, calculateMinorOf3x3Matrix) {
+  Matrix<3> m{{3, 5, 0}, {2, -1, -7}, {6, -1, 5}};
+  ASSERT_FLOAT_EQ(minor(m, 1, 0), 25);
+}

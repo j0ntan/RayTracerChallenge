@@ -107,6 +107,10 @@ Matrix<n - 1> submatrix(const Matrix<n> &matrix, std::size_t row,
     }
   return result;
 }
+template <std::size_t n>
+double minor(const Matrix<n> &matrix, std::size_t row, std::size_t column) {
+  return determinant(submatrix(matrix, row, column));
+}
 
 const Matrix<4> identity{
     {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
