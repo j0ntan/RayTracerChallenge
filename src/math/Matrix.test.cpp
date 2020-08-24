@@ -162,3 +162,9 @@ TEST(Inverse, calculateMinorOf3x3Matrix) {
   Matrix<3> m{{3, 5, 0}, {2, -1, -7}, {6, -1, 5}};
   ASSERT_FLOAT_EQ(minor(m, 1, 0), 25);
 }
+
+TEST(Inverse, calculateCofactorOf3x3Matrix) {
+  Matrix<3> m{{3, 5, 0}, {2, -1, -7}, {6, -1, 5}};
+  ASSERT_FLOAT_EQ(cofactor(m, 0, 0), -12);
+  ASSERT_FLOAT_EQ(cofactor(m, 1, 0), -25);
+}

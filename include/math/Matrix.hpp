@@ -111,6 +111,10 @@ template <std::size_t n>
 double minor(const Matrix<n> &matrix, std::size_t row, std::size_t column) {
   return determinant(submatrix(matrix, row, column));
 }
+template <std::size_t n>
+double cofactor(const Matrix<n> &matrix, std::size_t row, std::size_t column) {
+  return ((row + column) % 2 == 0 ? 1 : -1) * minor(matrix, row, column);
+}
 
 const Matrix<4> identity{
     {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
