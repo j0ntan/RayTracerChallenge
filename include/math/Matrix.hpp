@@ -4,6 +4,7 @@
 #include "Tuple.hpp"
 #include <algorithm>
 #include <array>
+#include <stdexcept>
 #include <utility/Float_compare.hpp>
 #include <utility>
 
@@ -119,6 +120,18 @@ template <std::size_t n> double determinant(const Matrix<n> &matrix) {
   double result = 0.;
   for (std::size_t index = 0; index < n; ++index)
     result += matrix(0, index) * cofactor(matrix, 0, index);
+  return result;
+}
+template <std::size_t n> Matrix<n> inverse(const Matrix<n> &matrix) {
+  const auto det = determinant(matrix);
+  if (det == 0)
+    throw std::domain_error("Cannot invert this matrix.\n");
+
+  Matrix<n> result;
+  for (std::size_t row = 0; row < n; ++row)
+    for (std::size_t column = 0; column < n; ++column)
+      result(column, row) = cofactor(matrix, row, column) / det;
+
   return result;
 }
 
