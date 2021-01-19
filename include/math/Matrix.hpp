@@ -82,9 +82,7 @@ template <std::size_t n> Matrix<n> transpose(const Matrix<n> &matrix) {
                 result(swap_index, diagonal_index));
   return result;
 }
-double determinant(const Matrix<2> &matrix) {
-  return matrix(0, 0) * matrix(1, 1) - matrix(0, 1) * matrix(1, 0);
-}
+double determinant(const Matrix<2> &matrix);
 template <std::size_t n>
 Matrix<n - 1> submatrix(const Matrix<n> &matrix, std::size_t row,
                         std::size_t column) {
