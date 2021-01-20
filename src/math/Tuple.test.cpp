@@ -3,14 +3,18 @@
 
 TEST(Tuple, defaultConstruct) { Tuple<> t; }
 
-TEST(Tuple, getSize) { std::size_t size = Tuple<>().size; }
+TEST(Tuple, getSize) { constexpr std::size_t size = Tuple<>().size; }
 
-TEST(Tuple, emptyTupleHasSizeZero) { ASSERT_EQ(Tuple<>().size, 0); }
+TEST(Tuple, emptyTupleHasSizeZero) {
+  constexpr std::size_t size = Tuple<>().size;
+  ASSERT_EQ(size, 0);
+}
 
 TEST(Tuple, initializeWithNonZeroSize) { Tuple<3> t; }
 
 TEST(Tuple, sizeMatchesInitializationParameter) {
-  ASSERT_EQ(Tuple<3>().size, 3);
+  constexpr std::size_t size = Tuple<3>().size;
+  ASSERT_EQ(size, 3);
 }
 
 TEST(Tuple, accessElements) { Tuple<3>().elements; }

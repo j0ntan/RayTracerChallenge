@@ -19,7 +19,7 @@ template <std::size_t n = 0> struct Tuple {
   double &operator[](const std::size_t &index) { return elements[index]; }
 
   std::array<double, n> elements;
-  const std::size_t &size = elements.size();
+  static constexpr std::size_t size = n;
 };
 
 template <std::size_t n>
