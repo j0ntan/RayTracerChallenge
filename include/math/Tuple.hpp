@@ -40,6 +40,14 @@ Tuple<n> operator+(const Tuple<n> &lhs, const Tuple<n> &rhs) {
   return result;
 }
 
+template <std::size_t n> Tuple<n> operator-(const Tuple<n> &tuple) {
+  Tuple<n> negated = tuple;
+  std::transform(tuple.elements.cbegin(), tuple.elements.cend(),
+                 negated.elements.begin(),
+                 [=](double element) { return element * -1; });
+  return negated;
+}
+
 template <std::size_t n>
 Tuple<n> operator-(const Tuple<n> &lhs, const Tuple<n> &rhs) {
   Tuple<n> result;

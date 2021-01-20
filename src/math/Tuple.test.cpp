@@ -152,3 +152,9 @@ TEST(Tuple, getTupleFromScalarDivision) { Tuple<3> t = Tuple<3>() / 1.; }
 TEST(Tuple, calculateScalarDivision) {
   ASSERT_EQ((Tuple<3>{12, 34, 56} / 2.), (Tuple<3>{6, 17, 28}));
 }
+
+TEST(Tuple, applyNegation) { -Tuple<>(); }
+
+TEST(Tuple, negateGivesAdditiveInverseOfElements) {
+  ASSERT_EQ((-Tuple<3>{1, 2, 3}), (Tuple<3>{-1, -2, -3}));
+}
