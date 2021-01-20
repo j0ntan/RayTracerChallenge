@@ -4,7 +4,7 @@
 #include <math/Tuple.hpp>
 
 struct Color final : public Tuple<3> {
-  Color() = default;
+  Color();
   Color(double r, double g, double b);
   Color(const Tuple<3> &values);
 

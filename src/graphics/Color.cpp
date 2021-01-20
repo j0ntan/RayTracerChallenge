@@ -1,6 +1,8 @@
 #include <graphics/Color.hpp>
 #include <utility/Float_compare.hpp>
 
+Color::Color() : Tuple<3>{0, 0, 0} {}
+
 Color::Color(double r, double g, double b) : Tuple<3>{r, g, b} {}
 
 Color::Color(const Tuple<3> &values) : Tuple<3>(values) {}

@@ -2,6 +2,8 @@
 #include <math/Vector.hpp>
 #include <utility/Float_compare.hpp>
 
+Vector::Vector() : Tuple<3>{0, 0, 0} {}
+
 Vector::Vector(double x, double y, double z) : Tuple<3>{x, y, z} {}
 
 Vector::Vector(const Tuple<3> &values) : Tuple<3>(values) {}

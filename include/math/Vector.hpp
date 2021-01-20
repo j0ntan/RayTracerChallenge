@@ -5,7 +5,7 @@
 #include "Tuple.hpp"
 
 struct Vector final : public Tuple<3> {
-  Vector() = default;
+  Vector();
   Vector(double x, double y, double z);
   explicit Vector(const Tuple<3> &values);
 
