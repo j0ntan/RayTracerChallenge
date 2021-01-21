@@ -77,6 +77,7 @@ TEST(Color, subtractWithAnotherColor) {
 TEST(Color, multiplyByScalar) {
   ASSERT_EQ(Color(0.2, 0.3, 0.4) * 2., Color(0.4, 0.6, 0.8));
   ASSERT_EQ(2 * Color(0.2, 0.3, 0.4), Color(0.4, 0.6, 0.8));
+  ASSERT_EQ(3 * Color(0.2, 0.3, 0.4), Color(0.6, 0.9, 1.2));
 }
 
 TEST(Color, multiplyWithAnotherColor) {

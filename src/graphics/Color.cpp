@@ -37,7 +37,7 @@ Color operator*(const Color &lhs, const Color &rhs) {
 }
 
 Color operator*(const Color &lhs, double rhs) {
-  return Color(rhs * lhs.red(), 2 * lhs.green(), 2 * lhs.blue());
+  return Color(rhs * lhs.red(), rhs * lhs.green(), rhs * lhs.blue());
 }
 
 Color operator*(double lhs, const Color &rhs) { return rhs * lhs; }
