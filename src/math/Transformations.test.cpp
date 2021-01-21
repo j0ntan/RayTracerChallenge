@@ -25,3 +25,29 @@ TEST(Translation, noChangeForTranslationOnVector) {
   Vector v(-3, 4, 5);
   ASSERT_EQ(translation * v, v);
 }
+
+TEST(Scaling, getScalingMatrix) { Matrix<4> scaling = scale(1, 1, 1); }
+
+TEST(Scaling, scalePoint) {
+  Matrix<4> scaling = scale(2, 3, 4);
+  Point p(-4, 6, 8);
+  ASSERT_EQ(scaling * p, Point(-8, 18, 32));
+}
+
+TEST(Scaling, scaleVector) {
+  Matrix<4> scaling = scale(2, 3, 4);
+  Vector v(-4, 6, 8);
+  ASSERT_EQ(scaling * v, Vector(-8, 18, 32));
+}
+
+TEST(Scaling, shrinkWithInverseScaling) {
+  Matrix<4> scaling = scale(2, 3, 4);
+  Vector v(-4, 6, 8);
+  ASSERT_EQ(inverse(scaling) * v, Vector(-2, 2, 2));
+}
+
+TEST(Scaling, reflectByScalingWithNegativeValue) {
+  Matrix<4> scaling = scale(-1, 1, 1);
+  Point p(2, 3, 4);
+  ASSERT_EQ(scaling * p, Point(-2, 3, 4));
+}

@@ -8,3 +8,11 @@ Matrix<4> translate(double x, double y, double z) {
   translation(2, 3) = z;
   return translation;
 }
+
+Matrix<4> scale(double x, double y, double z) {
+  Matrix<4> scaling = identity;
+  scaling(0, 0) = x;
+  scaling(1, 1) = y;
+  scaling(2, 2) = z;
+  return scaling;
+}

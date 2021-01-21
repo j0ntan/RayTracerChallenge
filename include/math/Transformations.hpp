@@ -7,4 +7,6 @@
 
 Matrix<4> translate(double x, double y, double z);
 
+Matrix<4> scale(double x, double y, double z);
+
 #endif
