@@ -20,6 +20,6 @@ add_executable(test_Matrix Matrix.test.cpp)
 target_link_libraries(test_Matrix Matrix gtest_main)
 
 add_library(Transformations Transformations.cpp)
-target_link_libraries(Transformations Matrix)
+target_link_libraries(Transformations Point Vector Matrix)
 add_executable(test_Transformations Transformations.test.cpp)
 target_link_libraries(test_Transformations Transformations gtest_main)
