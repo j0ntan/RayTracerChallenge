@@ -87,3 +87,41 @@ TEST(Rotation, rotatePointAroundZAxis) {
   ASSERT_EQ(half_quarter * p, Point(-1 * sqrt(2) / 2, sqrt(2) / 2, 0));
   ASSERT_EQ(full_quarter * p, Point(-1, 0, 0));
 }
+
+TEST(Shear, getShearMatrix) { Matrix<4> shearing = shear(1, 1, 1, 1, 1, 1); }
+
+TEST(Shear, moveXInProportionToY) {
+  Matrix<4> shearing = shear(1, 0, 0, 0, 0, 0);
+  Point p(2, 3, 4);
+  ASSERT_EQ(shearing * p, Point(5, 3, 4));
+}
+
+TEST(Shear, moveXInProportionToZ) {
+  Matrix<4> shearing = shear(0, 1, 0, 0, 0, 0);
+  Point p(2, 3, 4);
+  ASSERT_EQ(shearing * p, Point(6, 3, 4));
+}
+
+TEST(Shear, moveYInProportionToX) {
+  Matrix<4> shearing = shear(0, 0, 1, 0, 0, 0);
+  Point p(2, 3, 4);
+  ASSERT_EQ(shearing * p, Point(2, 5, 4));
+}
+
+TEST(Shear, moveYInProportionToZ) {
+  Matrix<4> shearing = shear(0, 0, 0, 1, 0, 0);
+  Point p(2, 3, 4);
+  ASSERT_EQ(shearing * p, Point(2, 7, 4));
+}
+
+TEST(Shear, moveZInProportionToX) {
+  Matrix<4> shearing = shear(0, 0, 0, 0, 1, 0);
+  Point p(2, 3, 4);
+  ASSERT_EQ(shearing * p, Point(2, 3, 6));
+}
+
+TEST(Shear, moveZInProportionToY) {
+  Matrix<4> shearing = shear(0, 0, 0, 0, 0, 1);
+  Point p(2, 3, 4);
+  ASSERT_EQ(shearing * p, Point(2, 3, 7));
+}
