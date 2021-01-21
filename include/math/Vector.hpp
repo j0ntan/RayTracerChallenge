@@ -4,10 +4,11 @@
 #include "Point.hpp"
 #include "Tuple.hpp"
 
-struct Vector final : public Tuple<3> {
+struct Vector final : public Tuple<4> {
   Vector();
   Vector(double x, double y, double z);
   explicit Vector(const Tuple<3> &values);
+  explicit Vector(const Tuple<4> &values);
 
   Vector &operator=(const Vector &rhs);
 

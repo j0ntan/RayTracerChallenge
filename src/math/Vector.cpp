@@ -2,11 +2,15 @@
 #include <math/Vector.hpp>
 #include <utility/Float_compare.hpp>
 
-Vector::Vector() : Tuple<3>{0, 0, 0} {}
+Vector::Vector() : Tuple<4>{0, 0, 0, 0} {}
 
-Vector::Vector(double x, double y, double z) : Tuple<3>{x, y, z} {}
+Vector::Vector(double x, double y, double z) : Tuple<4>{x, y, z, 0} {}
 
-Vector::Vector(const Tuple<3> &values) : Tuple<3>(values) {}
+Vector::Vector(const Tuple<3> &values)
+    : Tuple<4>{values.elements[0], values.elements[1], values.elements[2], 0} {}
+
+Vector::Vector(const Tuple<4> &values)
+    : Tuple<4>{values.elements[0], values.elements[1], values.elements[2], 0} {}
 
 Vector &Vector::operator=(const Vector &rhs) {
   elements = rhs.elements;
@@ -32,37 +36,39 @@ double Vector::magnitude() const {
 Vector Vector::normalize() const { return *this / magnitude(); }
 
 Point operator+(const Vector &lhs, const Point &rhs) {
-  return Point(static_cast<Tuple<3>>(lhs) + static_cast<Tuple<3>>(rhs));
+  return Point(static_cast<Tuple<4>>(lhs) + static_cast<Tuple<4>>(rhs));
 }
 
 Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
 
 Point operator-(const Point &lhs, const Vector &rhs) {
-  return Point(static_cast<Tuple<3>>(lhs) - static_cast<Tuple<3>>(rhs));
+  return Point(static_cast<Tuple<4>>(lhs) - static_cast<Tuple<4>>(rhs));
 }
 
 Vector operator+(const Vector &lhs, const Vector &rhs) {
-  return Vector(static_cast<Tuple<3>>(lhs) + static_cast<Tuple<3>>(rhs));
+  return Vector(static_cast<Tuple<4>>(lhs) + static_cast<Tuple<4>>(rhs));
 }
 
-Vector operator-(const Vector &vector) { return vector * -1.; }
+Vector operator-(const Vector &vector) {
+  return Vector(-(static_cast<Tuple<4>>(vector)));
+}
 
 Vector operator-(const Point &lhs, const Point &rhs) {
-  return Vector(static_cast<Tuple<3>>(lhs) - static_cast<Tuple<3>>(rhs));
+  return Vector(static_cast<Tuple<4>>(lhs) - static_cast<Tuple<4>>(rhs));
 }
 
 Vector operator-(const Vector &lhs, const Vector &rhs) {
-  return Vector(static_cast<Tuple<3>>(lhs) - static_cast<Tuple<3>>(rhs));
+  return Vector(static_cast<Tuple<4>>(lhs) - static_cast<Tuple<4>>(rhs));
 }
 
 Vector operator*(const Vector &lhs, double rhs) {
-  return Vector(static_cast<Tuple<3>>(lhs) * rhs);
+  return Vector(static_cast<Tuple<4>>(lhs) * rhs);
 }
 
 Vector operator*(double lhs, const Vector &rhs) { return rhs * lhs; }
 
 Vector operator/(const Vector &lhs, double rhs) {
-  return Vector(static_cast<Tuple<3>>(lhs) / rhs);
+  return Vector(static_cast<Tuple<4>>(lhs) / rhs);
 }
 
 double dot(const Vector &lhs, const Vector &rhs) {
