@@ -51,3 +51,39 @@ TEST(Scaling, reflectByScalingWithNegativeValue) {
   Point p(2, 3, 4);
   ASSERT_EQ(scaling * p, Point(-2, 3, 4));
 }
+
+TEST(Rotation, getXRotationMatrix) { Matrix<4> x_rotation = rotate_x(1.0); }
+
+TEST(Rotation, rotatePointAroundXAxis) {
+  Point p(0, 1, 0);
+  Matrix<4> half_quarter = rotate_x(PI / 4);
+  Matrix<4> full_quarter = rotate_x(PI / 2);
+  ASSERT_EQ(half_quarter * p, Point(0, sqrt(2) / 2, sqrt(2) / 2));
+  ASSERT_EQ(full_quarter * p, Point(0, 0, 1));
+}
+
+TEST(Rotation, rotateInOppositeDirectionWithInverse) {
+  Point p(0, 1, 0);
+  Matrix<4> half_quarter = rotate_x(PI / 4);
+  ASSERT_EQ(inverse(half_quarter) * p, Point(0, sqrt(2) / 2, -1 * sqrt(2) / 2));
+}
+
+TEST(Rotation, getYRotationMatrix) { Matrix<4> y_rotation = rotate_y(1.0); }
+
+TEST(Rotation, rotatePointAroundYAxis) {
+  Point p(0, 0, 1);
+  Matrix<4> half_quarter = rotate_y(PI / 4);
+  Matrix<4> full_quarter = rotate_y(PI / 2);
+  ASSERT_EQ(half_quarter * p, Point(sqrt(2) / 2, 0, sqrt(2) / 2));
+  ASSERT_EQ(full_quarter * p, Point(1, 0, 0));
+}
+
+TEST(Rotation, getZRotationMatrix) { Matrix<4> z_rotation = rotate_z(1.0); }
+
+TEST(Rotation, rotatePointAroundZAxis) {
+  Point p(0, 1, 0);
+  Matrix<4> half_quarter = rotate_z(PI / 4);
+  Matrix<4> full_quarter = rotate_z(PI / 2);
+  ASSERT_EQ(half_quarter * p, Point(-1 * sqrt(2) / 2, sqrt(2) / 2, 0));
+  ASSERT_EQ(full_quarter * p, Point(-1, 0, 0));
+}

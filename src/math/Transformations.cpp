@@ -16,3 +16,24 @@ Matrix<4> scale(double x, double y, double z) {
   scaling(2, 2) = z;
   return scaling;
 }
+
+Matrix<4> rotate_x(double theta) {
+  return Matrix<4>{{1, 0, 0, 0},
+                   {0, cos(theta), -1 * sin(theta), 0},
+                   {0, sin(theta), cos(theta), 0},
+                   {0, 0, 0, 1}};
+}
+
+Matrix<4> rotate_y(double theta) {
+  return Matrix<4>{{cos(theta), 0, sin(theta), 0},
+                   {0, 1, 0, 0},
+                   {-1 * sin(theta), 0, cos(theta), 0},
+                   {0, 0, 0, 1}};
+}
+
+Matrix<4> rotate_z(double theta) {
+  return Matrix<4>{{cos(theta), -1 * sin(theta), 0, 0},
+                   {sin(theta), cos(theta), 0, 0},
+                   {0, 0, 1, 0},
+                   {0, 0, 0, 1}};
+}
