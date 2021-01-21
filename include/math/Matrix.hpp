@@ -66,7 +66,7 @@ template <std::size_t n = 2> struct Matrix {
 template <std::size_t n> const std::size_t Matrix<n>::size = n;
 
 template <std::size_t n>
-Tuple<n> operator*(const Matrix<n> &lhs, Tuple<n> &rhs) {
+Tuple<n> operator*(const Matrix<n> &lhs, const Tuple<n> &rhs) {
   Tuple<n> result;
   for (std::size_t index = 0; index < n; ++index)
     for (std::size_t pair = 0; pair < n; ++pair)
