@@ -125,3 +125,25 @@ TEST(Shear, moveZInProportionToY) {
   Point p(2, 3, 4);
   ASSERT_EQ(shearing * p, Point(2, 3, 7));
 }
+
+TEST(ChainingTransformations, applyTransformationsInSequence) {
+  Point p(1, 0, 1);
+  auto A = rotate_x(PI / 2);
+  auto B = scale(5, 5, 5);
+  auto C = translate(10, 5, 7);
+  auto p2 = A * p;
+  ASSERT_EQ(p2, Point(1, -1, 0));
+  auto p3 = B * p2;
+  ASSERT_EQ(p3, Point(5, -5, 0));
+  auto p4 = C * p3;
+  ASSERT_EQ(p4, Point(15, 0, 7));
+}
+
+TEST(ChainingTransformations, chainedTransformationsInReverseOrder) {
+  Point p(1, 0, 1);
+  auto A = rotate_x(PI / 2);
+  auto B = scale(5, 5, 5);
+  auto C = translate(10, 5, 7);
+  auto T = C * B * A;
+  ASSERT_EQ(T * p, Point(15, 0, 7));
+}
