@@ -6,24 +6,24 @@ TEST(Vector, defaultConstruct) { Vector v; }
 
 TEST(Vector, componentsDefaultedToZero) {
   Vector v;
-  ASSERT_FLOAT_EQ(v.x, 0.0);
-  ASSERT_FLOAT_EQ(v.y, 0.0);
-  ASSERT_FLOAT_EQ(v.z, 0.0);
+  ASSERT_FLOAT_EQ(v.x(), 0.0);
+  ASSERT_FLOAT_EQ(v.y(), 0.0);
+  ASSERT_FLOAT_EQ(v.z(), 0.0);
 }
 
 TEST(Vector, initialValueConstructed) {
   Vector v(1.0, 2.0, 3.0);
-  ASSERT_FLOAT_EQ(v.x, 1.0);
-  ASSERT_FLOAT_EQ(v.y, 2.0);
-  ASSERT_FLOAT_EQ(v.z, 3.0);
+  ASSERT_FLOAT_EQ(v.x(), 1.0);
+  ASSERT_FLOAT_EQ(v.y(), 2.0);
+  ASSERT_FLOAT_EQ(v.z(), 3.0);
 }
 
 TEST(Vector, copyConstruct) {
   Vector v1(1.0, 2.0, 3.0);
   Vector v2(v1);
-  ASSERT_FLOAT_EQ(v1.x, v2.x);
-  ASSERT_FLOAT_EQ(v1.y, v2.y);
-  ASSERT_FLOAT_EQ(v1.z, v2.z);
+  ASSERT_FLOAT_EQ(v1.x(), v2.x());
+  ASSERT_FLOAT_EQ(v1.y(), v2.y());
+  ASSERT_FLOAT_EQ(v1.z(), v2.z());
 }
 
 TEST(Vector, equalToSelf) {
@@ -48,9 +48,9 @@ TEST(Vector, equalToVeryNearVector) {
 
 TEST(Vector, changeCoordinates) {
   Vector v;
-  v.x = 1.0;
-  v.y = 2.0;
-  v.z = 3.0;
+  v.x() = 1.0;
+  v.y() = 2.0;
+  v.z() = 3.0;
 }
 
 TEST(Vector, assignFromVector) {

@@ -12,6 +12,18 @@ Color &Color::operator=(const Color &rhs) {
   return *this;
 }
 
+double &Color::red() { return elements[0]; }
+
+double &Color::green() { return elements[1]; }
+
+double &Color::blue() { return elements[2]; }
+
+double Color::red() const { return elements[0]; }
+
+double Color::green() const { return elements[1]; }
+
+double Color::blue() const { return elements[2]; }
+
 Color operator+(const Color &lhs, const Color &rhs) {
   return Color(static_cast<Tuple<3>>(lhs) + static_cast<Tuple<3>>(rhs));
 }
@@ -25,7 +37,7 @@ Color operator*(const Color &lhs, const Color &rhs) {
 }
 
 Color operator*(const Color &lhs, double rhs) {
-  return Color(rhs * lhs.red, 2 * lhs.green, 2 * lhs.blue);
+  return Color(rhs * lhs.red(), 2 * lhs.green(), 2 * lhs.blue());
 }
 
 Color operator*(double lhs, const Color &rhs) { return rhs * lhs; }

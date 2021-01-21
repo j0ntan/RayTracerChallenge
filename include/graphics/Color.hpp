@@ -10,9 +10,12 @@ struct Color final : public Tuple<3> {
 
   Color &operator=(const Color &rhs);
 
-  double &red = elements[0];
-  double &green = elements[1];
-  double &blue = elements[2];
+  double &red();
+  double &green();
+  double &blue();
+  double red() const;
+  double green() const;
+  double blue() const;
 };
 
 Color operator+(const Color &lhs, const Color &rhs);

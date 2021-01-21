@@ -11,3 +11,15 @@ Point &Point::operator=(const Point &rhs) {
   elements = rhs.elements;
   return *this;
 }
+
+double &Point::x() { return elements[0]; }
+
+double &Point::y() { return elements[1]; }
+
+double &Point::z() { return elements[2]; }
+
+double Point::x() const { return elements[0]; }
+
+double Point::y() const { return elements[1]; }
+
+double Point::z() const { return elements[2]; }

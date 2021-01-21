@@ -14,9 +14,12 @@ struct Vector final : public Tuple<3> {
   double magnitude() const;
   Vector normalize() const;
 
-  double &x = elements[0];
-  double &y = elements[1];
-  double &z = elements[2];
+  double &x();
+  double &y();
+  double &z();
+  double x() const;
+  double y() const;
+  double z() const;
 };
 
 Point operator+(const Vector &lhs, const Point &rhs);

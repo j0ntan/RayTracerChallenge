@@ -10,9 +10,12 @@ struct Point final : public Tuple<3> {
 
   Point &operator=(const Point &rhs);
 
-  double &x = elements[0];
-  double &y = elements[1];
-  double &z = elements[2];
+  double &x();
+  double &y();
+  double &z();
+  double x() const;
+  double y() const;
+  double z() const;
 };
 
 #endif

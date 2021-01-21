@@ -48,9 +48,9 @@ void Canvas::to_ppm(std::ostream &out) const {
   for (size_t y = 0; y < height; ++y)
     for (size_t x = 0; x < width; ++x) {
       const auto &color = pixels[to_index(x, y, width)];
-      const auto RED_STR = std::to_string(scale(color.red));
-      const auto GREEN_STR = std::to_string(scale(color.green));
-      const auto BLUE_STR = std::to_string(scale(color.blue));
+      const auto RED_STR = std::to_string(scale(color.red()));
+      const auto GREEN_STR = std::to_string(scale(color.green()));
+      const auto BLUE_STR = std::to_string(scale(color.blue()));
 
       out << RED_STR;
       current_line_length += RED_STR.length();

@@ -13,6 +13,18 @@ Vector &Vector::operator=(const Vector &rhs) {
   return *this;
 }
 
+double &Vector::x() { return elements[0]; }
+
+double &Vector::y() { return elements[1]; }
+
+double &Vector::z() { return elements[2]; }
+
+double Vector::x() const { return elements[0]; }
+
+double Vector::y() const { return elements[1]; }
+
+double Vector::z() const { return elements[2]; }
+
 double Vector::magnitude() const {
   return std::sqrt(inner_product(*this, *this));
 }
@@ -58,6 +70,7 @@ double dot(const Vector &lhs, const Vector &rhs) {
 }
 
 Vector cross(const Vector &lhs, const Vector &rhs) {
-  return Vector(lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z,
-                lhs.x * rhs.y - lhs.y * rhs.x);
+  return Vector(lhs.y() * rhs.z() - lhs.z() * rhs.y(),
+                lhs.z() * rhs.x() - lhs.x() * rhs.z(),
+                lhs.x() * rhs.y() - lhs.y() * rhs.x());
 }

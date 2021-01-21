@@ -24,8 +24,8 @@ Projectile tick(const Environment &env, const Projectile &current) {
 }
 
 std::ostream &operator<<(std::ostream &out, const Projectile &projectile) {
-  out << "(x: " << projectile.position.x << ", y: " << projectile.position.y
-      << ", z: " << projectile.position.z << ')';
+  out << "(x: " << projectile.position.x() << ", y: " << projectile.position.y()
+      << ", z: " << projectile.position.z() << ')';
   return out;
 }
 
@@ -42,10 +42,10 @@ int main() {
   const unsigned int WIDTH = 1280, HEIGHT = 720;
   Canvas canvas(WIDTH, HEIGHT);
 
-  while (projectile.position.x >= 0) {
-    const auto X = static_cast<unsigned>(std::round(projectile.position.z));
+  while (projectile.position.x() >= 0) {
+    const auto X = static_cast<unsigned>(std::round(projectile.position.z()));
     const auto Y =
-        static_cast<unsigned>(std::round(HEIGHT - 1 - projectile.position.x));
+        static_cast<unsigned>(std::round(HEIGHT - 1 - projectile.position.x()));
     if (X >= 0 && X < WIDTH && Y >= 0 && Y < HEIGHT)
       canvas.write(X, Y, Color(1, 0, 0));
     else
