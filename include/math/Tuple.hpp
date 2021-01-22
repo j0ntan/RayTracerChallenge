@@ -8,8 +8,8 @@
 #include <utility/Float_compare.hpp>
 
 template <std::size_t n = 0> struct Tuple {
-  Tuple() = default;
-  Tuple(const std::initializer_list<double> &list) {
+  constexpr Tuple() : elements{} {}
+  Tuple(const std::initializer_list<double> &list) : elements{} {
     std::copy(list.begin(), list.begin() + (n <= list.size() ? n : list.size()),
               elements.begin());
   }
