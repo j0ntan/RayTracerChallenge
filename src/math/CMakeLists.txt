@@ -23,3 +23,8 @@ add_library(Transformations Transformations.cpp)
 target_link_libraries(Transformations Point Vector Matrix)
 add_executable(test_Transformations Transformations.test.cpp)
 target_link_libraries(test_Transformations Transformations gtest_main)
+
+add_library(Ray Ray.cpp)
+target_include_directories(Ray PUBLIC ${CMAKE_SOURCE_DIR}/include)
+add_executable(test_Ray Ray.test.cpp)
+target_link_libraries(test_Ray Ray gtest_main)
