@@ -5,8 +5,13 @@
 
 class Sphere {
 public:
-  Sphere() = default;
+  Sphere();
   explicit Sphere(const double radius, const Point &origin);
+
+  double radius() const;
+
+private:
+  const double r;
 };
 
 #endif
