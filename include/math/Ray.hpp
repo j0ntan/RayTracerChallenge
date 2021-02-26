@@ -11,4 +11,6 @@ struct Ray {
   const Vector direction;
 };
 
+Point position(const Ray &ray, const double t);
+
 #endif
