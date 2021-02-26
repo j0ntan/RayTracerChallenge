@@ -33,3 +33,8 @@ add_library(Sphere Sphere.cpp)
 target_link_libraries(Sphere Point)
 add_executable(test_Sphere Sphere.test.cpp)
 target_link_libraries(test_Sphere Sphere gtest_main)
+
+add_library(Intersections Intersections.cpp)
+target_include_directories(Intersections PUBLIC ${CMAKE_SOURCE_DIR}/include)
+add_executable(test_Intersections Intersections.test.cpp)
+target_link_libraries(test_Intersections Intersections gtest_main)
