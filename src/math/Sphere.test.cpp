@@ -20,3 +20,19 @@ TEST(Sphere, radiusMatchesGivenValue) {
   Sphere s(RADIUS, Point());
   ASSERT_EQ(s.radius(), RADIUS);
 }
+
+TEST(Sphere, accessOrigin) {
+  const Sphere s;
+  s.origin();
+}
+
+TEST(Sphere, defaultZeroOrigin) {
+  Sphere s;
+  ASSERT_EQ(s.origin(), Point(0, 0, 0));
+}
+
+TEST(Sphere, originMatchesGivenValue) {
+  const Point ORIGIN(1, 2, 3);
+  Sphere s(0, ORIGIN);
+  ASSERT_EQ(s.origin(), ORIGIN);
+}
