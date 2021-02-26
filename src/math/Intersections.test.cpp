@@ -55,3 +55,12 @@ TEST(Intersections, rayBehindSphere) {
   ASSERT_FLOAT_EQ(xs[0].t, -6.0);
   ASSERT_FLOAT_EQ(xs[1].t, -4.0);
 }
+
+TEST(Intersections, setTheObjectOnIntersection) {
+  Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere s;
+  auto xs = intersect(s, r);
+  ASSERT_EQ(xs.size(), 2);
+  ASSERT_TRUE(&xs[0].object == &s);
+  ASSERT_TRUE(&xs[1].object == &s);
+}
