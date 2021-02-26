@@ -8,6 +8,7 @@ public:
   explicit Intersection(const double t, const Sphere &sphere);
 
   const double t;
+  const Sphere &object;
 };
 
 #endif
