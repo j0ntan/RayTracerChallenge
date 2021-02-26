@@ -10,7 +10,7 @@ TEST(Intersections, callIntersect) {
 TEST(Intersections, getVectorOfTimeValues) {
   Ray r(Point(0, 0, 0), Vector(0, 0, 0));
   Sphere s;
-  std::vector<double> xs = intersect(s, r);
+  std::vector<Intersection> xs = intersect(s, r);
 }
 
 TEST(Intersections, intersectSphereAtTwoPoints) {
@@ -18,8 +18,8 @@ TEST(Intersections, intersectSphereAtTwoPoints) {
   Sphere s;
   auto xs = intersect(s, r);
   ASSERT_EQ(xs.size(), 2);
-  ASSERT_FLOAT_EQ(xs[0], 4.0);
-  ASSERT_FLOAT_EQ(xs[1], 6.0);
+  ASSERT_FLOAT_EQ(xs[0].t, 4.0);
+  ASSERT_FLOAT_EQ(xs[1].t, 6.0);
 }
 
 TEST(Intersections, intersectSphereAtTangent) {
@@ -27,8 +27,8 @@ TEST(Intersections, intersectSphereAtTangent) {
   Sphere s;
   auto xs = intersect(s, r);
   ASSERT_EQ(xs.size(), 2);
-  ASSERT_FLOAT_EQ(xs[0], 5.0);
-  ASSERT_FLOAT_EQ(xs[1], 5.0);
+  ASSERT_FLOAT_EQ(xs[0].t, 5.0);
+  ASSERT_FLOAT_EQ(xs[1].t, 5.0);
 }
 
 TEST(Intersections, noIntersectionOnRayMiss) {
@@ -43,8 +43,8 @@ TEST(Intersections, rayInsideSphere) {
   Sphere s;
   auto xs = intersect(s, r);
   ASSERT_EQ(xs.size(), 2);
-  ASSERT_FLOAT_EQ(xs[0], -1.0);
-  ASSERT_FLOAT_EQ(xs[1], 1.0);
+  ASSERT_FLOAT_EQ(xs[0].t, -1.0);
+  ASSERT_FLOAT_EQ(xs[1].t, 1.0);
 }
 
 TEST(Intersections, rayBehindSphere) {
@@ -52,6 +52,6 @@ TEST(Intersections, rayBehindSphere) {
   Sphere s;
   auto xs = intersect(s, r);
   ASSERT_EQ(xs.size(), 2);
-  ASSERT_FLOAT_EQ(xs[0], -6.0);
-  ASSERT_FLOAT_EQ(xs[1], -4.0);
+  ASSERT_FLOAT_EQ(xs[0].t, -6.0);
+  ASSERT_FLOAT_EQ(xs[1].t, -4.0);
 }

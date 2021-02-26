@@ -1,9 +1,8 @@
 #include <cmath>
 #include <math/Intersections.hpp>
 
-std::vector<double> intersect(const Sphere &sphere, const Ray &ray) {
-  std::vector<double> result;
-
+std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray) {
+  std::vector<Intersection> result;
   const auto sphere_to_ray = ray.origin - Point(0, 0, 0);
 
   const auto a = dot(ray.direction, ray.direction);
@@ -14,8 +13,8 @@ std::vector<double> intersect(const Sphere &sphere, const Ray &ray) {
   if (discriminant >= 0) {
     const auto t1 = (-b - sqrt(discriminant)) / (2 * a);
     const auto t2 = (-b + sqrt(discriminant)) / (2 * a);
-    result.push_back(t1);
-    result.push_back(t2);
+    result.push_back(Intersection(t1, sphere));
+    result.push_back(Intersection(t2, sphere));
   }
 
   return result;

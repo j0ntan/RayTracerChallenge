@@ -1,10 +1,11 @@
 #ifndef INTERSECTIONS_HPP
 #define INTERSECTIONS_HPP
 
+#include "Intersection.hpp"
 #include <math/Ray.hpp>
 #include <math/Sphere.hpp>
 #include <vector>
 
-std::vector<double> intersect(const Sphere &sphere, const Ray &ray);
+std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray);
 
 #endif

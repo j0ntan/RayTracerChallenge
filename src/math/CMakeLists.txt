@@ -34,12 +34,12 @@ target_link_libraries(Sphere Point)
 add_executable(test_Sphere Sphere.test.cpp)
 target_link_libraries(test_Sphere Sphere gtest_main)
 
-add_library(Intersections Intersections.cpp)
-target_link_libraries(Intersections Ray Sphere)
-add_executable(test_Intersections Intersections.test.cpp)
-target_link_libraries(test_Intersections Intersections gtest_main)
-
 add_library(Intersection Intersection.cpp)
 target_link_libraries(Intersection Sphere)
 add_executable(test_Intersection Intersection.test.cpp)
 target_link_libraries(test_Intersection Intersection gtest_main)
+
+add_library(Intersections Intersections.cpp)
+target_link_libraries(Intersections Ray Sphere Intersection)
+add_executable(test_Intersections Intersections.test.cpp)
+target_link_libraries(test_Intersections Intersections gtest_main)
