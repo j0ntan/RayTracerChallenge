@@ -30,7 +30,6 @@ add_executable(test_Ray Ray.test.cpp)
 target_link_libraries(test_Ray Ray gtest_main)
 
 add_library(Sphere Sphere.cpp)
-target_include_directories(Sphere PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(Sphere Point)
 add_executable(test_Sphere Sphere.test.cpp)
-target_include_directories(test_Sphere PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(test_Sphere Sphere gtest_main)
