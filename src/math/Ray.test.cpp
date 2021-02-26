@@ -20,3 +20,17 @@ TEST(Ray, matchGivenOrigin) {
   Ray r(origin, direction);
   ASSERT_EQ(r.origin, origin);
 }
+
+TEST(Ray, accessDirection) {
+  Point origin(1, 2, 3);
+  Vector direction(4, 5, 6);
+  Ray r(origin, direction);
+  r.direction;
+}
+
+TEST(Ray, matchGivenDirection) {
+  Point origin(1, 2, 3);
+  Vector direction(4, 5, 6);
+  Ray r(origin, direction);
+  ASSERT_EQ(r.direction, direction);
+}

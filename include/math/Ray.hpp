@@ -8,6 +8,7 @@ struct Ray {
   explicit Ray(const Point &origin, const Vector &direction);
 
   const Point origin;
+  const Vector direction;
 };
 
 #endif
