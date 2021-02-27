@@ -76,5 +76,43 @@ TEST(Hit, getIntersectionAsHit) {
   Sphere s;
   std::vector<Intersection> intersections = {Intersection(0, s),
                                              Intersection(1, s)};
-  Intersection i = hit(intersections);
+  std::optional<Intersection> i = hit(intersections);
+}
+
+TEST(Hit, allPositiveTimeValues) {
+  Sphere s;
+  Intersection i1(1, s);
+  Intersection i2(2, s);
+  std::vector<Intersection> xs = {i2, i1};
+  auto i = hit(xs);
+  ASSERT_EQ(i, i1);
+}
+
+TEST(Hit, mixedTimeValues) {
+  Sphere s;
+  Intersection i1(-1, s);
+  Intersection i2(1, s);
+  std::vector<Intersection> xs = {i2, i1};
+  auto i = hit(xs);
+  ASSERT_EQ(i, i2);
+}
+
+TEST(Hit, allNegativeTimeValues) {
+  Sphere s;
+  Intersection i1(-2, s);
+  Intersection i2(-1, s);
+  std::vector<Intersection> xs = {i2, i1};
+  auto i = hit(xs);
+  ASSERT_FALSE(i.has_value());
+}
+
+TEST(Hit, getsLowestNonNegativeIntersection) {
+  Sphere s;
+  Intersection i1(5, s);
+  Intersection i2(7, s);
+  Intersection i3(-3, s);
+  Intersection i4(2, s);
+  std::vector<Intersection> xs = {i1, i2, i3, i4};
+  auto i = hit(xs);
+  ASSERT_EQ(i, i4);
 }

@@ -4,10 +4,11 @@
 #include "Intersection.hpp"
 #include <math/Ray.hpp>
 #include <math/Sphere.hpp>
+#include <optional>
 #include <vector>
 
 std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray);
 
-Intersection hit(const std::vector<Intersection> &intersections);
+std::optional<Intersection> hit(std::vector<Intersection> intersections);
 
 #endif

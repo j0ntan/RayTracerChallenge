@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cmath>
 #include <math/Intersections.hpp>
 
@@ -20,6 +21,12 @@ std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray) {
   return result;
 }
 
-Intersection hit(const std::vector<Intersection> &intersections) {
-  return intersections.front();
+std::optional<Intersection> hit(std::vector<Intersection> intersections) {
+  std::sort(intersections.begin(), intersections.end());
+
+  for (const auto &i : intersections)
+    if (i.time() >= 0)
+      return std::make_optional(i);
+
+  return std::nullopt;
 }
