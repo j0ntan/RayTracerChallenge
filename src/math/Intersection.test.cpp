@@ -35,3 +35,24 @@ TEST(Intersection, matchSphereObject) {
   Intersection i(time_value, s);
   ASSERT_TRUE(&s == &i.object);
 }
+
+TEST(Intersection, equalToSameIntersection) {
+  const double time_value = 1.0;
+  Sphere s;
+  Intersection i1(time_value, s), i2(time_value, s);
+  ASSERT_EQ(i1, i2);
+}
+
+TEST(Intersection, notEqualForDifferingTime) {
+  const double time_value = 1.0;
+  Sphere s;
+  Intersection i1(time_value, s), i2(time_value + 1, s);
+  ASSERT_NE(i1, i2);
+}
+
+TEST(Intersection, notEqualForDifferingSpheres) {
+  const double time_value = 1.0;
+  Sphere s1, s2;
+  Intersection i1(time_value, s1), i2(time_value, s2);
+  ASSERT_NE(i1, i2);
+}
