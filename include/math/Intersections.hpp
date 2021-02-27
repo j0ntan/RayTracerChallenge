@@ -8,4 +8,6 @@
 
 std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray);
 
+Intersection hit(const std::vector<Intersection> &intersections);
+
 #endif

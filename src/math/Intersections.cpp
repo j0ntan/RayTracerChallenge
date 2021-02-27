@@ -19,3 +19,7 @@ std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray) {
 
   return result;
 }
+
+Intersection hit(const std::vector<Intersection> &intersections) {
+  return intersections.front();
+}

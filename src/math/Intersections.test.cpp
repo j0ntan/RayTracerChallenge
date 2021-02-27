@@ -64,3 +64,17 @@ TEST(Intersections, setTheObjectOnIntersection) {
   ASSERT_TRUE(&xs[0].object == &s);
   ASSERT_TRUE(&xs[1].object == &s);
 }
+
+TEST(Hit, callFunction) {
+  Sphere s;
+  std::vector<Intersection> intersections = {Intersection(0, s),
+                                             Intersection(1, s)};
+  hit(intersections);
+}
+
+TEST(Hit, getIntersectionAsHit) {
+  Sphere s;
+  std::vector<Intersection> intersections = {Intersection(0, s),
+                                             Intersection(1, s)};
+  Intersection i = hit(intersections);
+}
