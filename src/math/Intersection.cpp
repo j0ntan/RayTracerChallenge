@@ -14,3 +14,7 @@ bool Intersection::operator==(const Intersection &rhs) const {
 bool Intersection::operator!=(const Intersection &rhs) const {
   return !(*this == rhs);
 }
+
+bool operator<(const Intersection &lhs, const Intersection &rhs) {
+  return lhs.time() < rhs.time();
+}

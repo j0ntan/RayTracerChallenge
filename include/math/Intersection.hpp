@@ -18,4 +18,6 @@ private:
   const Sphere *obj;
 };
 
+bool operator<(const Intersection &lhs, const Intersection &rhs);
+
 #endif
