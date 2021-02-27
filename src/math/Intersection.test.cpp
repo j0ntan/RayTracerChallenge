@@ -12,28 +12,28 @@ TEST(Intersection, accessTimeValue) {
   const double time_value = 1.0;
   Sphere s;
   Intersection i(time_value, s);
-  const double t = i.t;
+  const double t = i.time();
 }
 
 TEST(Intersection, matchTimeValue) {
   const double time_value = 1.0;
   Sphere s;
   Intersection i(time_value, s);
-  ASSERT_EQ(i.t, time_value);
+  ASSERT_EQ(i.time(), time_value);
 }
 
 TEST(Intersection, accessSphere) {
   const double time_value = 1.0;
   Sphere s;
   Intersection i(time_value, s);
-  Sphere copy(i.object);
+  Sphere copy(i.object());
 }
 
 TEST(Intersection, matchSphereObject) {
   const double time_value = 1.0;
   Sphere s;
   Intersection i(time_value, s);
-  ASSERT_TRUE(&s == &i.object);
+  ASSERT_TRUE(&s == &i.object());
 }
 
 TEST(Intersection, equalToSameIntersection) {

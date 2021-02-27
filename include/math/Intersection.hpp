@@ -7,11 +7,15 @@ class Intersection {
 public:
   explicit Intersection(const double t, const Sphere &sphere);
 
+  double time() const;
+  const Sphere &object();
+
   bool operator==(const Intersection &rhs) const;
   bool operator!=(const Intersection &rhs) const;
 
-  const double t;
-  const Sphere &object;
+private:
+  double t;
+  const Sphere *obj;
 };
 
 #endif
