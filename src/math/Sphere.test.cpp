@@ -36,3 +36,18 @@ TEST(Sphere, originMatchesGivenValue) {
   Sphere s(0, ORIGIN);
   ASSERT_EQ(s.origin(), ORIGIN);
 }
+
+TEST(Sphere, hasTransformation) {
+  Sphere s;
+  s.transformation();
+}
+
+TEST(Sphere, transformationIsMatrix) {
+  Sphere s;
+  Matrix<4> m = s.transformation();
+}
+
+TEST(Sphere, defaultTransformationIsIdentity) {
+  Sphere s;
+  ASSERT_EQ(s.transformation(), identity);
+}

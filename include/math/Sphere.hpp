@@ -2,6 +2,7 @@
 #define SPHERE_HPP
 
 #include "Point.hpp"
+#include <math/Matrix.hpp>
 
 class Sphere {
 public:
@@ -10,6 +11,7 @@ public:
 
   double radius() const;
   Point origin() const;
+  Matrix<4> transformation() const;
 
 private:
   const double r;
