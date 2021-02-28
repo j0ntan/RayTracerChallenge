@@ -35,7 +35,7 @@ add_executable(test_Ray Ray.test.cpp)
 target_link_libraries(test_Ray Ray gtest_main)
 
 add_library(Transformations Transformations.cpp)
-target_link_libraries(Transformations Point Vector Matrix)
+target_link_libraries(Transformations Point Vector Matrix Ray)
 add_executable(test_Transformations Transformations.test.cpp)
 target_link_libraries(test_Transformations Transformations gtest_main)
 

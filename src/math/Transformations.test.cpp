@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <math/Matrix.hpp>
 #include <math/Point.hpp>
+#include <math/Ray.hpp>
 #include <math/Transformations.hpp>
 #include <math/Vector.hpp>
 
@@ -146,4 +147,16 @@ TEST(ChainingTransformations, chainedTransformationsInReverseOrder) {
   auto C = translate(10, 5, 7);
   auto T = C * B * A;
   ASSERT_EQ(T * p, Point(15, 0, 7));
+}
+
+TEST(TransformRay, callFunction) {
+  Ray r(Point(0, 0, 0), Vector(0, 0, 0));
+  Matrix<4> m;
+  transform(r, m);
+}
+
+TEST(TransformRay, returnsRay) {
+  Ray r(Point(0, 0, 0), Vector(0, 0, 0));
+  Matrix<4> m;
+  Ray r2 = transform(r, m);
 }
