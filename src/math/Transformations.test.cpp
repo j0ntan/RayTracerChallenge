@@ -160,3 +160,19 @@ TEST(TransformRay, returnsRay) {
   Matrix<4> m;
   Ray r2 = transform(r, m);
 }
+
+TEST(TransformRay, translateARay) {
+  Ray r(Point(1, 2, 3), Vector(0, 1, 0));
+  auto m = translate(3, 4, 5);
+  Ray r2 = transform(r, m);
+  ASSERT_EQ(r2.origin, Point(4, 6, 8));
+  ASSERT_EQ(r2.direction, Vector(0, 1, 0));
+}
+
+TEST(TransformRay, scaleARay) {
+  Ray r(Point(1, 2, 3), Vector(0, 1, 0));
+  auto m = scale(2, 3, 4);
+  Ray r2 = transform(r, m);
+  ASSERT_EQ(r2.origin, Point(2, 6, 12));
+  ASSERT_EQ(r2.direction, Vector(0, 3, 0));
+}

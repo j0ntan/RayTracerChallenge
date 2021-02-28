@@ -44,4 +44,6 @@ Matrix<4> shear(double x_y, double x_z, double y_x, double y_z, double z_x,
       {1, x_y, x_z, 0}, {y_x, 1, y_z, 0}, {z_x, z_y, 1, 0}, {0, 0, 0, 1}};
 }
 
-Ray transform(const Ray &ray, const Matrix<4> &m) { return ray; }
+Ray transform(const Ray &ray, const Matrix<4> &m) {
+  return Ray(Point(m * ray.origin), Vector(m * ray.direction));
+}
