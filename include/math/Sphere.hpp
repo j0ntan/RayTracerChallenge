@@ -13,9 +13,12 @@ public:
   Point origin() const;
   Matrix<4> transformation() const;
 
+  void set_transformation(const Matrix<4> &m);
+
 private:
   const double r;
   const Point origin_;
+  Matrix<4> transform;
 };
 
 #endif
