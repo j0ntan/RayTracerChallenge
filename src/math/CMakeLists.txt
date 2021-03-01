@@ -40,6 +40,6 @@ add_executable(test_Transformations Transformations.test.cpp)
 target_link_libraries(test_Transformations Transformations gtest_main)
 
 add_library(Intersections Intersections.cpp)
-target_link_libraries(Intersections Ray Sphere Intersection)
+target_link_libraries(Intersections Ray Sphere Intersection Transformations)
 add_executable(test_Intersections Intersections.test.cpp)
 target_link_libraries(test_Intersections Intersections gtest_main)

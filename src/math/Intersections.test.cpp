@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <math/Intersections.hpp>
+#include <math/Transformations.hpp>
 
 TEST(Intersections, callIntersect) {
   Ray r(Point(0, 0, 0), Vector(0, 0, 0));
@@ -115,4 +116,22 @@ TEST(Hit, getsLowestNonNegativeIntersection) {
   std::vector<Intersection> xs = {i1, i2, i3, i4};
   auto i = hit(xs);
   ASSERT_EQ(i, i4);
+}
+
+TEST(ApplyRayTransformation, scaledSphereAndRayIntersection) {
+  Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere s;
+  s.set_transformation(scale(2, 2, 2));
+  auto xs = intersect(s, r);
+  ASSERT_EQ(xs.size(), 2);
+  ASSERT_EQ(xs[0].time(), 3);
+  ASSERT_EQ(xs[1].time(), 7);
+}
+
+TEST(ApplyRayTransformation, translatedSphereAndRayIntersection) {
+  Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere s;
+  s.set_transformation(translate(5, 0, 0));
+  auto xs = intersect(s, r);
+  ASSERT_EQ(xs.size(), 0);
 }
