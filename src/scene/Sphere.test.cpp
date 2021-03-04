@@ -1,3 +1,4 @@
+#include <cmath>
 #include <gtest/gtest.h>
 #include <scene/Sphere.hpp>
 
@@ -73,4 +74,34 @@ TEST(NormalVector, getNormalAtPoint) {
 TEST(NormalVector, getNormalAsAVector) {
   const Sphere s;
   Vector n = s.normal(Point(1, 0, 0));
+}
+
+TEST(NormalVector, getNormalToPointOnXAxis) {
+  const Sphere s;
+  Vector n = s.normal(Point(1, 0, 0));
+  ASSERT_EQ(n, Vector(1, 0, 0));
+}
+
+TEST(NormalVector, getNormalToPointOnYAxis) {
+  const Sphere s;
+  Vector n = s.normal(Point(0, 1, 0));
+  ASSERT_EQ(n, Vector(0, 1, 0));
+}
+
+TEST(NormalVector, getNormalToPointOnZAxis) {
+  const Sphere s;
+  Vector n = s.normal(Point(0, 0, 1));
+  ASSERT_EQ(n, Vector(0, 0, 1));
+}
+
+TEST(NormalVector, getNormalToNonAxialPoint) {
+  const Sphere s;
+  Vector n = s.normal(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+  ASSERT_EQ(n, Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+}
+
+TEST(NormalVector, isNormalized) {
+  const Sphere s;
+  Vector n = s.normal(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+  ASSERT_EQ(n, n.normalize());
 }
