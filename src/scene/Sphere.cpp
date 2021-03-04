@@ -9,6 +9,8 @@ double Sphere::radius() const { return r; }
 
 Point Sphere::origin() const { return origin_; }
 
+Vector Sphere::normal(const Point &point) const { return Vector(); }
+
 Matrix<4> Sphere::transformation() const { return transform; }
 
 void Sphere::set_transformation(const Matrix<4> &m) { transform = m; }

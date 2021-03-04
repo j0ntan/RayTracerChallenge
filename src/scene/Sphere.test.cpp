@@ -64,3 +64,13 @@ TEST(Sphere, transformationMatchesSetValue) {
   s.set_transformation(m);
   ASSERT_EQ(s.transformation(), m);
 }
+
+TEST(NormalVector, getNormalAtPoint) {
+  const Sphere s;
+  s.normal(Point(1, 0, 0));
+}
+
+TEST(NormalVector, getNormalAsAVector) {
+  const Sphere s;
+  Vector n = s.normal(Point(1, 0, 0));
+}

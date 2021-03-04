@@ -1,5 +1,5 @@
 add_library(Sphere Sphere.cpp)
-target_link_libraries(Sphere Point)
+target_link_libraries(Sphere Point Vector)
 add_executable(test_Sphere Sphere.test.cpp)
 target_link_libraries(test_Sphere Sphere gtest_main)
 
