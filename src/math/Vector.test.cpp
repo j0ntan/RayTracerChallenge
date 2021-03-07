@@ -146,3 +146,11 @@ TEST(Vector, takeCrossProduct) {
   ASSERT_EQ(v1, Vector(-1, 2, -1));
   ASSERT_EQ(v2, Vector(1, -2, 1));
 }
+
+TEST(Reflection, reflectTwoVectors) {
+  reflect(Vector(1, 0, 0), Vector(0, 1, 0));
+}
+
+TEST(Reflection, produceVector) {
+  Vector reflected = reflect(Vector(1, 0, 0), Vector(0, 1, 0));
+}

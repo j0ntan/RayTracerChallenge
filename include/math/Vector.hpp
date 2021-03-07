@@ -38,4 +38,6 @@ Vector operator/(const Vector &lhs, double rhs);
 double dot(const Vector &lhs, const Vector &rhs);
 Vector cross(const Vector &lhs, const Vector &rhs);
 
+Vector reflect(const Vector &incident, const Vector &normal);
+
 #endif

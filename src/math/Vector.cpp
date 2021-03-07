@@ -80,3 +80,7 @@ Vector cross(const Vector &lhs, const Vector &rhs) {
                 lhs.z() * rhs.x() - lhs.x() * rhs.z(),
                 lhs.x() * rhs.y() - lhs.y() * rhs.x());
 }
+
+Vector reflect(const Vector &incident, const Vector &normal) {
+  return Vector();
+}
