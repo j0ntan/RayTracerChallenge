@@ -22,3 +22,8 @@ add_library(Intersections Intersections.cpp)
 target_link_libraries(Intersections Intersection Transformations)
 add_executable(test_Intersections Intersections.test.cpp)
 target_link_libraries(test_Intersections Intersections gtest_main)
+
+add_library(Light Light.cpp)
+target_link_libraries(Light Point Color)
+add_executable(test_Light Light.test.cpp)
+target_link_libraries(test_Light Light gtest_main)
