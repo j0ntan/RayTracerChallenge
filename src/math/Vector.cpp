@@ -82,5 +82,5 @@ Vector cross(const Vector &lhs, const Vector &rhs) {
 }
 
 Vector reflect(const Vector &incident, const Vector &normal) {
-  return Vector();
+  return Vector(incident - normal * 2 * dot(incident, normal));
 }

@@ -154,3 +154,15 @@ TEST(Reflection, reflectTwoVectors) {
 TEST(Reflection, produceVector) {
   Vector reflected = reflect(Vector(1, 0, 0), Vector(0, 1, 0));
 }
+
+TEST(Reflection, vectorAt45Degrees) {
+  Vector v(1, -1, 0), n(0, 1, 0);
+  auto reflection = reflect(v, n);
+  ASSERT_EQ(reflection, Vector(1, 1, 0));
+}
+
+TEST(Reflection, slantedSurface) {
+  Vector v(0, -1, 0), n(sqrt(2) / 2, sqrt(2) / 2, 0);
+  auto reflection = reflect(v, n);
+  ASSERT_EQ(reflection, Vector(1, 0, 0));
+}
