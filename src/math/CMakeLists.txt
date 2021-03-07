@@ -14,32 +14,7 @@ target_link_libraries(Point Tuple)
 add_executable(test_Point Point.test.cpp)
 target_link_libraries(test_Point Point gtest_main)
 
-add_library(Sphere Sphere.cpp)
-target_link_libraries(Sphere Point)
-add_executable(test_Sphere Sphere.test.cpp)
-target_link_libraries(test_Sphere Sphere gtest_main)
-
-add_library(Intersection Intersection.cpp)
-target_link_libraries(Intersection Sphere)
-add_executable(test_Intersection Intersection.test.cpp)
-target_link_libraries(test_Intersection Intersection gtest_main)
-
 add_library(Vector Vector.cpp)
 target_link_libraries(Vector Point)
 add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector gtest_main)
-
-add_library(Ray Ray.cpp)
-target_link_libraries(Ray Point Vector)
-add_executable(test_Ray Ray.test.cpp)
-target_link_libraries(test_Ray Ray gtest_main)
-
-add_library(Transformations Transformations.cpp)
-target_link_libraries(Transformations Point Vector Matrix Ray)
-add_executable(test_Transformations Transformations.test.cpp)
-target_link_libraries(test_Transformations Transformations gtest_main)
-
-add_library(Intersections Intersections.cpp)
-target_link_libraries(Intersections Ray Sphere Intersection Transformations)
-add_executable(test_Intersections Intersections.test.cpp)
-target_link_libraries(test_Intersections Intersections gtest_main)

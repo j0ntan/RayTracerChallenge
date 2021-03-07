@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <math/Intersections.hpp>
-#include <math/Transformations.hpp>
+#include <scene/Intersections.hpp>
+#include <scene/Transformations.hpp>
 
 TEST(Intersections, callIntersect) {
   Ray r(Point(0, 0, 0), Vector(0, 0, 0));

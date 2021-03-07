@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <math/Sphere.hpp>
+#include <scene/Sphere.hpp>
 
 TEST(Sphere, defaultConstruct) { Sphere s; }
 

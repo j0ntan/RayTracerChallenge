@@ -2,8 +2,8 @@
 #define INTERSECTIONS_HPP
 
 #include "Intersection.hpp"
-#include <math/Ray.hpp>
-#include <math/Sphere.hpp>
+#include <scene/Ray.hpp>
+#include <scene/Sphere.hpp>
 #include <optional>
 #include <vector>
 

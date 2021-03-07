@@ -1,5 +1,5 @@
 #include <math/Matrix.hpp>
-#include <math/Transformations.hpp>
+#include <scene/Transformations.hpp>
 
 Matrix<4> translate(double x, double y, double z) {
   Matrix<4> translation = identity;

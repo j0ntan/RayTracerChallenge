@@ -1,7 +1,7 @@
 #ifndef INTERSECTION_HPP
 #define INTERSECTION_HPP
 
-#include <math/Sphere.hpp>
+#include <scene/Sphere.hpp>
 
 class Intersection {
 public:

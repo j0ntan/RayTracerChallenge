@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <math/Intersection.hpp>
-#include <math/Sphere.hpp>
+#include <scene/Intersection.hpp>
+#include <scene/Sphere.hpp>
 #include <vector>
 
 TEST(Intersection, constructWithTimeValueAndSphere) {

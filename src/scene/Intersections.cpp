@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cmath>
-#include <math/Intersections.hpp>
-#include <math/Transformations.hpp>
+#include <scene/Intersections.hpp>
+#include <scene/Transformations.hpp>
 
 std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray) {
   std::vector<Intersection> result;

@@ -1,8 +1,8 @@
 #ifndef SPHERE_HPP
 #define SPHERE_HPP
 
-#include "Point.hpp"
 #include <math/Matrix.hpp>
+#include <math/Point.hpp>
 
 class Sphere {
 public:

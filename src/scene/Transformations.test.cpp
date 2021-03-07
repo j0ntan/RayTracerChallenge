@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <math/Matrix.hpp>
 #include <math/Point.hpp>
-#include <math/Ray.hpp>
-#include <math/Transformations.hpp>
+#include <scene/Ray.hpp>
+#include <scene/Transformations.hpp>
 #include <math/Vector.hpp>
 
 TEST(Translation, getTranslationMatrix) {

@@ -4,8 +4,8 @@
 #include <cmath>
 #include <math/Matrix.hpp>
 #include <math/Point.hpp>
-#include <math/Ray.hpp>
 #include <math/Vector.hpp>
+#include <scene/Ray.hpp>
 
 const double PI = std::acos(-1);
 

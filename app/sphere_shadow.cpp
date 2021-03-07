@@ -1,8 +1,8 @@
 #include <graphics/Canvas.hpp>
-#include <math/Intersections.hpp>
-#include <math/Ray.hpp>
-#include <math/Sphere.hpp>
-#include <math/Transformations.hpp>
+#include <scene/Intersections.hpp>
+#include <scene/Ray.hpp>
+#include <scene/Sphere.hpp>
+#include <scene/Transformations.hpp>
 
 struct Scene {
   const Point viewpoint;

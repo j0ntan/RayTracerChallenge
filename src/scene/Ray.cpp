@@ -1,4 +1,4 @@
-#include <math/Ray.hpp>
+#include <scene/Ray.hpp>
 
 Ray::Ray(const Point &origin, const Vector &direction)
     : origin{origin}, direction{direction} {}

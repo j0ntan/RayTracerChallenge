@@ -1,4 +1,4 @@
-#include <math/Sphere.hpp>
+#include <scene/Sphere.hpp>
 
 Sphere::Sphere() : r{1.0}, origin_{Point(0, 0, 0)}, transform{identity} {}
 

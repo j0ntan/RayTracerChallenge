@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <math/Ray.hpp>
+#include <scene/Ray.hpp>
 
 TEST(Ray, constructWithOriginAndDirection) {
   Point origin(1, 2, 3);

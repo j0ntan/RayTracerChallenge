@@ -1,4 +1,4 @@
-#include <math/Intersection.hpp>
+#include <scene/Intersection.hpp>
 
 Intersection::Intersection(const double t, const Sphere &sphere)
     : t{t}, obj{&sphere} {}
