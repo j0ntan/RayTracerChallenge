@@ -1,6 +1,7 @@
 #include <cmath>
 #include <gtest/gtest.h>
 #include <scene/Sphere.hpp>
+#include <scene/Transformations.hpp>
 
 TEST(Sphere, defaultConstruct) { Sphere s; }
 
@@ -104,4 +105,18 @@ TEST(NormalVector, isNormalized) {
   const Sphere s;
   Vector n = s.normal(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
   ASSERT_EQ(n, n.normalize());
+}
+
+TEST(NormalVector, normalToTranslatedSphere) {
+  Sphere s;
+  s.set_transformation(translate(0, 1, 0));
+  Vector n = s.normal(Point(0, 1 + sqrt(2) / 2, -sqrt(2) / 2));
+  ASSERT_EQ(n, Vector(0, sqrt(2) / 2, -sqrt(2) / 2));
+}
+
+TEST(NormalVector, normalToTransformedSphere) {
+  Sphere s;
+  s.set_transformation(scale(1, 0.5, 1) * rotate_z(PI / 5));
+  Vector n = s.normal(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
+  ASSERT_EQ(n, Vector(0, 0.97014, -0.24254));
 }

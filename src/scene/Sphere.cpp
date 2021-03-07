@@ -9,7 +9,13 @@ double Sphere::radius() const { return r; }
 
 Point Sphere::origin() const { return origin_; }
 
-Vector Sphere::normal(const Point &point) const { return point - origin_; }
+Vector Sphere::normal(const Point &point) const {
+  auto object_point = Point(inverse(transform) * point);
+  auto object_normal = Vector(object_point - origin_);
+  auto world_normal = Vector(transpose(inverse(transform)) * object_normal);
+  world_normal[3] = 0;
+  return world_normal.normalize();
+}
 
 Matrix<4> Sphere::transformation() const { return transform; }
 
