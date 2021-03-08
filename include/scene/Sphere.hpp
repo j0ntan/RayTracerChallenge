@@ -22,10 +22,13 @@ public:
 
   Material material() const;
 
+  void set_material(const Material &material);
+
 private:
   const double r;
   const Point origin_;
   Matrix<4> transform;
+  Material material_;
 };
 
 #endif

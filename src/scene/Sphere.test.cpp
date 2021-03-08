@@ -130,3 +130,16 @@ TEST(Material, hasDefaultMaterial) {
   const Sphere s;
   ASSERT_EQ(s.material(), Material());
 }
+
+TEST(Material, assignMaterial) {
+  Sphere s;
+  s.set_material(Material());
+}
+
+TEST(Material, matchesAssignedMaterial) {
+  Material m;
+  m.color = Color(.5, .5, .5);
+  Sphere s;
+  s.set_material(m);
+  ASSERT_EQ(s.material(), m);
+}

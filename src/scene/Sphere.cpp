@@ -1,9 +1,10 @@
 #include <scene/Sphere.hpp>
 
-Sphere::Sphere() : r{1.0}, origin_{Point(0, 0, 0)}, transform{identity} {}
+Sphere::Sphere()
+    : r{1.0}, origin_{Point(0, 0, 0)}, transform{identity}, material_{} {}
 
 Sphere::Sphere(const double radius, const Point &origin)
-    : r{radius}, origin_{origin}, transform{identity} {}
+    : r{radius}, origin_{origin}, transform{identity}, material_{} {}
 
 double Sphere::radius() const { return r; }
 
@@ -21,4 +22,6 @@ Matrix<4> Sphere::transformation() const { return transform; }
 
 void Sphere::set_transformation(const Matrix<4> &m) { transform = m; }
 
-Material Sphere::material() const { return Material(); }
+Material Sphere::material() const { return material_; }
+
+void Sphere::set_material(const Material &material) { material_ = material; }
