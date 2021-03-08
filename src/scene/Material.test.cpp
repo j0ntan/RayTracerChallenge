@@ -48,3 +48,20 @@ TEST(Material, changeLightReflectionValues) {
   ASSERT_FLOAT_EQ(m.specular, 0.4);
   ASSERT_FLOAT_EQ(m.shininess, 234.567);
 }
+
+TEST(Material, isComparable) {
+  Material m1, m2;
+  bool same_material = m1 == m2;
+  bool not_same_material = m1 != m2;
+}
+
+TEST(Material, compareMaterials) {
+  Material m1, m2;
+  ASSERT_EQ(m1, m2);
+  m2.ambient = 0.123;
+  ASSERT_NE(m1, m2);
+  m2.ambient = m1.ambient;
+  ASSERT_EQ(m1, m2);
+  m2.color = Color(0, 0, 0);
+  ASSERT_NE(m1, m2);
+}

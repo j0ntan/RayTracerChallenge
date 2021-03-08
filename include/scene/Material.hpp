@@ -11,4 +11,8 @@ struct Material {
   double shininess = 200;
 };
 
+bool operator==(const Material &lhs, const Material &rhs);
+
+bool operator!=(const Material &lhs, const Material &rhs);
+
 #endif
