@@ -27,3 +27,8 @@ add_library(Light Light.cpp)
 target_link_libraries(Light Point Color)
 add_executable(test_Light Light.test.cpp)
 target_link_libraries(test_Light Light gtest_main)
+
+add_library(Material INTERFACE)
+target_include_directories(Material INTERFACE ${CMAKE_SOURCE_DIR}/include)
+add_executable(test_Material Material.test.cpp)
+target_link_libraries(test_Material Material gtest_main)
