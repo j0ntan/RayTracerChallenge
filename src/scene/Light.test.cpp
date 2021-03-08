@@ -18,3 +18,20 @@ TEST(Light, positionMatchesGivenValue) {
   Light light{position, Color()};
   ASSERT_EQ(light.position, position);
 }
+
+TEST(Light, accessIntensity) {
+  const Light light{Point(), Color()};
+  light.intensity;
+}
+
+TEST(Light, intensityIsAColor) {
+  const Light light{Point(), Color()};
+  const Color intensity = light.intensity;
+}
+
+TEST(Light, intensityMatchesGivenValue) {
+  Point position(1, 2, 3);
+  const Color intensity(1, 1, 1);
+  Light light{position, intensity};
+  ASSERT_EQ(light.intensity, intensity);
+}

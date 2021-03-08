@@ -9,6 +9,7 @@ public:
   Light(const Point &position, const Color &intensity);
 
   const Point position;
+  const Color intensity;
 };
 
 #endif
