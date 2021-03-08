@@ -8,8 +8,13 @@ target_link_libraries(Transformations Matrix Ray)
 add_executable(test_Transformations Transformations.test.cpp)
 target_link_libraries(test_Transformations Transformations gtest_main)
 
+add_library(Material Material.cpp)
+target_link_libraries(Material Color)
+add_executable(test_Material Material.test.cpp)
+target_link_libraries(test_Material Material gtest_main)
+
 add_library(Sphere Sphere.cpp)
-target_link_libraries(Sphere Point Vector Matrix)
+target_link_libraries(Sphere Point Vector Matrix Material)
 add_executable(test_Sphere Sphere.test.cpp)
 target_link_libraries(test_Sphere Sphere Transformations gtest_main)
 
@@ -27,8 +32,3 @@ add_library(Light Light.cpp)
 target_link_libraries(Light Point Color)
 add_executable(test_Light Light.test.cpp)
 target_link_libraries(test_Light Light gtest_main)
-
-add_library(Material Material.cpp)
-target_link_libraries(Material Color)
-add_executable(test_Material Material.test.cpp)
-target_link_libraries(test_Material Material gtest_main)

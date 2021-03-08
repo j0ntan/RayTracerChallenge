@@ -120,3 +120,13 @@ TEST(NormalVector, normalToTransformedSphere) {
   Vector n = s.normal(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
   ASSERT_EQ(n, Vector(0, 0.97014, -0.24254));
 }
+
+TEST(Material, accessMaterial) {
+  Sphere s;
+  Material material = s.material();
+}
+
+TEST(Material, hasDefaultMaterial) {
+  const Sphere s;
+  ASSERT_EQ(s.material(), Material());
+}

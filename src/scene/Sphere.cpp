@@ -20,3 +20,5 @@ Vector Sphere::normal(const Point &point) const {
 Matrix<4> Sphere::transformation() const { return transform; }
 
 void Sphere::set_transformation(const Matrix<4> &m) { transform = m; }
+
+Material Sphere::material() const { return Material(); }
