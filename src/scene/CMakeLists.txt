@@ -34,6 +34,6 @@ add_executable(test_Light Light.test.cpp)
 target_link_libraries(test_Light Light gtest_main)
 
 add_library(Lighting Lighting.cpp)
-target_include_directories(Lighting PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(Lighting Material Light Vector)
 add_executable(test_Lighting Lighting.test.cpp)
 target_link_libraries(test_Lighting Lighting gtest_main)
