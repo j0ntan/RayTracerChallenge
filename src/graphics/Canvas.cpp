@@ -4,7 +4,9 @@
 #include <string>
 
 namespace {
-int scale(double num) { return static_cast<unsigned>(std::round(num * 255)); }
+int scale(double num) {
+  return num * 255 > 255 ? 255 : static_cast<unsigned>(std::round(num * 255));
+}
 
 const size_t MAX_PPM_LINE_LENGTH = 70;
 

@@ -89,6 +89,17 @@ TEST_F(Canvas_PPM_F, roundFractionalColorsAfterScaling) {
   ASSERT_EQ(output_pixels_data, ROUNDED_PIXEL_DATA);
 }
 
+TEST_F(Canvas_PPM_F, pixelDataIsBounded) {
+  const Color c(1.1, 0, 100);
+  const std::string BOUNDED_PIXEL_DATA = "255 0 255 0 0 0 0 0 0 0 0 0 0 0 0\n"
+                                         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+                                         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+  canvas.write(0, 0, c);
+  canvas.to_ppm(str_stream);
+  auto output_pixels_data = str_stream.str().substr(HEADER.length());
+  ASSERT_EQ(output_pixels_data, BOUNDED_PIXEL_DATA);
+}
+
 TEST_F(Canvas_PPM_F, pixelDataLengthIs70CharactersOrLess) {
   Canvas large_canvas(10, 2);
   const std::string THIS_HEADER = "P3\n10 2\n255\n";
