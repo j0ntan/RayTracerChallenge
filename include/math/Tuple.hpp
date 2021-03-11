@@ -8,14 +8,43 @@
 #include <utility/Float_compare.hpp>
 
 template <std::size_t n = 0> struct Tuple {
+  /**
+   * @brief Construct a default Tuple object with zeroed elements.
+   */
   constexpr Tuple() : elements{} {}
+
+  /**
+   * @brief Construct a new Tuple object with the given list of values.
+   *
+   * @param list A list of initial values for this n-Tuple. Only the first n
+   * values are taken.
+   */
   Tuple(const std::initializer_list<double> &list) : elements{} {
     std::copy(list.begin(), list.begin() + (n <= list.size() ? n : list.size()),
               elements.begin());
   }
+
+  /**
+   * @brief Construct a new Tuple object with the given array of n values.
+   *
+   * @param array Array of n initial values.
+   */
   Tuple(const std::array<double, n> &array) { elements = array; }
 
+  /**
+   * @brief Subscript operator for constant access of Tuple elements.
+   *
+   * @param index Zero-based index of accessed element.
+   * @return double Copy of element value.
+   */
   double operator[](const std::size_t &index) const { return elements[index]; }
+
+  /**
+   * @brief Subscript operator for direct access of Tuple elements.
+   *
+   * @param index Zero-based index of accessed element.
+   * @return double Reference to element.
+   */
   double &operator[](const std::size_t &index) { return elements[index]; }
 
   std::array<double, n> elements;
