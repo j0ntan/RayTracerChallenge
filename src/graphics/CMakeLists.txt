@@ -1,6 +1,9 @@
 add_library(Pixel Pixel.cpp)
 target_include_directories(Pixel PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
+add_library(PPM PPM.cpp)
+target_include_directories(PPM PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
 add_library(Color Color.cpp)
 target_link_libraries(Color Tuple)
 
@@ -13,6 +16,9 @@ target_link_libraries(test_Pixel Pixel gtest_main)
 
 add_executable(test_Color Color.test.cpp)
 target_link_libraries(test_Color Color gtest_main)
+
+add_executable(test_PPM PPM.test.cpp)
+target_link_libraries(test_PPM PPM gtest_main)
 
 add_executable(test_Canvas Canvas.test.cpp)
 target_link_libraries(test_Canvas Canvas gtest_main)
