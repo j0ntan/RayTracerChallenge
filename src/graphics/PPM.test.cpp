@@ -27,3 +27,21 @@ TEST(PPM, matchDefaultIdentifer) {
   PPM ppm;
   ASSERT_EQ(ppm.magic, "P6");
 }
+
+TEST(PPM, getWidthAndHeight) {
+  PPM ppm;
+  size_t width = ppm.width;
+  size_t height = ppm.height;
+}
+
+TEST(PPM, matchDefaultWidthAndHeight) {
+  PPM ppm;
+  ASSERT_EQ(ppm.width, 100);
+  ASSERT_EQ(ppm.height, 100);
+}
+
+TEST(PPM, matchGivenWidthAndHeight) {
+  PPM ppm(123, 456);
+  ASSERT_EQ(ppm.width, 123);
+  ASSERT_EQ(ppm.height, 456);
+}
