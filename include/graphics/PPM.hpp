@@ -14,6 +14,7 @@ public:
   const size_t width;
   const size_t height;
   const std::string magic;
+  static const size_t max_color; // only 255 supported
 };
 
 #endif

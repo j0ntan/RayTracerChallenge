@@ -45,3 +45,11 @@ TEST(PPM, matchGivenWidthAndHeight) {
   ASSERT_EQ(ppm.width, 123);
   ASSERT_EQ(ppm.height, 456);
 }
+
+TEST(PPM, getMaxColor) {
+  PPM ppm;
+  size_t max_color = ppm.max_color;
+  size_t static_max_color = PPM::max_color;
+}
+
+TEST(PPM, maxColorIs255) { ASSERT_EQ(PPM::max_color, 255); }
