@@ -53,3 +53,22 @@ TEST(PPM, getMaxColor) {
 }
 
 TEST(PPM, maxColorIs255) { ASSERT_EQ(PPM::max_color, 255); }
+
+TEST(PPM, getHeader) {
+  const PPM ppm;
+  std::string header = ppm.header();
+}
+
+TEST(PPM, matchHeaderForDefaultValues) {
+  const PPM ppm;
+  ASSERT_EQ(ppm.header(), "P6\n"
+                          "100 100\n"
+                          "255\n");
+}
+
+TEST(PPM, matchHeaderWithGivenValues) {
+  const PPM ppm(123, 456, MagicIdentifier::ASCII);
+  ASSERT_EQ(ppm.header(), "P3\n"
+                          "123 456\n"
+                          "255\n");
+}
