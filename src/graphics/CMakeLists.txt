@@ -2,7 +2,7 @@ add_library(Pixel Pixel.cpp)
 target_include_directories(Pixel PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 add_library(PPM PPM.cpp)
-target_include_directories(PPM PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(PPM Pixel)
 
 add_library(Color Color.cpp)
 target_link_libraries(Color Tuple)

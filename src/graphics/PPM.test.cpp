@@ -1,5 +1,6 @@
 #include <graphics/PPM.hpp>
 #include <gtest/gtest.h>
+#include <unordered_set>
 
 TEST(PPM, createMagicIdentifiers) {
   auto bin = MagicIdentifier::BINARY;
@@ -71,4 +72,41 @@ TEST(PPM, matchHeaderWithGivenValues) {
   ASSERT_EQ(ppm.header(), "P3\n"
                           "123 456\n"
                           "255\n");
+}
+
+TEST(ImageData, readPixelAtRowAndCol) {
+  PPM ppm;
+  const size_t ROW = 0;
+  const size_t COL = 0;
+  Pixel p = ppm.at(ROW, COL);
+}
+
+TEST(ImageData, getReferenceToSinglePixel) {
+  PPM ppm;
+  const size_t ROW = 0;
+  const size_t COL = 0;
+  Pixel &p = ppm.at(ROW, COL);
+}
+
+TEST(ImageData, getReferenceToAllPixels) {
+  PPM ppm;
+  std::unordered_set<Pixel *> references;
+  for (size_t row = 0; row < ppm.height; ++row)
+    for (size_t col = 0; col < ppm.width; ++col) {
+      Pixel *ref = &ppm.at(row, col);
+      auto unique_ref = references.insert(ref).second;
+      ASSERT_TRUE(unique_ref) << "non-unique reference for Pixel at " << '('
+                              << row << ", " << col << ')';
+    }
+}
+
+bool operator==(const Pixel &lhs, const Pixel &rhs) {
+  return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue;
+}
+
+TEST(ImageData, allPixelsDefaultToZero) {
+  PPM ppm;
+  for (size_t row = 0; row < ppm.height; ++row)
+    for (size_t col = 0; col < ppm.width; ++col)
+      ASSERT_EQ(ppm.at(row, col), Pixel());
 }

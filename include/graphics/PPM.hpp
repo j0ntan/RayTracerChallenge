@@ -2,7 +2,9 @@
 #define PPM_H
 
 #include <cstddef>
+#include <graphics/Pixel.hpp>
 #include <string>
+#include <vector>
 
 enum class MagicIdentifier { BINARY, ASCII };
 
@@ -13,10 +15,15 @@ public:
 
   std::string header() const;
 
+  Pixel &at(size_t row, size_t col);
+
   const size_t width;
   const size_t height;
   const std::string magic;
   static const size_t max_color; // only 255 supported
+
+private:
+  std::vector<std::vector<Pixel>> pixels;
 };
 
 #endif
