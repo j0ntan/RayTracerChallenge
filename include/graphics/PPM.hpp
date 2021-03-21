@@ -17,6 +17,8 @@ public:
 
   Pixel &at(size_t row, size_t col);
 
+  void write(size_t row, size_t col, const Pixel &pixel);
+
   const size_t width;
   const size_t height;
   const std::string magic;

@@ -14,3 +14,7 @@ std::string PPM::header() const {
 }
 
 Pixel &PPM::at(size_t row, size_t col) { return pixels[row][col]; }
+
+void PPM::write(size_t row, size_t col, const Pixel &pixel) {
+  pixels[row][col] = pixel;
+}

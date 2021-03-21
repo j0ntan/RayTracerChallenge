@@ -110,3 +110,21 @@ TEST(ImageData, allPixelsDefaultToZero) {
     for (size_t col = 0; col < ppm.width; ++col)
       ASSERT_EQ(ppm.at(row, col), Pixel());
 }
+
+TEST(ImageData, writePixelAtRowAndCol) {
+  PPM ppm;
+  const size_t ROW = 0;
+  const size_t COL = 0;
+  ppm.write(ROW, COL, Pixel());
+}
+
+TEST(ImageData, writeChangesPixelValue) {
+  PPM ppm;
+  const size_t ROW = 0;
+  const size_t COL = 0;
+  const Pixel PIXEL{1, 2, 3};
+
+  ASSERT_EQ(ppm.at(ROW, COL), Pixel());
+  ppm.write(ROW, COL, PIXEL);
+  ASSERT_EQ(ppm.at(ROW, COL), PIXEL);
+}
