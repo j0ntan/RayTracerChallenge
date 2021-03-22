@@ -25,6 +25,8 @@ public:
   static const size_t max_color; // only 255 supported
 
 private:
+  void bounds_check(size_t &row, size_t &col) const;
+
   std::vector<std::vector<Pixel>> pixels;
 };
 

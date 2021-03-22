@@ -13,8 +13,19 @@ std::string PPM::header() const {
          '\n' + "255\n";
 }
 
-Pixel &PPM::at(size_t row, size_t col) { return pixels[row][col]; }
+Pixel &PPM::at(size_t row, size_t col) {
+  bounds_check(row, col);
+  return pixels[row][col];
+}
 
 void PPM::write(size_t row, size_t col, const Pixel &pixel) {
+  bounds_check(row, col);
   pixels[row][col] = pixel;
+}
+
+void PPM::bounds_check(size_t &row, size_t &col) const {
+  if (row >= height)
+    row = height - 1;
+  if (col >= width)
+    col = width - 1;
 }

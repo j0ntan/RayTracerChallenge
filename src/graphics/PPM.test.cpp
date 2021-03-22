@@ -103,6 +103,7 @@ TEST(ImageData, getReferenceToAllPixels) {
 bool operator==(const Pixel &lhs, const Pixel &rhs) {
   return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue;
 }
+bool operator!=(const Pixel &lhs, const Pixel &rhs) { return !(lhs == rhs); }
 
 TEST(ImageData, allPixelsDefaultToZero) {
   PPM ppm;
@@ -127,4 +128,40 @@ TEST(ImageData, writeChangesPixelValue) {
   ASSERT_EQ(ppm.at(ROW, COL), Pixel());
   ppm.write(ROW, COL, PIXEL);
   ASSERT_EQ(ppm.at(ROW, COL), PIXEL);
+}
+
+TEST(ImageData, readingOutOfBoundsDefaultsToEdgePixel) {
+  PPM ppm;
+  const size_t SIZE = ppm.width;
+  const size_t RIGHT_EDGE_INDEX = SIZE - 1, BOTTOM_EDGE_INDEX = SIZE - 1;
+  for (size_t i = 0; i < SIZE; ++i) {
+    ppm.write(i, RIGHT_EDGE_INDEX, Pixel{i + 1, i + 1, i + 1});
+    ppm.write(BOTTOM_EDGE_INDEX, i, Pixel{i + 1, i + 1, i + 1});
+  }
+
+  for (size_t i = 0; i < SIZE; ++i) {
+    const Pixel EXPECTED = {i + 1, i + 1, i + 1};
+    ASSERT_EQ(ppm.at(i, RIGHT_EDGE_INDEX + 1 + i), EXPECTED)
+        << "failed to match right edge Pixel at row " << i;
+    ASSERT_EQ(ppm.at(BOTTOM_EDGE_INDEX + 1 + i, i), EXPECTED)
+        << "failed to match bottom edge Pixel at column " << i;
+  }
+}
+
+TEST(ImageData, writingOutOfBoundsDefaultsToEdgePixel) {
+  PPM ppm;
+  const size_t SIZE = ppm.width;
+  const size_t RIGHT_EDGE_INDEX = SIZE - 1, BOTTOM_EDGE_INDEX = SIZE - 1;
+  for (size_t i = 0; i < SIZE; ++i) {
+    ppm.write(i, RIGHT_EDGE_INDEX + 1 + i, Pixel{i + 1, i + 1, i + 1});
+    ppm.write(BOTTOM_EDGE_INDEX + 1 + i, i, Pixel{i + 1, i + 1, i + 1});
+  }
+
+  for (size_t row = 0; row < ppm.height; ++row)
+    for (size_t col = 0; col < ppm.width; ++col)
+      if (row == ppm.height - 1 || col == ppm.width - 1)
+        ASSERT_NE(ppm.at(row, col), Pixel())
+            << "failed to match Pixel at (" << row << ", " << col << ')';
+      else
+        ASSERT_EQ(ppm.at(row, col), Pixel());
 }
