@@ -1,5 +1,6 @@
 #include <graphics/PPM.hpp>
 #include <gtest/gtest.h>
+#include <sstream>
 #include <unordered_set>
 
 TEST(PPM, createMagicIdentifiers) {
@@ -164,4 +165,52 @@ TEST(ImageData, writingOutOfBoundsDefaultsToEdgePixel) {
             << "failed to match Pixel at (" << row << ", " << col << ')';
       else
         ASSERT_EQ(ppm.at(row, col), Pixel());
+}
+
+TEST(Output, canConvertToString) {
+  const PPM ppm;
+  auto str = std::string(ppm);
+}
+
+TEST(Output, stringContainsHeader) {
+  const PPM ppm;
+  ASSERT_EQ(std::string(ppm).find(ppm.header()), 0);
+}
+
+TEST(Output, stringContainsImageDataAfterHeader) {
+  const PPM ppm;
+  auto image_data = std::string(ppm).substr(ppm.header().length());
+  ASSERT_FALSE(image_data.empty());
+}
+
+TEST(Output, matchImageDataPixels) {
+  constexpr size_t N = 2;
+  std::array<Pixel, N *N> pixels = {
+      {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}}};
+  PPM ppm(N, N);
+
+  auto pixel_it = pixels.begin();
+  for (size_t row = 0; row < N; ++row)
+    for (size_t col = 0; col < N; ++col)
+      ppm.write(row, col, *pixel_it++);
+
+  auto image_data = std::string(ppm).substr(ppm.header().length());
+  for (auto &expected_pixel : pixels)
+    ASSERT_NE(image_data.find(std::string(expected_pixel)), std::string::npos);
+}
+
+TEST(Output, stringContainsAllPixels) {
+  PPM ppm;
+  auto image_data = std::string(ppm).substr(ppm.header().length());
+  std::istringstream stream(image_data);
+
+  const auto PIXEL_STR = std::string(Pixel());
+  size_t line_count = 0;
+  std::string line;
+  while (std::getline(stream, line)) {
+    ++line_count;
+    ASSERT_EQ(line, PIXEL_STR);
+  }
+
+  ASSERT_EQ(line_count, ppm.height * ppm.width);
 }

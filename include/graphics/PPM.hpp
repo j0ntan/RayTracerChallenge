@@ -24,6 +24,16 @@ public:
   const std::string magic;
   static const size_t max_color; // only 255 supported
 
+  operator std::string() const {
+    std::string retval = header();
+
+    for (size_t row = 0; row < height; ++row)
+      for (size_t col = 0; col < width; ++col)
+        retval.append(std::string(pixels[row][col]) + '\n');
+
+    return retval;
+  }
+
 private:
   void bounds_check(size_t &row, size_t &col) const;
 
