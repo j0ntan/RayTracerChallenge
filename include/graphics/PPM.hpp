@@ -34,6 +34,22 @@ public:
     return retval;
   }
 
+  std::vector<std::byte> bytes() const {
+    std::vector<std::byte> retval;
+
+    for (const char &LETTER : header())
+      retval.push_back(static_cast<std::byte>(LETTER));
+
+    for (size_t row = 0; row < height; ++row)
+      for (size_t col = 0; col < width; ++col) {
+        retval.push_back(pixels[row][col].red);
+        retval.push_back(pixels[row][col].green);
+        retval.push_back(pixels[row][col].blue);
+      }
+
+    return retval;
+  }
+
 private:
   void bounds_check(size_t &row, size_t &col) const;
 

@@ -214,3 +214,49 @@ TEST(Output, stringContainsAllPixels) {
 
   ASSERT_EQ(line_count, ppm.height * ppm.width);
 }
+
+TEST(Output, canConvertToBytes) {
+  const PPM ppm;
+  std::vector<std::byte> bytes = ppm.bytes();
+}
+
+TEST(Output, bytesContainsHeader) {
+  const PPM PPM(1, 1);
+  const std::vector<std::byte> EXPECTED_BYTES = {
+      std::byte{80}, // 'P'
+      std::byte{54}, // '6'
+      std::byte{10}, // '\n'
+      std::byte{49}, // '1'
+      std::byte{32}, // ' '
+      std::byte{49}, // '1'
+      std::byte{10}, // '\n'
+      std::byte{50}, // '2'
+      std::byte{53}, // '5'
+      std::byte{53}, // '5'
+      std::byte{10}  // '\n'
+  };
+  const auto PPM_BYTES = PPM.bytes();
+
+  ASSERT_GE(PPM_BYTES.size(), EXPECTED_BYTES.size());
+
+  for (size_t i = 0; i < EXPECTED_BYTES.size(); ++i)
+    ASSERT_EQ(PPM_BYTES[i], EXPECTED_BYTES[i]);
+}
+
+TEST(Output, matchWrittenPixelsToBytes) {
+  PPM ppm(1, 2);
+  ppm.write(0, 0, Pixel{12, 34, 56});
+  ppm.write(1, 0, Pixel{21, 43, 65});
+
+  const std::vector<std::byte> EXPECTED_BYTES = {std::byte{12}, std::byte{34},
+                                                 std::byte{56}, std::byte{21},
+                                                 std::byte{43}, std::byte{65}};
+
+  auto header_size = ppm.header().size();
+  auto bytes = ppm.bytes();
+
+  ASSERT_EQ(bytes.size(), header_size + EXPECTED_BYTES.size());
+
+  for (size_t i = 0; i < EXPECTED_BYTES.size(); ++i)
+    ASSERT_EQ(bytes[header_size + i], EXPECTED_BYTES[i]);
+}
