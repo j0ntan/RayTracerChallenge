@@ -4,8 +4,12 @@
 #include <cstddef>
 
 struct Pixel {
-  Pixel() = default;
+  Pixel();
   Pixel(size_t R, size_t G, size_t B);
+
+  const std::byte red;
+  const std::byte green;
+  const std::byte blue;
 };
 
 #endif
