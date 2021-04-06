@@ -30,3 +30,15 @@ TEST(Pixel, readGivenPixelValues) {
   ASSERT_EQ(pixel.green, std::byte{2});
   ASSERT_EQ(pixel.blue, std::byte{3});
 }
+
+TEST(Pixel, clampValuesTo255) {
+  const Pixel AT_MAX(255, 255, 255);
+  ASSERT_EQ(AT_MAX.red, std::byte{255});
+  ASSERT_EQ(AT_MAX.green, std::byte{255});
+  ASSERT_EQ(AT_MAX.blue, std::byte{255});
+
+  const Pixel CLAMPED(300, 400, 500);
+  ASSERT_EQ(CLAMPED.red, std::byte{255});
+  ASSERT_EQ(CLAMPED.green, std::byte{255});
+  ASSERT_EQ(CLAMPED.blue, std::byte{255});
+}
