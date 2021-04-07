@@ -42,3 +42,18 @@ TEST(Pixel, clampValuesTo255) {
   ASSERT_EQ(CLAMPED.green, std::byte{255});
   ASSERT_EQ(CLAMPED.blue, std::byte{255});
 }
+
+TEST(Pixel, isAssignable) {
+  Pixel p1(255, 255, 255);
+  const Pixel p2;
+
+  ASSERT_NE(p1.red, p2.red);
+  ASSERT_NE(p1.green, p2.green);
+  ASSERT_NE(p1.blue, p2.blue);
+
+  p1 = p2;
+
+  ASSERT_EQ(p1.red, p2.red);
+  ASSERT_EQ(p1.green, p2.green);
+  ASSERT_EQ(p1.blue, p2.blue);
+}
