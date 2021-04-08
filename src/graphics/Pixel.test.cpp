@@ -57,3 +57,13 @@ TEST(Pixel, isAssignable) {
   ASSERT_EQ(p1.green, p2.green);
   ASSERT_EQ(p1.blue, p2.blue);
 }
+
+TEST(Pixel, convertToString) {
+  Pixel pixel;
+  auto str = std::string(pixel);
+}
+
+TEST(Pixel, stringConversionMatchesPixelValues) {
+  Pixel pixel(1, 23, 123);
+  ASSERT_EQ(std::string(pixel), "1 23 123");
+}
