@@ -2,7 +2,7 @@
 #define CANVAS_HPP
 
 #include "Color.hpp"
-#include <ostream>
+#include "PPM.hpp"
 #include <vector>
 
 class Canvas {
@@ -12,8 +12,8 @@ public:
   Color pixel(size_t x, size_t y) const;
   void write(size_t x, size_t y, const Color &color);
 
-  void to_ppm(std::ostream &out) const;
-  void to_ppm_file(const char *filename) const;
+  PPM to_PPM(const MagicIdentifier &id) const;
+  void write_PPM(const char *filename, const MagicIdentifier &id) const;
 
   const size_t width, height;
 

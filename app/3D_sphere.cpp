@@ -86,5 +86,5 @@ int main() {
   for (const auto &PIXEL : PIXELS)
     canvas.write(PIXEL.first.x(), PIXEL.first.y(), PIXEL.second);
 
-  canvas.to_ppm_file("3D_sphere");
+  canvas.write_PPM("3D_sphere", MagicIdentifier::BINARY);
 }

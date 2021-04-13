@@ -1,4 +1,6 @@
+#include <fstream>
 #include <graphics/Canvas.hpp>
+#include <graphics/PPM.hpp>
 #include <gtest/gtest.h>
 #include <sstream>
 
@@ -36,7 +38,24 @@ TEST(Canvas, writeColorToPixelAtXYCoordinates) {
   ASSERT_EQ(canvas.pixel(4, 8), blue);
 }
 
-TEST(PPM, writeOutputFile) {
-  Canvas canvas{100, 100};
-  canvas.to_ppm_file("sample_ppm");
+TEST(PPM, convertToPPM) {
+  const Canvas canvas{100, 100};
+  PPM ppm = canvas.to_PPM(MagicIdentifier::ASCII);
+}
+
+TEST(PPM, matchWrittenColors) {
+  Canvas canvas{1, 2};
+
+  canvas.write(0, 0, Color(1, 0, 0));
+  canvas.write(0, 1, Color(0, 1, 0));
+
+  ASSERT_EQ(std::string(canvas.to_PPM(MagicIdentifier::ASCII)),
+            "P3\n1 2\n255\n255 0 0\n0 255 0\n");
+}
+
+TEST(PPM, writeAsciiPPMFile) {
+  const Canvas canvas(1, 1);
+  canvas.write_PPM("sample_ppm", MagicIdentifier::ASCII);
+  std::ifstream ppmFile("sample_ppm.ppm");
+  ASSERT_TRUE(ppmFile.good());
 }

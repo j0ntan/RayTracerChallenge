@@ -8,7 +8,7 @@ add_library(Color Color.cpp)
 target_link_libraries(Color Tuple)
 
 add_library(Canvas Canvas.cpp)
-target_link_libraries(Canvas Color)
+target_link_libraries(Canvas Color PPM)
 
 # Tests
 add_executable(test_Pixel Pixel.test.cpp)

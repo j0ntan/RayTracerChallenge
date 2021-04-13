@@ -53,5 +53,5 @@ int main() {
   for (auto point : points)
     canvas.write(point.z(), point.x(), Color(1, 1, 1));
 
-  canvas.to_ppm_file("clock");
+  canvas.write_PPM("clock", MagicIdentifier::BINARY);
 }
