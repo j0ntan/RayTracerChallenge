@@ -22,23 +22,17 @@ char whitespace(const std::string &prev_str, const std::string &next_str,
   current_line_length = 0;
   return '\n';
 }
-
-size_t to_index(const unsigned int x, const unsigned int y,
-                const unsigned int width) {
-  return width * y + x;
-}
 } // namespace
 
-Canvas::Canvas(const unsigned int width, const unsigned int height)
-    : width{width}, height{height}, pixels{width * height} {}
+Canvas::Canvas(size_t width, size_t height)
+    : width{width}, height{height}, pixels{std::vector<std::vector<Color>>(
+                                        height,
+                                        std::vector<Color>(width, Color()))} {}
 
-Color Canvas::pixel(const unsigned int x, const unsigned int y) const {
-  return pixels[to_index(x, y, width)];
-}
+Color Canvas::pixel(size_t x, size_t y) const { return pixels[y][x]; }
 
-void Canvas::write(const unsigned int x, const unsigned int y,
-                   const Color &color) {
-  pixels[to_index(x, y, width)] = color;
+void Canvas::write(size_t x, size_t y, const Color &color) {
+  pixels[y][x] = color;
 }
 
 void Canvas::to_ppm(std::ostream &out) const {
@@ -49,7 +43,7 @@ void Canvas::to_ppm(std::ostream &out) const {
   size_t current_line_length = 0;
   for (size_t y = 0; y < height; ++y)
     for (size_t x = 0; x < width; ++x) {
-      const auto &color = pixels[to_index(x, y, width)];
+      const auto &color = pixels[y][x];
       const auto RED_STR = std::to_string(scale(color.red()));
       const auto GREEN_STR = std::to_string(scale(color.green()));
       const auto BLUE_STR = std::to_string(scale(color.blue()));

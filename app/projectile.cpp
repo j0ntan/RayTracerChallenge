@@ -39,7 +39,7 @@ int main() {
   // projectile's forward direction.
   const Environment environment{{0.01, 0.1, -0.002}};
 
-  const unsigned int WIDTH = 1280, HEIGHT = 720;
+  const size_t WIDTH = 1280, HEIGHT = 720;
   Canvas canvas(WIDTH, HEIGHT);
 
   while (projectile.position.x() >= 0) {

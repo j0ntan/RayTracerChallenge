@@ -3,13 +3,13 @@
 #include <sstream>
 
 TEST(Canvas, constructBasicCanvas) {
-  const unsigned int WIDTH = 5, HEIGHT = 3;
+  const size_t WIDTH = 5, HEIGHT = 3;
   Canvas c(WIDTH, HEIGHT);
 }
 
 TEST(Canvas, widthAndHeightAreInitialized) {
-  const unsigned int WIDTH = 100, HEIGHT = 100;
-  Canvas canvas{WIDTH, HEIGHT};
+  const size_t WIDTH = 100, HEIGHT = 100;
+  Canvas canvas(WIDTH, HEIGHT);
   ASSERT_EQ(canvas.width, WIDTH);
   ASSERT_EQ(canvas.height, HEIGHT);
 }

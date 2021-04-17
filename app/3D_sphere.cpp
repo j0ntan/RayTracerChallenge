@@ -59,7 +59,7 @@ Pixels_t cast_rays(const Scene &scene, const Canvas &canvas) {
 }
 
 int main() {
-  const unsigned int PIXELS_LENGTH = 200;
+  const size_t PIXELS_LENGTH = 200;
   Canvas canvas(PIXELS_LENGTH, PIXELS_LENGTH);
 
   // optional sphere transformations

@@ -45,7 +45,7 @@ clk_pts_t generate_clock_points(unsigned int canvas_size) {
 }
 
 int main() {
-  const unsigned int CANVAS_SIDE_LENGTH = 200;
+  const size_t CANVAS_SIDE_LENGTH = 200;
   Canvas canvas(CANVAS_SIDE_LENGTH, CANVAS_SIDE_LENGTH);
 
   auto points = generate_clock_points(CANVAS_SIDE_LENGTH);

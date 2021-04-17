@@ -7,18 +7,18 @@
 
 class Canvas {
 public:
-  Canvas(const unsigned int width, const unsigned int height);
+  Canvas(size_t width, size_t height);
 
-  Color pixel(const unsigned int x, const unsigned int y) const;
-  void write(const unsigned int x, const unsigned int y, const Color &color);
+  Color pixel(size_t x, size_t y) const;
+  void write(size_t x, size_t y, const Color &color);
 
   void to_ppm(std::ostream &out) const;
   void to_ppm_file(const char *filename) const;
 
-  const unsigned int width, height;
+  const size_t width, height;
 
 private:
-  std::vector<Color> pixels;
+  std::vector<std::vector<Color>> pixels;
 };
 
 #endif
