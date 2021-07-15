@@ -22,6 +22,9 @@ target_link_libraries(Light Point Color)
 add_library(Lighting Lighting.cpp)
 target_link_libraries(Lighting Material Light Vector)
 
+add_library(World World.cpp)
+target_include_directories(World PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
 # Tests
 add_executable(test_Ray Ray.test.cpp)
 target_link_libraries(test_Ray Ray gtest_main)
@@ -46,3 +49,6 @@ target_link_libraries(test_Light Light gtest_main)
 
 add_executable(test_Lighting Lighting.test.cpp)
 target_link_libraries(test_Lighting Lighting gtest_main)
+
+add_executable(test_World World.test.cpp)
+target_link_libraries(test_World World gtest_main)
