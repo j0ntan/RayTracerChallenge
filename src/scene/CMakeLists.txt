@@ -25,6 +25,9 @@ target_link_libraries(Lighting Material Light Vector)
 add_library(World World.cpp)
 target_link_libraries(World Light Sphere Intersections)
 
+add_library(Computations Computations.cpp)
+target_include_directories(Computations PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
 # Tests
 add_executable(test_Ray Ray.test.cpp)
 target_link_libraries(test_Ray Ray gtest_main)
@@ -52,3 +55,6 @@ target_link_libraries(test_Lighting Lighting gtest_main)
 
 add_executable(test_World World.test.cpp)
 target_link_libraries(test_World World gtest_main)
+
+add_executable(test_Computations Computations.test.cpp)
+target_link_libraries(test_Computations Computations gtest_main)
