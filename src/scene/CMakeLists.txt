@@ -23,7 +23,7 @@ add_library(Lighting Lighting.cpp)
 target_link_libraries(Lighting Material Light Vector)
 
 add_library(World World.cpp)
-target_include_directories(World PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(World Light Sphere)
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)
