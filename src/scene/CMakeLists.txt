@@ -26,7 +26,7 @@ add_library(World World.cpp)
 target_link_libraries(World Light Sphere Intersections)
 
 add_library(Computations Computations.cpp)
-target_include_directories(Computations PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(Computations Point Sphere Vector)
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)
