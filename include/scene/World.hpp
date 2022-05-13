@@ -12,9 +12,14 @@ public:
   std::vector<Sphere> objects() const;
   std::vector<Light> light_sources() const;
 
+  void add_sphere(const Sphere &s);
+  void add_light_source(const Light &l);
+
 private:
   std::vector<Sphere> objects_;
   std::vector<Light> light_sources_;
 };
+
+World default_world();
 
 #endif
