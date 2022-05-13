@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <scene/Intersections.hpp>
 #include <scene/Transformations.hpp>
 #include <scene/World.hpp>
 
@@ -22,4 +24,21 @@ World default_world() {
   w.add_sphere(s1);
   w.add_light_source(Light{Point{-10, 10, -10}, Color{1, 1, 1}});
   return w;
+}
+
+std::vector<Intersection> intersect_world(const World &world, const Ray &ray) {
+  std::vector<Intersection> intersections;
+
+  const auto OBJECTS = world.objects();
+  for (const auto &object : OBJECTS) {
+    auto obj_intersections = intersect(object, ray);
+    intersections.insert(intersections.end(), obj_intersections.begin(),
+                         obj_intersections.end());
+  }
+
+  std::sort(intersections.begin(), intersections.end(),
+            [](Intersection lhs, Intersection rhs) {
+              return lhs.time() < rhs.time();
+            });
+  return intersections;
 }

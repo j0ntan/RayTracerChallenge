@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <scene/Intersection.hpp>
+#include <scene/Ray.hpp>
 #include <scene/Transformations.hpp>
 #include <scene/World.hpp>
 
@@ -45,4 +47,15 @@ TEST(defaultWorld, matchesDefaultConfiguration) {
   ASSERT_EQ(w_light, light);
   ASSERT_EQ(w_s1, s1);
   ASSERT_EQ(w_s2, s2);
+}
+
+TEST(intersectWorld, intersectDefaultWord) {
+  auto w = default_world();
+  auto r = Ray(Point{0, 0, -5}, Vector{0, 0, 1});
+  std::vector<Intersection> xs = intersect_world(w, r);
+  ASSERT_EQ(xs.size(), 4);
+  ASSERT_EQ(xs[0].time(), 4);
+  ASSERT_EQ(xs[1].time(), 4.5);
+  ASSERT_EQ(xs[2].time(), 5.5);
+  ASSERT_EQ(xs[3].time(), 6);
 }

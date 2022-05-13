@@ -1,6 +1,7 @@
 #ifndef WORLD_HPP
 #define WORLD_HPP
 
+#include <scene/Intersection.hpp>
 #include <scene/Light.hpp>
 #include <scene/Sphere.hpp>
 #include <vector>
@@ -21,5 +22,6 @@ private:
 };
 
 World default_world();
+std::vector<Intersection> intersect_world(const World &world, const Ray &ray);
 
 #endif
