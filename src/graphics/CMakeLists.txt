@@ -11,7 +11,7 @@ add_library(Canvas Canvas.cpp)
 target_link_libraries(Canvas Color PPM)
 
 add_library(Camera Camera.cpp)
-target_link_libraries(Camera Matrix Ray)
+target_link_libraries(Camera Matrix Ray World Canvas)
 
 # Tests
 add_executable(test_Pixel Pixel.test.cpp)
@@ -27,4 +27,4 @@ add_executable(test_Canvas Canvas.test.cpp)
 target_link_libraries(test_Canvas Canvas gtest_main)
 
 add_executable(test_Camera Camera.test.cpp)
-target_link_libraries(test_Camera Camera Transformations gtest_main)
+target_link_libraries(test_Camera Camera Transformations View gtest_main)

@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include <math/Matrix.hpp>
 #include <scene/Transformations.hpp>
+#include <scene/View.hpp>
 
 const auto HALF_PI = asin(1);
 
@@ -47,4 +48,15 @@ TEST(CameraRay, viaTransformedCamera) {
   Ray r = ray_for_pixel(c, 100, 50);
   ASSERT_EQ(r.origin, (Point{0, 2, -5}));
   ASSERT_EQ(r.direction, (Vector{sqrt(2) / 2, 0, -sqrt(2) / 2}));
+}
+
+TEST(CameraRender, renderWorldWithCamera) {
+  auto w = default_world();
+  Camera c(11, 11, HALF_PI);
+  auto from = Point{0, 0, -5};
+  auto to = Point{0, 0, 0};
+  auto up = Vector{0, 1, 0};
+  c.transform = view_transform(from, to, up);
+  Canvas image = render(c, w);
+  ASSERT_EQ(image.pixel(5, 5), (Color{0.38066, 0.47583, 0.2855}));
 }

@@ -35,3 +35,16 @@ Ray ray_for_pixel(const Camera &camera, std::size_t x, std::size_t y) {
 
   return Ray(origin, direction);
 }
+
+Canvas render(const Camera &camera, const World &world) {
+  Canvas image(camera.hsize, camera.vsize);
+
+  for (std::size_t y = 0; y < camera.vsize; ++y)
+    for (std::size_t x = 0; x < camera.hsize; ++x) {
+      auto ray = ray_for_pixel(camera, x, y);
+      auto color = color_at(world, ray);
+      image.write(x, y, color);
+    }
+
+  return image;
+}
