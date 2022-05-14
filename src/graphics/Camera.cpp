@@ -17,3 +17,21 @@ Camera::Camera(std::size_t hsize, std::size_t vsize, double field_of_view)
 
   pixel_size = (half_width * 2) / hsize;
 }
+
+Ray ray_for_pixel(const Camera &camera, std::size_t x, std::size_t y) {
+  // the offset from the edge of the canvas to the pixel's center
+  auto xoffset = (x + 0.5) * camera.pixel_size;
+  auto yoffset = (y + 0.5) * camera.pixel_size;
+
+  // the untransformed coordinates of the pixel in world space
+  auto world_x = camera.half_width - xoffset;
+  auto world_y = camera.half_height - yoffset;
+
+  // using the camera matrix, transform the canvas point and the origin,
+  // then compute the ray's direction vector
+  auto pixel = Point(inverse(camera.transform) * Point{world_x, world_y, -1});
+  auto origin = Point(inverse(camera.transform) * Point{0, 0, 0});
+  auto direction = (pixel - origin).normalize();
+
+  return Ray(origin, direction);
+}
