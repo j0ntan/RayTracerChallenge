@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <scene/Intersections.hpp>
+#include <scene/Lighting.hpp>
 #include <scene/Transformations.hpp>
 #include <scene/World.hpp>
 
@@ -10,6 +11,8 @@ std::vector<Light> World::light_sources() const { return light_sources_; }
 void World::add_sphere(const Sphere &s) { objects_.push_back(s); }
 
 void World::add_light_source(const Light &l) { light_sources_.push_back(l); }
+
+void World::clear_light_sources() { light_sources_.clear(); }
 
 World default_world() {
   World w;
@@ -41,4 +44,10 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray) {
               return lhs.time() < rhs.time();
             });
   return intersections;
+}
+
+Color shade_hit(const World &world, const Computations &computations) {
+  return lighting(computations.object->material(),
+                  world.light_sources().front(), computations.point,
+                  computations.eyev, computations.normalv);
 }

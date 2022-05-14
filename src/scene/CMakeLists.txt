@@ -22,11 +22,12 @@ target_link_libraries(Light Point Color)
 add_library(Lighting Lighting.cpp)
 target_link_libraries(Lighting Material Light Vector)
 
-add_library(World World.cpp)
-target_link_libraries(World Light Sphere Intersections)
-
 add_library(Computations Computations.cpp)
 target_link_libraries(Computations Point Sphere Vector Intersection)
+
+add_library(World World.cpp)
+target_link_libraries(World Light Intersections Computations Lighting)
+
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)

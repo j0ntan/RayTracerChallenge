@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <scene/Computations.hpp>
 #include <scene/Intersection.hpp>
 #include <scene/Ray.hpp>
 #include <scene/Transformations.hpp>
@@ -58,4 +59,26 @@ TEST(intersectWorld, intersectDefaultWord) {
   ASSERT_EQ(xs[1].time(), 4.5);
   ASSERT_EQ(xs[2].time(), 5.5);
   ASSERT_EQ(xs[3].time(), 6);
+}
+
+TEST(Shading, shadeAnIntersection) {
+  auto w = default_world();
+  auto r = Ray{Point{0, 0, -5}, Vector{0, 0, 1}};
+  auto shape = w.objects().back();
+  auto i = Intersection(4, shape);
+  auto comps = prepare_computations(i, r);
+  Color c = shade_hit(w, comps);
+  ASSERT_EQ(c, (Color{.38066, .47583, .2855}));
+}
+
+TEST(Shading, shadeAnIntersectionFromInside) {
+  auto w = default_world();
+  w.clear_light_sources();
+  w.add_light_source(Light{Point{0, .25, 0}, Color{1, 1, 1}});
+  auto r = Ray{Point{0, 0, 0}, Vector{0, 0, 1}};
+  auto shape = w.objects().front();
+  auto i = Intersection(.5, shape);
+  auto comps = prepare_computations(i, r);
+  Color c = shade_hit(w, comps);
+  ASSERT_EQ(c, (Color{.90498, .90498, .90498}));
 }
