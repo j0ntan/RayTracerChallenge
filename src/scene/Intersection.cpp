@@ -5,7 +5,7 @@ Intersection::Intersection(const double t, const Sphere &sphere)
 
 double Intersection::time() const { return t; }
 
-const Sphere &Intersection::object() { return *obj; }
+const Sphere &Intersection::object() const { return *obj; }
 
 bool Intersection::operator==(const Intersection &rhs) const {
   return t == rhs.t && obj == rhs.obj;

@@ -8,7 +8,7 @@ public:
   explicit Intersection(const double t, const Sphere &sphere);
 
   double time() const;
-  const Sphere &object();
+  const Sphere &object() const;
 
   bool operator==(const Intersection &rhs) const;
   bool operator!=(const Intersection &rhs) const;
