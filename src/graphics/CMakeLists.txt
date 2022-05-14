@@ -11,7 +11,7 @@ add_library(Canvas Canvas.cpp)
 target_link_libraries(Canvas Color PPM)
 
 add_library(Camera Camera.cpp)
-target_include_directories(Camera PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(Camera Matrix)
 
 # Tests
 add_executable(test_Pixel Pixel.test.cpp)
