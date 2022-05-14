@@ -26,7 +26,7 @@ add_library(World World.cpp)
 target_link_libraries(World Light Sphere Intersections)
 
 add_library(Computations Computations.cpp)
-target_link_libraries(Computations Point Sphere Vector)
+target_link_libraries(Computations Point Sphere Vector Intersection)
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)
@@ -57,4 +57,4 @@ add_executable(test_World World.test.cpp)
 target_link_libraries(test_World World gtest_main)
 
 add_executable(test_Computations Computations.test.cpp)
-target_link_libraries(test_Computations Computations gtest_main)
+target_link_libraries(test_Computations Point Ray Computations gtest_main)

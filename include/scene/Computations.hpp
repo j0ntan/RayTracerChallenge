@@ -3,6 +3,8 @@
 
 #include <math/Point.hpp>
 #include <math/Vector.hpp>
+#include <scene/Intersection.hpp>
+#include <scene/Ray.hpp>
 #include <scene/Sphere.hpp>
 
 struct Computations {
@@ -12,5 +14,8 @@ struct Computations {
   Vector eyev;
   Vector normalv;
 };
+
+Computations prepare_computations(const Intersection &intersection,
+                                  const Ray &ray);
 
 #endif
