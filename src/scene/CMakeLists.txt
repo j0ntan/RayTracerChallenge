@@ -29,7 +29,7 @@ add_library(World World.cpp)
 target_link_libraries(World Light Intersections Computations Lighting)
 
 add_library(View View.cpp)
-target_include_directories(View PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(View Point Vector Transformations)
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)
