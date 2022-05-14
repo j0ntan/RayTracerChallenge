@@ -15,6 +15,7 @@ public:
   std::vector<Light> light_sources() const;
 
   void add_sphere(const Sphere &s);
+  void clear_spheres();
 
   void add_light_source(const Light &l);
   void clear_light_sources();
@@ -27,5 +28,6 @@ private:
 World default_world();
 std::vector<Intersection> intersect_world(const World &world, const Ray &ray);
 Color shade_hit(const World &world, const Computations &computations);
+Color color_at(const World &world, const Ray &ray);
 
 #endif

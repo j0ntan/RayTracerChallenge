@@ -82,3 +82,35 @@ TEST(Shading, shadeAnIntersectionFromInside) {
   Color c = shade_hit(w, comps);
   ASSERT_EQ(c, (Color{.90498, .90498, .90498}));
 }
+
+TEST(ColorAt, colorForMiss) {
+  auto w = default_world();
+  auto r = Ray{Point{0, 0, -5}, Vector{0, 1, 0}};
+  Color c = color_at(w, r);
+  ASSERT_EQ(c, (Color{}));
+}
+
+TEST(ColorAt, colorOnHit) {
+  auto w = default_world();
+  auto r = Ray{Point{0, 0, -5}, Vector{0, 0, 1}};
+  Color c = color_at(w, r);
+  ASSERT_EQ(c, (Color{.38066, .47583, .2855}));
+}
+
+TEST(ColorAt, colorWithIntersectionBehindRay) {
+  auto w = default_world();
+  auto outer = w.objects().back();
+  auto outer_material = outer.material();
+  outer_material.ambient = 1;
+  outer.set_material(outer_material);
+  auto inner = w.objects().front();
+  auto inner_material = inner.material();
+  inner_material.ambient = 1;
+  inner.set_material(inner_material);
+  w.clear_spheres();
+  w.add_sphere(inner);
+  w.add_sphere(outer);
+  auto r = Ray{Point{0, 0, .75}, Vector{0, 0, -1}};
+  Color c = color_at(w, r);
+  ASSERT_EQ(c, inner.material().color);
+}
