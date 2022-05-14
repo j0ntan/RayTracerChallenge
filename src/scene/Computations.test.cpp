@@ -13,6 +13,7 @@ TEST(Computations, hasComponents) {
   Point point = computations.point;
   Vector eye = computations.eyev;
   Vector normal = computations.normalv;
+  bool inside = computations.inside;
 }
 
 bool operator==(const Sphere &lhs, const Sphere &rhs) {
@@ -30,5 +31,24 @@ TEST(Precompute, precomputeStateOfIntersection) {
   ASSERT_EQ(*comps.object, i.object());
   ASSERT_EQ(comps.point, (Point{0, 0, -1}));
   ASSERT_EQ(comps.eyev, (Vector{0, 0, -1}));
+  ASSERT_EQ(comps.normalv, (Vector{0, 0, -1}));
+}
+
+TEST(Precompute, intersectsOnOutside) {
+  auto r = Ray(Point{0, 0, -5}, Vector{0, 0, 1});
+  auto shape = Sphere();
+  auto i = Intersection(4, shape);
+  auto comps = prepare_computations(i, r);
+  ASSERT_FALSE(comps.inside);
+}
+
+TEST(Precompute, intersectsOnInside) {
+  auto r = Ray(Point{0, 0, 0}, Vector{0, 0, 1});
+  auto shape = Sphere();
+  auto i = Intersection(1, shape);
+  auto comps = prepare_computations(i, r);
+  ASSERT_EQ(comps.point, (Point{0, 0, 1}));
+  ASSERT_EQ(comps.eyev, (Vector{0, 0, -1}));
+  ASSERT_TRUE(comps.inside);
   ASSERT_EQ(comps.normalv, (Vector{0, 0, -1}));
 }

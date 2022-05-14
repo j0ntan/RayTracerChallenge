@@ -13,6 +13,7 @@ struct Computations {
   Point point;
   Vector eyev;
   Vector normalv;
+  bool inside;
 };
 
 Computations prepare_computations(const Intersection &intersection,
