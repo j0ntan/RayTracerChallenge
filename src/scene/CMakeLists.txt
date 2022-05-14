@@ -28,6 +28,8 @@ target_link_libraries(Computations Point Sphere Vector Intersection)
 add_library(World World.cpp)
 target_link_libraries(World Light Intersections Computations Lighting)
 
+add_library(View View.cpp)
+target_include_directories(View PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)
@@ -59,3 +61,6 @@ target_link_libraries(test_World World gtest_main)
 
 add_executable(test_Computations Computations.test.cpp)
 target_link_libraries(test_Computations Point Ray Computations gtest_main)
+
+add_executable(test_View View.test.cpp)
+target_link_libraries(test_View View gtest_main)
