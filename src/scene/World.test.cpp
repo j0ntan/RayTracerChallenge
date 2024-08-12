@@ -114,3 +114,31 @@ TEST(ColorAt, colorWithIntersectionBehindRay) {
   Color c = color_at(w, r);
   ASSERT_EQ(c, inner.material().color);
 }
+
+TEST(AddingShadows, callShadowDetectFunction) {
+  bool result = is_shadowed(default_world(), Point());
+}
+
+TEST(AddingShadows, noShadowWhenNothingInBetween) {
+  auto w = default_world();
+  auto p = Point(0, 10, 0);
+  ASSERT_FALSE(is_shadowed(w, p));
+}
+
+TEST(AddingShadows, shadowCastOnPointBehindObject) {
+  auto w = default_world();
+  auto p = Point(10, -10, 10);
+  ASSERT_TRUE(is_shadowed(w, p));
+}
+
+TEST(AddingShadows, noShadowWhenBehindTheLight) {
+  auto w = default_world();
+  auto p = Point(-20, 20, -20);
+  ASSERT_FALSE(is_shadowed(w, p));
+}
+
+TEST(AddingShadows, noShadowWhenObjectBehindPoint) {
+  auto w = default_world();
+  auto p = Point(-2, 2, -2);
+  ASSERT_FALSE(is_shadowed(w, p));
+}

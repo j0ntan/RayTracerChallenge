@@ -30,4 +30,6 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray);
 Color shade_hit(const World &world, const Computations &computations);
 Color color_at(const World &world, const Ray &ray);
 
+bool is_shadowed(const World &world, const Point &point);
+
 #endif

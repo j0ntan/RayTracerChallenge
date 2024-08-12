@@ -70,3 +70,16 @@ Color color_at(const World &world, const Ray &ray) {
 
   return color;
 }
+
+bool is_shadowed(const World &world, const Point &point) {
+  auto v = world.light_sources().front().position - point;
+  auto distance = v.magnitude();
+  auto direction = v.normalize();
+
+  auto r = Ray(point, direction);
+  auto intersections = intersect_world(world, r);
+
+  auto h = hit(intersections);
+
+  return h.has_value() && (h->time() < distance);
+}
