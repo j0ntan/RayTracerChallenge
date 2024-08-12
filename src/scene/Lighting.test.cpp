@@ -58,3 +58,23 @@ TEST_F(Lighting_F, lightBehindTheSurface) {
                          surface_normal);
   ASSERT_EQ(result, Color(0.1, 0.1, 0.1));
 }
+
+TEST_F(Lighting_F, acceptShadowParameter) {
+  auto eyev = Vector(0, 0, -1);
+  auto light = Light(Point(0, 0, -10), light_color);
+  const bool IN_SHADOW = true;
+  auto result = lighting(default_material, light, illuminated, eyev,
+                         surface_normal, IN_SHADOW);
+}
+
+TEST_F(Lighting_F, includeShadowEffectForLighting) {
+  auto eyev = Vector(0, 0, -1);
+  auto normalv = Vector(0, 0, -1);
+  auto light = Light(Point(0, 0, -10), light_color);
+  const bool IN_SHADOW = true;
+  auto result = lighting(default_material, light, illuminated, eyev,
+                         surface_normal, IN_SHADOW);
+  ASSERT_EQ(result, Color(0.1,0.1,0.1));
+}
+/*
+*/

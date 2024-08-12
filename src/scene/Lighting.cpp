@@ -3,7 +3,7 @@
 
 Color lighting(const Material &surface_mat, const Light &source,
                const Point &illuminated, const Vector &eye,
-               const Vector &surface_norm) {
+               const Vector &surface_norm, bool in_shadow) {
   Color ambient, diffuse, specular; // defaulted to black
 
   const auto EFFECTIVE_COLOR = surface_mat.color * source.intensity;
@@ -24,5 +24,5 @@ Color lighting(const Material &surface_mat, const Light &source,
                  pow(REFLECTION_PROJECTION, surface_mat.shininess);
   }
 
-  return ambient + diffuse + specular;
+  return in_shadow ? ambient : ambient + diffuse + specular;
 }
