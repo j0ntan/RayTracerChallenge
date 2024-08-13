@@ -1,4 +1,5 @@
 #include <scene/Computations.hpp>
+#include <utility/Float_compare.hpp>
 
 Computations prepare_computations(const Intersection &intersection,
                                   const Ray &ray) {
@@ -15,6 +16,8 @@ Computations prepare_computations(const Intersection &intersection,
     comps.normalv = -comps.normalv;
   } else
     comps.inside = false;
+
+  comps.over_point = comps.point + comps.normalv * EPSILON;
 
   return comps;
 }

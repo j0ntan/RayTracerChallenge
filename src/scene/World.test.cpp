@@ -83,6 +83,20 @@ TEST(Shading, shadeAnIntersectionFromInside) {
   ASSERT_EQ(c, (Color{.90498, .90498, .90498}));
 }
 
+TEST(Shading, shadeAnIntersectionInShadow) {
+  World w;
+  w.add_light_source(Light(Point(0, 0, -10), Color(1, 1, 1)));
+  Sphere s1, s2;
+  w.add_sphere(s1);
+  s2.set_transformation(translate(0, 0, 10));
+  w.add_sphere(s2);
+  auto r = Ray{Point{0, 0, 5}, Vector{0, 0, 1}};
+  auto i = Intersection(4, s2);
+  auto comps = prepare_computations(i, r);
+  Color c = shade_hit(w, comps);
+  ASSERT_EQ(c, Color(0.1, 0.1, 0.1));
+}
+
 TEST(ColorAt, colorForMiss) {
   auto w = default_world();
   auto r = Ray{Point{0, 0, -5}, Vector{0, 1, 0}};

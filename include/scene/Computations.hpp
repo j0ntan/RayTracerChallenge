@@ -11,6 +11,7 @@ struct Computations {
   double t;
   const Sphere *object;
   Point point;
+  Point over_point;
   Vector eyev;
   Vector normalv;
   bool inside;

@@ -1,8 +1,10 @@
 #include <gtest/gtest.h>
 #include <math/Point.hpp>
+#include <utility/Float_compare.hpp>
 #include <scene/Computations.hpp>
 #include <scene/Intersections.hpp>
 #include <scene/Ray.hpp>
+#include <scene/Transformations.hpp>
 
 TEST(Computations, createDefault) { Computations computations; }
 
@@ -51,4 +53,14 @@ TEST(Precompute, intersectsOnInside) {
   ASSERT_EQ(comps.eyev, (Vector{0, 0, -1}));
   ASSERT_TRUE(comps.inside);
   ASSERT_EQ(comps.normalv, (Vector{0, 0, -1}));
+}
+
+TEST(Offset, hitShouldOffsetPoint) {
+  auto r = Ray(Point{0, 0, -5}, Vector{0, 0, 1});
+  Sphere shape;
+  shape.set_transformation(translate(0, 0, 1));
+  auto i = Intersection(5, shape);
+  auto comps = prepare_computations(i, r);
+  ASSERT_LT(comps.over_point.z(), -EPSILON / 2);
+  ASSERT_GT(comps.point.z(), comps.over_point.z());
 }
