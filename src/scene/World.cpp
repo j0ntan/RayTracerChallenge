@@ -50,9 +50,11 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray) {
 }
 
 Color shade_hit(const World &world, const Computations &computations) {
+  const auto SHADOWED = is_shadowed(world, computations.over_point);
+
   return lighting(computations.object->material(),
                   world.light_sources().front(), computations.point,
-                  computations.eyev, computations.normalv);
+                  computations.eyev, computations.normalv, SHADOWED);
 }
 
 Color color_at(const World &world, const Ray &ray) {
