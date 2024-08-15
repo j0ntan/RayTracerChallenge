@@ -15,16 +15,21 @@ target_link_libraries(Camera Matrix Ray World Canvas)
 
 # Tests
 add_executable(test_Pixel Pixel.test.cpp)
-target_link_libraries(test_Pixel Pixel gtest_main)
+target_link_libraries(test_Pixel Pixel GTest::gtest_main)
+gtest_discover_tests(test_Pixel)
 
 add_executable(test_Color Color.test.cpp)
-target_link_libraries(test_Color Color gtest_main)
+target_link_libraries(test_Color Color GTest::gtest_main)
+gtest_discover_tests(test_Color)
 
 add_executable(test_PPM PPM.test.cpp)
-target_link_libraries(test_PPM PPM gtest_main)
+target_link_libraries(test_PPM PPM GTest::gtest_main)
+gtest_discover_tests(test_PPM)
 
 add_executable(test_Canvas Canvas.test.cpp)
-target_link_libraries(test_Canvas Canvas gtest_main)
+target_link_libraries(test_Canvas Canvas GTest::gtest_main)
+gtest_discover_tests(test_Canvas)
 
 add_executable(test_Camera Camera.test.cpp)
-target_link_libraries(test_Camera Camera Transformations View gtest_main)
+target_link_libraries(test_Camera Camera Transformations View GTest::gtest_main)
+gtest_discover_tests(test_Camera)

@@ -4,6 +4,9 @@ project(RayTracerChallenge LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include(CTest)
+enable_testing()
+
 # Download googletest & add to project
 include(FetchContent)
 FetchContent_Declare(googletest
