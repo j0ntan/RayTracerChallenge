@@ -1,21 +1,18 @@
-#include <cmath>
 #include <math/Vector.hpp>
-#include <utility/Float_compare.hpp>
-
-Vector::Vector() : Tuple<4>{0, 0, 0, 0} {}
 
 Vector::Vector(double x, double y, double z) : Tuple<4>{x, y, z, 0} {}
 
 Vector::Vector(const Tuple<3> &values)
-    : Tuple<4>{values.elements[0], values.elements[1], values.elements[2], 0} {}
+    : Vector{values[0], values[1], values[2]} {}
 
 Vector::Vector(const Tuple<4> &values)
-    : Tuple<4>{values.elements[0], values.elements[1], values.elements[2], 0} {}
+    : Vector{values[0], values[1], values[2]} {}
 
-Vector &Vector::operator=(const Vector &rhs) {
-  elements = rhs.elements;
-  return *this;
+double Vector::magnitude() const {
+  return std::sqrt(inner_product(*this, *this));
 }
+
+Vector Vector::normalize() const { return *this / magnitude(); }
 
 double &Vector::x() { return elements[0]; }
 
@@ -29,20 +26,18 @@ double Vector::y() const { return elements[1]; }
 
 double Vector::z() const { return elements[2]; }
 
-double Vector::magnitude() const {
-  return std::sqrt(inner_product(*this, *this));
+Point operator+(const Vector &displacement, const Point &point) {
+  return Point(static_cast<Tuple<4>>(displacement) +
+               static_cast<Tuple<4>>(point));
 }
 
-Vector Vector::normalize() const { return *this / magnitude(); }
-
-Point operator+(const Vector &lhs, const Point &rhs) {
-  return Point(static_cast<Tuple<4>>(lhs) + static_cast<Tuple<4>>(rhs));
+Point operator+(const Point &point, const Vector &displacement) {
+  return displacement + point;
 }
 
-Point operator+(const Point &lhs, const Vector &rhs) { return rhs + lhs; }
-
-Point operator-(const Point &lhs, const Vector &rhs) {
-  return Point(static_cast<Tuple<4>>(lhs) - static_cast<Tuple<4>>(rhs));
+Point operator-(const Point &point, const Vector &displacement) {
+  return Point(static_cast<Tuple<4>>(point) -
+               static_cast<Tuple<4>>(displacement));
 }
 
 Vector operator+(const Vector &lhs, const Vector &rhs) {
@@ -53,22 +48,24 @@ Vector operator-(const Vector &vector) {
   return Vector(-(static_cast<Tuple<4>>(vector)));
 }
 
-Vector operator-(const Point &lhs, const Point &rhs) {
-  return Vector(static_cast<Tuple<4>>(lhs) - static_cast<Tuple<4>>(rhs));
+Vector operator-(const Point &p1, const Point &p2) {
+  return Vector(static_cast<Tuple<4>>(p1) - static_cast<Tuple<4>>(p2));
 }
 
 Vector operator-(const Vector &lhs, const Vector &rhs) {
   return Vector(static_cast<Tuple<4>>(lhs) - static_cast<Tuple<4>>(rhs));
 }
 
-Vector operator*(const Vector &lhs, double rhs) {
-  return Vector(static_cast<Tuple<4>>(lhs) * rhs);
+Vector operator*(const Vector &vector, double scalar) {
+  return Vector(static_cast<Tuple<4>>(vector) * scalar);
 }
 
-Vector operator*(double lhs, const Vector &rhs) { return rhs * lhs; }
+Vector operator*(double scalar, const Vector &vector) {
+  return vector * scalar;
+}
 
-Vector operator/(const Vector &lhs, double rhs) {
-  return Vector(static_cast<Tuple<4>>(lhs) / rhs);
+Vector operator/(const Vector &vector, double scalar) {
+  return Vector(static_cast<Tuple<4>>(vector) / scalar);
 }
 
 double dot(const Vector &lhs, const Vector &rhs) {
