@@ -1,34 +1,38 @@
 #include <gtest/gtest.h>
+
 #include <math/Tuple.hpp>
 
-TEST(Tuple, defaultConstruct) { Tuple<> t; }
+TEST(TupleConstructor, callConstructor) { Tuple<> t; }
 
-TEST(Tuple, initializeWithNonZeroSize) { Tuple<3> t; }
+TEST(TupleConstructor, initializeWithNonZeroSize) { Tuple<3> t; }
 
-TEST(Tuple, accessElements) { Tuple<3>().elements; }
+TEST(TupleElements, accessMember) {
+  Tuple<3> t;
+  std::array<double, 3> &elements = t.elements;
+}
 
-TEST(Tuple, initializeWithList) { Tuple<3> t = {1, 2, 3}; }
+TEST(TupleListConstructor, initializeWithList) { Tuple<3> t = {1, 2, 3}; }
 
-TEST(Tuple, matchValuesInInitializationList) {
+TEST(TupleListConstructor, matchValuesInList) {
   Tuple<3> t = {1, 2, 3};
   ASSERT_FLOAT_EQ(t.elements[0], 1);
   ASSERT_FLOAT_EQ(t.elements[1], 2);
   ASSERT_FLOAT_EQ(t.elements[2], 3);
 }
 
-TEST(Tuple, makeUninitializedElementsDefaultToZero) {
+TEST(TupleListConstructor, checkUninitializedElementsDefaultToZero) {
   const Tuple<3> ct = {1.1};
   ASSERT_FLOAT_EQ(ct.elements[0], 1.1);
   ASSERT_FLOAT_EQ(ct.elements[1], 0);
   ASSERT_FLOAT_EQ(ct.elements[2], 0);
 }
 
-TEST(Tuple, initializeWithArray) {
+TEST(TupleArrayConstructor, initializeWithArray) {
   std::array<double, 3> values = {1, 2, 3};
   Tuple<3> t(values);
 }
 
-TEST(Tuple, matchValuesInInitializationArray) {
+TEST(TupleArrayConstructor, matchValuesInInitializationArray) {
   std::array<double, 3> values = {1, 2, 3};
   Tuple<3> t(values);
   ASSERT_FLOAT_EQ(t.elements[0], 1);
@@ -36,113 +40,131 @@ TEST(Tuple, matchValuesInInitializationArray) {
   ASSERT_FLOAT_EQ(t.elements[2], 3);
 }
 
-TEST(Tuple, accessElementsOperator) {
-  const Tuple<3> ct = {1, 2, 3};
-  const double first = ct[0];
-  const double second = ct[1];
-  const double third = ct[2];
+TEST(TupleAccessOperator, callOperator) {
+  Tuple<1> t;
+  double value = t[0];
 }
 
-TEST(Tuple, matchAccessedElementsWithInitializationValues) {
+TEST(TupleAccessOperator, matchAccessedWithInitialization) {
   const Tuple<3> ct = {1.1, 2.2, 3.3};
   ASSERT_FLOAT_EQ(ct[0], 1.1);
   ASSERT_FLOAT_EQ(ct[1], 2.2);
   ASSERT_FLOAT_EQ(ct[2], 3.3);
 }
 
-TEST(Tuple, rewriteAccessedElement) {
+TEST(TupleAccessOperator, rewriteAccessedElement) {
   Tuple<3> t = {1, 2, 3};
   t[0] = 123.123;
   ASSERT_FLOAT_EQ(t[0], 123.123);
 }
 
-TEST(Tuple, compareForEquality) { Tuple<3>() == Tuple<3>(); }
+TEST(TupleEqualityOperator, callOperator) {
+  Tuple<> t;
+  bool result = t == t;
+}
 
-TEST(Tuple, equalToSelf) {
+TEST(TupleEqualityOperator, equalToSelf) {
   Tuple<> t;
   ASSERT_TRUE(t == t);
 }
 
-TEST(Tuple, equalToCopy) {
-  Tuple<1> t1, t2(t1);
+TEST(TupleEqualityOperator, notEqualToDifferentTuple) {
+  Tuple<1> t1{1}, t2{2};
+  ASSERT_FALSE(t1 == t2);
+}
+
+TEST(TupleEqualityOperator, equalToVerySimilarTuple) {
+  Tuple<1> t1{1.0}, t2{1.000001};
   ASSERT_TRUE(t1 == t2);
 }
 
-TEST(Tuple, notEqualToDifferentTuple) {
-  ASSERT_FALSE(Tuple<1>{1} == Tuple<1>{2});
+TEST(TupleInequalityOperator, callOperator) {
+  Tuple<1> a;
+  a != a;
 }
 
-TEST(Tuple, equalToVerySimilarTuple) {
-  ASSERT_TRUE(Tuple<1>{1.} == Tuple<1>{1.000001});
+TEST(TupleInequalityOperator, checkInverseOfEqualityTests) {
+  Tuple<2> t1{123, 456}, t2{0.1, 0.2}, t3{0.100001, 0.2000001};
+  ASSERT_FALSE(t1 != t1); // compare with self
+  ASSERT_TRUE(t1 != t2);  // compare with other & different
+  ASSERT_FALSE(t2 != t3); // compare with very similar, effectively same
 }
 
-TEST(Tuple, addTwoTuples) { Tuple<3>() + Tuple<3>(); }
-
-TEST(Tuple, getTuplefromTupleAddition) { Tuple<3> t = Tuple<3>() + Tuple<3>(); }
-
-TEST(Tuple, addingTuplesAddsElements) {
-  Tuple<2> t1 = {1.1, 2.2};
-  Tuple<2> t2 = {3.3, 4.4};
-  ASSERT_EQ((Tuple<2>{4.4, 6.6}), t1 + t2);
+TEST(TupleAdditionOperator, callOperator) {
+  Tuple<1> t;
+  Tuple<1> result = t + t;
 }
 
-TEST(Tuple, subtractTwoTuples) { Tuple<3>() - Tuple<3>(); }
-
-TEST(Tuple, getTuplefromTupleSubtraction) {
-  Tuple<3> t = Tuple<3>() - Tuple<3>();
+TEST(TupleAdditionOperator, addElementValues) {
+  Tuple<2> t1 = {1.1, 2.2}, t2 = {3.3, 4.4}, expected = {4.4, 6.6};
+  ASSERT_EQ(t1 + t2, expected);
 }
 
-TEST(Tuple, subtractingTuplesSubtractsElements) {
-  Tuple<2> t1 = {1.1, 2.2};
-  Tuple<2> t2 = {3.3, 4.4};
-  ASSERT_EQ((Tuple<2>{2.2, 2.2}), t2 - t1);
+TEST(TupleSubtractionOperator, callOperator) {
+  Tuple<1> t;
+  Tuple<1> result = t - t;
 }
 
-TEST(Tuple, multiplyTwoTuples) { Tuple<3>() * Tuple<3>(); }
-
-TEST(Tuple, getTuplefromTupleMultiplication) {
-  Tuple<3> t = Tuple<3>() * Tuple<3>();
+TEST(TupleSubtractionOperator, subtractElementValues) {
+  Tuple<2> t1{1.1, 2.2}, t2{3.3, 4.4};
+  Tuple<2> expected1{2.2, 2.2}, expected2{-2.2, -2.2};
+  ASSERT_EQ(t2 - t1, expected1);
+  ASSERT_EQ(t1 - t2, expected2);
 }
 
-TEST(Tuple, multiplyingTuplesMultipliesElements) {
-  Tuple<2> t1 = {1.1, 2.2};
-  Tuple<2> t2 = {3.3, 4.4};
-  ASSERT_EQ((Tuple<2>{3.63, 9.68}), t2 * t1);
+TEST(TupleMultiplicationOperator, callOperator) {
+  Tuple<3> t;
+  Tuple<3> result = t * t;
 }
 
-TEST(Tuple, takeInnerProduct) {
-  const double result = inner_product(Tuple<3>(), Tuple<3>());
+TEST(TupleMultiplicationOperator, multiplyElementValues) {
+  Tuple<2> t1{1.1, 2.2}, t2{3.3, 4.4}, expected{3.63, 9.68};
+  ASSERT_EQ(t2 * t1, expected);
 }
 
-TEST(Tuple, calculateInnerProductValue) {
-  const Tuple<2> t1 = {1.1, 2.2};
-  const Tuple<2> t2 = {3.3, 4.4};
-  ASSERT_FLOAT_EQ(inner_product(t1, t2), 13.31);
+TEST(TupleInnerProduct, takeInnerProduct) {
+  Tuple<1> t;
+  const double result = inner_product(t, t);
 }
 
-TEST(Tuple, multiplyByScalar) { Tuple<>() * 1.; }
-
-TEST(Tuple, getTupleFromScalarMultiplication) { Tuple<3> t = Tuple<3>() * 1.; }
-
-TEST(Tuple, calculateScalarMultiplication) {
-  ASSERT_EQ((Tuple<3>{1, 2, 3} * 2.), (Tuple<3>{2, 4, 6}));
+TEST(TupleInnerProduct, checkInnerProductCalculation) {
+  const Tuple<2> t1 = {1.1, 2.2}, t2 = {3.3, 4.4};
+  double expected = 13.31;
+  ASSERT_FLOAT_EQ(inner_product(t1, t2), expected);
 }
 
-TEST(Tuple, multiplyScalarByTuple) {
-  Tuple<3> t = {1, 2, 3};
-  ASSERT_EQ(2 * t, t * 2);
+TEST(TupleScalarMultiplication, callOperator) {
+  Tuple<1> t;
+  Tuple<1> result = t * 1.0;
 }
 
-TEST(Tuple, divideByScalar) { Tuple<>() / 1.; }
-
-TEST(Tuple, getTupleFromScalarDivision) { Tuple<3> t = Tuple<3>() / 1.; }
-
-TEST(Tuple, calculateScalarDivision) {
-  ASSERT_EQ((Tuple<3>{12, 34, 56} / 2.), (Tuple<3>{6, 17, 28}));
+TEST(TupleScalarMultiplication, calculateScalarMultiplication) {
+  Tuple<3> t{1, 2, 3}, expected{2, 4, 6};
+  ASSERT_EQ(t * 2.0, expected);
 }
 
-TEST(Tuple, applyNegation) { -Tuple<>(); }
+TEST(TupleScalarMultiplication, checkCommutativeProperty) {
+  Tuple<3> t{1, 2, 3}, expected{2, 4, 6};
+  ASSERT_EQ(2.0 * t, expected);
+}
 
-TEST(Tuple, negateGivesAdditiveInverseOfElements) {
-  ASSERT_EQ((-Tuple<3>{1, 2, 3}), (Tuple<3>{-1, -2, -3}));
+TEST(TupleScalarDivision, callOperator) {
+  Tuple<1> t;
+  Tuple<1> result = t / 1.0;
+}
+
+TEST(TupleScalarDivision, checkDivisionResults) {
+  Tuple<3> t{12, 34, 56}, expected{6, 17, 28};
+  double divisor = 2.0;
+  ASSERT_EQ(t / divisor, expected);
+}
+
+TEST(TupleNegationOperator, callOperator) {
+  Tuple<1> t;
+  Tuple<1> result = -t;
+}
+
+TEST(TupleNegationOperator, checkNegatedElements) {
+  Tuple<3> t{1, 2, 3}, expected{-1, -2, -3};
+  ASSERT_EQ(-t, expected);
 }

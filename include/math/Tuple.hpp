@@ -88,6 +88,21 @@ bool operator==(const Tuple<n> &lhs, const Tuple<n> &rhs) {
 }
 
 /**
+ * @brief Overload the == operator
+ *
+ * Check Tuple for element-wise inequality.
+ *
+ * @tparam n Size of the Tuple
+ * @param lhs Left-hand side operand
+ * @param rhs Right-hand side operand
+ * @return true At least one pair of corresponding elements are different
+ */
+template <std::size_t n>
+bool operator!=(const Tuple<n> &lhs, const Tuple<n> &rhs) {
+  return !(lhs == rhs);
+}
+
+/**
  * @brief Overload the + operator
  *
  * Create a `Tuple` using the element-wise sum of two other `Tuple` objects.
