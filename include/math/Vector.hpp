@@ -64,6 +64,13 @@ struct Vector final : public Tuple<4> {
   explicit Vector(const Tuple<4> &values);
 
   /**
+   * @brief Construct a new `Vector` object as a copy of another `Vector`
+   *
+   * @param v Vector to be copied
+   */
+  Vector(const Vector &v) = default;
+
+  /**
    * @brief Overload for the assignment operator by default assignment
    *
    * @param rhs The `Vector` whose values are assigned to the caller
