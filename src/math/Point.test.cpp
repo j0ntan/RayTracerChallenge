@@ -1,59 +1,69 @@
 #include <gtest/gtest.h>
+
 #include <math/Point.hpp>
 
-TEST(Point, defaultConstruct) { Point p; }
+TEST(PointConstructor, callConstructor) { Point p; }
 
-TEST(Point, componentsDefaultedToZero) {
+TEST(PointAccessor, callAccessors) {
+  Point p;
+  double result_x = p.x();
+  double result_y = p.y();
+  double result_z = p.z();
+}
+
+TEST(PointConstructor, defaultValuesZeroed) {
   Point p;
   ASSERT_FLOAT_EQ(p.x(), 0.0);
   ASSERT_FLOAT_EQ(p.y(), 0.0);
   ASSERT_FLOAT_EQ(p.z(), 0.0);
 }
 
-TEST(Point, initialValueConstructed) {
+TEST(PointConstructor, takeInitialValues) { Point p(1.0, 2.0, 3.0); }
+
+TEST(PointConstructor, matchInitialValues) {
   Point p(1.0, 2.0, 3.0);
   ASSERT_FLOAT_EQ(p.x(), 1.0);
   ASSERT_FLOAT_EQ(p.y(), 2.0);
   ASSERT_FLOAT_EQ(p.z(), 3.0);
 }
 
-TEST(Point, copyConstruct) {
-  Point p1(1.0, 2.0, 3.0);
-  Point p2(p1);
+TEST(PointConstructor, copyConstruct) {
+  Point p1(1.0, 2.0, 3.0), p2(p1);
   ASSERT_FLOAT_EQ(p1.x(), p2.x());
   ASSERT_FLOAT_EQ(p1.y(), p2.y());
   ASSERT_FLOAT_EQ(p1.z(), p2.z());
 }
 
-TEST(Point, equalToSelf) {
+TEST(PointEqualityOperator, equalToSelf) {
   Point p;
   ASSERT_TRUE(p == p);
 }
 
-TEST(Point, equalToCopy) {
+TEST(PointEqualityOperator, equalToCopy) {
   Point p1, p2(p1);
   ASSERT_TRUE(p1 == p2);
 }
 
-TEST(Point, notEqualToDifferentPoint) {
+TEST(PointEqualityOperator, notEqualToDifferentPoint) {
   Point p1, p2(1.0, 2.0, 3.0);
   ASSERT_FALSE(p1 == p2);
 }
 
-TEST(Point, equalToVeryNearPoint) {
+TEST(PointEqualityOperator, equalToVeryNearPoint) {
   Point p1, p2(0.0, 0.0, 0.000001);
   ASSERT_TRUE(p1 == p2);
 }
 
-TEST(Point, changeCoordinates) {
+TEST(PointAccessor, changeCoordinates) {
   Point p;
   p.x() = 1.0;
   p.y() = 2.0;
   p.z() = 3.0;
 }
 
-TEST(Point, assignFromPoint) {
+TEST(PointAssignmentOperator, assignFromPoint) {
   Point p1, p2(1.0, 2.0, 3.0);
+  ASSERT_NE(p1, p2);
   p1 = p2;
   ASSERT_EQ(p1, p2);
 }

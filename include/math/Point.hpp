@@ -26,6 +26,13 @@ struct Point final : public Tuple<4> {
   Point(double x, double y, double z);
 
   /**
+   * @brief Construct a new Point object as a copy of another Point
+   *
+   * @param p Point to be copied
+   */
+  Point(const Point &p) = default;
+
+  /**
    * @brief Construct a new Point object with a Tuple containing initial values
    *
    * @param values Initial values
