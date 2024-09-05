@@ -15,7 +15,7 @@ TEST(Camera, constructCamera) {
   ASSERT_EQ(c.hsize, hsize);
   ASSERT_EQ(c.vsize, vsize);
   ASSERT_EQ(c.field_of_view, field_of_view);
-  ASSERT_EQ(c.transform, identity);
+  ASSERT_EQ(c.transform, IDENTITY);
 }
 
 TEST(Camera, pixelSizeForHorizontalCanvas) {

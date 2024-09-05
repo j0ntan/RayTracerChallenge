@@ -54,7 +54,7 @@ int main() {
   const auto SHRINK_AND_SKEW = shear(1, 0, 0, 0, 0, 0) * scale(0.5, 1, 1);
 
   Sphere sphere;
-  sphere.set_transformation(identity);
+  sphere.set_transformation(IDENTITY);
 
   const Scene SCENE = {Point(0, 0, -5), sphere, 10};
 

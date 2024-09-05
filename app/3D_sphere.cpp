@@ -76,7 +76,7 @@ int main() {
 
   Sphere sphere;
   sphere.set_material(material);
-  sphere.set_transformation(identity);
+  sphere.set_transformation(IDENTITY);
 
   const Scene SCENE = {Point(0, 0, -5), sphere, 10,
                        Light(Point(-10, 10, -10), Color(1, 1, 1))};

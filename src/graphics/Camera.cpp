@@ -3,7 +3,7 @@
 
 Camera::Camera(std::size_t hsize, std::size_t vsize, double field_of_view)
     : hsize{hsize}, vsize{vsize}, field_of_view{field_of_view}, transform{
-                                                                    identity} {
+                                                                    IDENTITY} {
   auto half_view = tan(field_of_view / 2);
   auto aspect = static_cast<double>(hsize) / vsize;
 

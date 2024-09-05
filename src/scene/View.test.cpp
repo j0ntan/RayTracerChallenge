@@ -7,7 +7,7 @@ TEST(ViewTransform, defaultOrientation) {
   auto to = Point(0, 0, -1);
   auto up = Vector(0, 1, 0);
   auto t = view_transform(from, to, up);
-  ASSERT_EQ(t, identity);
+  ASSERT_EQ(t, IDENTITY);
 }
 
 TEST(ViewTransform, inPositiveZDirection) {

@@ -51,7 +51,7 @@ TEST(Sphere, transformationIsMatrix) {
 
 TEST(Sphere, defaultTransformationIsIdentity) {
   Sphere s;
-  ASSERT_EQ(s.transformation(), identity);
+  ASSERT_EQ(s.transformation(), IDENTITY);
 }
 
 TEST(Sphere, setTransformationMatrix) {

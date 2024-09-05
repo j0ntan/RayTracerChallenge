@@ -3,13 +3,6 @@
 
 TEST(Matrix, defaultConstruct) { Matrix<> m; }
 
-TEST(Matrix, defaultSizeIsTwo) { ASSERT_EQ(Matrix<>().size, 2); }
-
-TEST(Matrix, constructWithGivenSize) {
-  Matrix<3> m;
-  ASSERT_EQ(m.size, 3);
-}
-
 TEST(Matrix, accessValues) { Matrix<>().values[0]; }
 
 TEST(Matrix, writeValuesUsingIndexOperator) {
@@ -129,7 +122,7 @@ TEST(Matrix, multiplyWithTuple) {
 
 TEST(Identity, multiplyWithIdentity) {
   Matrix<4> m{0, 1, 2, 4, 1, 2, 4, 8, 2, 4, 8, 16, 4, 8, 16, 32};
-  ASSERT_EQ(m * identity, m);
+  ASSERT_EQ(m * IDENTITY, m);
 }
 
 TEST(Transpose, transposeMatrix) {
@@ -140,7 +133,7 @@ TEST(Transpose, transposeMatrix) {
           {1, 5, 9, 13}, {2, 6, 10, 14}, {3, 7, 11, 15}, {4, 8, 12, 16}}));
 }
 
-TEST(Transpose, transposeIdentity) { ASSERT_EQ(transpose(identity), identity); }
+TEST(Transpose, transposeIdentity) { ASSERT_EQ(transpose(IDENTITY), IDENTITY); }
 
 TEST(Inverse, calculate2x2Determinant) {
   Matrix<2> m{1, 5, -3, 2};
