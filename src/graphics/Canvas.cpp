@@ -3,14 +3,14 @@
 #include <graphics/Canvas.hpp>
 #include <string>
 
-Canvas::Canvas(size_t width, size_t height)
-    : width{width}, height{height}, pixels{std::vector<std::vector<Color>>(
-                                        height,
-                                        std::vector<Color>(width, Color()))} {}
+Canvas::Canvas(std::size_t width, std::size_t height)
+    : width{width}, height{height},
+      pixels{std::vector<std::vector<Color>>(
+          height, std::vector<Color>(width, Color()))} {}
 
-Color Canvas::pixel(size_t x, size_t y) const { return pixels[y][x]; }
+Color Canvas::pixel(std::size_t x, std::size_t y) const { return pixels[y][x]; }
 
-void Canvas::write(size_t x, size_t y, const Color &color) {
+void Canvas::write(std::size_t x, std::size_t y, const Color &color) {
   pixels[y][x] = color;
 }
 

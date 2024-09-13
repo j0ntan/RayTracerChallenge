@@ -1,24 +1,60 @@
-#ifndef CANVAS_HPP
-#define CANVAS_HPP
+#pragma once
+
+#include <cstddef>
+#include <vector>
 
 #include "Color.hpp"
 #include "PPM.hpp"
-#include <vector>
 
+/**
+ * @brief Represents a digital canvas that holds the colors for our ray tracer
+ * image
+ *
+ */
 class Canvas {
 public:
-  Canvas(size_t width, size_t height);
+  /**
+   * @brief Construct a new `Canvas` object
+   *
+   * @param width canvas width
+   * @param height canvas height
+   */
+  Canvas(std::size_t width, std::size_t height);
 
-  Color pixel(size_t x, size_t y) const;
-  void write(size_t x, size_t y, const Color &color);
+  /**
+   * @brief Access the pixel with the given `x` and `y` canvas coordinates
+   *
+   * @param x x-coordinate in range [0, width)
+   * @param y y-coordinate in range [0, height)
+   * @return Color The pixel color at the given xy-coordinates
+   */
+  Color pixel(std::size_t x, std::size_t y) const;
 
+  /**
+   * @brief Write a pixel value to the canvas
+   *
+   * @param x x-coordinate in range [0, width)
+   * @param y y-coordinate in range [0, height)
+   * @param color Color of the pixel value to be written
+   */
+  void write(std::size_t x, std::size_t y, const Color &color);
+
+  // to be removed
   PPM to_PPM(const MagicIdentifier &id) const;
+
+  // to be removed
   void write_PPM(const char *filename, const MagicIdentifier &id) const;
 
-  const size_t width, height;
+  /**
+   * @brief Publicly accessible width & height of the canvas
+   *
+   */
+  const std::size_t width, height;
 
 private:
+  /**
+   * @brief 2D-array containing the pixel values that make up the canvas
+   *
+   */
   std::vector<std::vector<Color>> pixels;
 };
-
-#endif
