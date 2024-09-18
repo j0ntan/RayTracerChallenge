@@ -1,6 +1,10 @@
 add_library(Pixel Pixel.cpp)
 target_include_directories(Pixel PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
+add_library(PPM_helper PPM_helper.cpp)
+target_include_directories(PPM_helper INTERFACE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(PPM_helper Canvas)
+
 add_library(PPM PPM.cpp)
 target_link_libraries(PPM Pixel)
 
@@ -21,6 +25,10 @@ gtest_discover_tests(test_Pixel)
 add_executable(test_Color Color.test.cpp)
 target_link_libraries(test_Color Color GTest::gtest_main)
 gtest_discover_tests(test_Color)
+
+add_executable(test_PPM_helper PPM_helper.test.cpp)
+target_link_libraries(test_PPM_helper PPM_helper GTest::gtest_main)
+gtest_discover_tests(test_PPM_helper)
 
 add_executable(test_PPM PPM.test.cpp)
 target_link_libraries(test_PPM PPM GTest::gtest_main)
