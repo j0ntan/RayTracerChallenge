@@ -74,5 +74,5 @@ int main() {
       view_transform(Point{0, 1.5, -5}, Point{0, 1, 0}, Vector{0, 1, 0});
 
   auto canvas = render(camera, world);
-  canvas.write_PPM("3_spheres", MagicIdentifier::BINARY);
+  write_PPM(canvas, "3_spheres");
 }

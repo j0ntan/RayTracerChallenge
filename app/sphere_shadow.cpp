@@ -63,5 +63,5 @@ int main() {
   for (const auto &POINT : POINTS)
     canvas.write(POINT.x(), POINT.y(), Color(.5, 0, 0)); // use red color
 
-  canvas.write_PPM("shadow", MagicIdentifier::BINARY);
+  write_PPM(canvas, "shadow");
 }

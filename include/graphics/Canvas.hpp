@@ -1,10 +1,10 @@
 #pragma once
 
 #include <cstddef>
+#include <string>
 #include <vector>
 
 #include "Color.hpp"
-#include "PPM.hpp"
 
 /**
  * @brief Represents a digital canvas that holds the colors for our ray tracer
@@ -39,12 +39,6 @@ public:
    */
   void write(std::size_t x, std::size_t y, const Color &color);
 
-  // to be removed
-  PPM to_PPM(const MagicIdentifier &id) const;
-
-  // to be removed
-  void write_PPM(const char *filename, const MagicIdentifier &id) const;
-
   /**
    * @brief Publicly accessible width & height of the canvas
    *
@@ -58,3 +52,5 @@ private:
    */
   std::vector<std::vector<Color>> pixels;
 };
+
+void write_PPM(const Canvas &canvas, const std::string &filename);

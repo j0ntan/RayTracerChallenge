@@ -54,5 +54,5 @@ int main() {
     projectile = tick(environment, projectile);
   }
 
-  canvas.write_PPM("projectile", MagicIdentifier::ASCII);
+  write_PPM(canvas, "projectile");
 }
