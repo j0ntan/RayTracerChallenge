@@ -1,8 +1,5 @@
 add_library(Ray Ray.cpp)
-target_link_libraries(Ray Vector)
-
-add_library(Transformations Transformations.cpp)
-target_link_libraries(Transformations Matrix Ray)
+target_link_libraries(Ray Point Vector Matrix)
 
 add_library(Material Material.cpp)
 target_link_libraries(Material Color)
@@ -14,7 +11,7 @@ add_library(Intersection Intersection.cpp)
 target_link_libraries(Intersection Sphere)
 
 add_library(Intersections Intersections.cpp)
-target_link_libraries(Intersections Intersection Transformations)
+target_link_libraries(Intersections Sphere Ray Intersection Transformations)
 
 add_library(Light Light.cpp)
 target_link_libraries(Light Point Color)
@@ -34,12 +31,8 @@ target_link_libraries(View Point Vector Transformations)
 
 # Tests
 add_executable(test_Ray Ray.test.cpp)
-target_link_libraries(test_Ray Ray GTest::gtest_main)
+target_link_libraries(test_Ray Ray Transformations GTest::gtest_main)
 gtest_discover_tests(test_Ray)
-
-add_executable(test_Transformations Transformations.test.cpp)
-target_link_libraries(test_Transformations Transformations GTest::gtest_main)
-gtest_discover_tests(test_Transformations)
 
 add_executable(test_Material Material.test.cpp)
 target_link_libraries(test_Material Material GTest::gtest_main)

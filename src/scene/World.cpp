@@ -1,8 +1,8 @@
 #include <algorithm>
+#include <math/Transformations.hpp>
 #include <scene/Computations.hpp>
 #include <scene/Intersections.hpp>
 #include <scene/Lighting.hpp>
-#include <scene/Transformations.hpp>
 #include <scene/World.hpp>
 
 std::vector<Sphere> World::objects() const { return objects_; }

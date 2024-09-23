@@ -1,7 +1,7 @@
 #include <cmath>
 #include <gtest/gtest.h>
+#include <math/Transformations.hpp>
 #include <scene/Sphere.hpp>
-#include <scene/Transformations.hpp>
 
 TEST(Sphere, defaultConstruct) { Sphere s; }
 

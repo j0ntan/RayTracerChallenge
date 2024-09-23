@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <math/Matrix.hpp>
 #include <math/Point.hpp>
-#include <scene/Ray.hpp>
-#include <scene/Transformations.hpp>
+#include <math/Transformations.hpp>
 #include <math/Vector.hpp>
+#include <scene/Ray.hpp>
 
 TEST(Translation, getTranslationMatrix) {
   Matrix<4> translation = translate(1, 1, 1);
@@ -147,32 +147,4 @@ TEST(ChainingTransformations, chainedTransformationsInReverseOrder) {
   auto C = translate(10, 5, 7);
   auto T = C * B * A;
   ASSERT_EQ(T * p, Point(15, 0, 7));
-}
-
-TEST(TransformRay, callFunction) {
-  Ray r(Point(0, 0, 0), Vector(0, 0, 0));
-  Matrix<4> m;
-  transform(r, m);
-}
-
-TEST(TransformRay, returnsRay) {
-  Ray r(Point(0, 0, 0), Vector(0, 0, 0));
-  Matrix<4> m;
-  Ray r2 = transform(r, m);
-}
-
-TEST(TransformRay, translateARay) {
-  Ray r(Point(1, 2, 3), Vector(0, 1, 0));
-  auto m = translate(3, 4, 5);
-  Ray r2 = transform(r, m);
-  ASSERT_EQ(r2.origin, Point(4, 6, 8));
-  ASSERT_EQ(r2.direction, Vector(0, 1, 0));
-}
-
-TEST(TransformRay, scaleARay) {
-  Ray r(Point(1, 2, 3), Vector(0, 1, 0));
-  auto m = scale(2, 3, 4);
-  Ray r2 = transform(r, m);
-  ASSERT_EQ(r2.origin, Point(2, 6, 12));
-  ASSERT_EQ(r2.direction, Vector(0, 3, 0));
 }

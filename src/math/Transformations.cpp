@@ -1,5 +1,5 @@
 #include <math/Matrix.hpp>
-#include <scene/Transformations.hpp>
+#include <math/Transformations.hpp>
 
 Matrix<4> translate(double x, double y, double z) {
   Matrix<4> translation = IDENTITY;
@@ -42,8 +42,4 @@ Matrix<4> shear(double x_y, double x_z, double y_x, double y_z, double z_x,
                 double z_y) {
   return Matrix<4>{
       {1, x_y, x_z, 0}, {y_x, 1, y_z, 0}, {z_x, z_y, 1, 0}, {0, 0, 0, 1}};
-}
-
-Ray transform(const Ray &ray, const Matrix<4> &m) {
-  return Ray(Point(m * ray.origin), Vector(m * ray.direction));
 }

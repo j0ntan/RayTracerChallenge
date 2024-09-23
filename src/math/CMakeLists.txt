@@ -10,6 +10,9 @@ target_link_libraries(Point Tuple)
 add_library(Vector Vector.cpp)
 target_link_libraries(Vector Point)
 
+add_library(Transformations Transformations.cpp)
+target_link_libraries(Transformations Matrix)
+
 # Tests
 add_executable(test_Tuple Tuple.test.cpp)
 target_link_libraries(test_Tuple Tuple GTest::gtest_main)
@@ -26,3 +29,8 @@ gtest_discover_tests(test_Point)
 add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector GTest::gtest_main)
 gtest_discover_tests(test_Vector)
+
+add_executable(test_Transformations Transformations.test.cpp)
+target_link_libraries(test_Transformations Transformations Point Vector
+    GTest::gtest_main)
+gtest_discover_tests(test_Transformations)

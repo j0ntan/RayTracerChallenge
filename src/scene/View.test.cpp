@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <scene/Transformations.hpp>
+#include <math/Transformations.hpp>
 #include <scene/View.hpp>
 
 TEST(ViewTransform, defaultOrientation) {

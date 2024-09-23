@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
+#include <math/Transformations.hpp>
 #include <scene/Computations.hpp>
 #include <scene/Intersection.hpp>
 #include <scene/Ray.hpp>
-#include <scene/Transformations.hpp>
 #include <scene/World.hpp>
 
 TEST(World, defaultConstruct) { World w; }

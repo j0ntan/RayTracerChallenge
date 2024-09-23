@@ -1,4 +1,4 @@
-#include <scene/Transformations.hpp>
+#include <math/Transformations.hpp>
 #include <scene/View.hpp>
 
 Matrix<4> view_transform(const Point &from, const Point &to, const Vector &up) {

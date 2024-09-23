@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include <math/Point.hpp>
-#include <utility/Float_compare.hpp>
+#include <math/Transformations.hpp>
 #include <scene/Computations.hpp>
 #include <scene/Intersections.hpp>
 #include <scene/Ray.hpp>
-#include <scene/Transformations.hpp>
+#include <utility/Float_compare.hpp>
 
 TEST(Computations, createDefault) { Computations computations; }
 

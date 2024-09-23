@@ -2,7 +2,8 @@
 #include <array>
 #include <graphics/Canvas.hpp>
 #include <iostream>
-#include <scene/Transformations.hpp>
+#include <math/Point.hpp>
+#include <math/Transformations.hpp>
 
 const std::size_t CLOCK_MARKS = 12;
 

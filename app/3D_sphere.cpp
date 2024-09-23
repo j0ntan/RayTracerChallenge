@@ -1,10 +1,10 @@
 #include <graphics/Canvas.hpp>
+#include <math/Transformations.hpp>
 #include <scene/Intersections.hpp>
 #include <scene/Light.hpp>
 #include <scene/Lighting.hpp>
 #include <scene/Ray.hpp>
 #include <scene/Sphere.hpp>
-#include <scene/Transformations.hpp>
 #include <utility>
 
 struct Scene {

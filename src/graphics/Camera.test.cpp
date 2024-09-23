@@ -2,7 +2,7 @@
 #include <graphics/Camera.hpp>
 #include <gtest/gtest.h>
 #include <math/Matrix.hpp>
-#include <scene/Transformations.hpp>
+#include <math/Transformations.hpp>
 #include <scene/View.hpp>
 
 const auto HALF_PI = asin(1);

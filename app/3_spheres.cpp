@@ -1,5 +1,5 @@
 #include <graphics/Camera.hpp>
-#include <scene/Transformations.hpp>
+#include <math/Transformations.hpp>
 #include <scene/View.hpp>
 
 constexpr double CANVAS_SCALE = 10;
