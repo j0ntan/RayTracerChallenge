@@ -31,23 +31,23 @@ TEST(Camera, pixelSizeForVerticalCanvas) {
 TEST(CameraRay, throughCenterOfCanvas) {
   Camera c(201, 101, HALF_PI);
   Ray r = ray_for_pixel(c, 100, 50);
-  ASSERT_EQ(r.origin, (Point{0, 0, 0}));
-  ASSERT_EQ(r.direction, (Vector{0, 0, -1}));
+  ASSERT_EQ(r.ORIGIN, (Point{0, 0, 0}));
+  ASSERT_EQ(r.DIRECTION, (Vector{0, 0, -1}));
 }
 
 TEST(CameraRay, throughCornerOfCanvas) {
   Camera c(201, 101, HALF_PI);
   Ray r = ray_for_pixel(c, 0, 0);
-  ASSERT_EQ(r.origin, (Point{0, 0, 0}));
-  ASSERT_EQ(r.direction, (Vector{0.66519, 0.33259, -0.66851}));
+  ASSERT_EQ(r.ORIGIN, (Point{0, 0, 0}));
+  ASSERT_EQ(r.DIRECTION, (Vector{0.66519, 0.33259, -0.66851}));
 }
 
 TEST(CameraRay, viaTransformedCamera) {
   Camera c(201, 101, HALF_PI);
   c.transform = rotate_y(HALF_PI / 2) * translate(0, -2, 5);
   Ray r = ray_for_pixel(c, 100, 50);
-  ASSERT_EQ(r.origin, (Point{0, 2, -5}));
-  ASSERT_EQ(r.direction, (Vector{sqrt(2) / 2, 0, -sqrt(2) / 2}));
+  ASSERT_EQ(r.ORIGIN, (Point{0, 2, -5}));
+  ASSERT_EQ(r.DIRECTION, (Vector{sqrt(2) / 2, 0, -sqrt(2) / 2}));
 }
 
 TEST(CameraRender, renderWorldWithCamera) {

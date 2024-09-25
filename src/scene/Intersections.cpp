@@ -7,10 +7,10 @@ std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray) {
   std::vector<Intersection> result;
 
   auto transformed_ray = transform(ray, inverse(sphere.transformation()));
-  const auto sphere_to_ray = transformed_ray.origin - Point(0, 0, 0);
+  const auto sphere_to_ray = transformed_ray.ORIGIN - Point(0, 0, 0);
 
-  const auto a = dot(transformed_ray.direction, transformed_ray.direction);
-  const auto b = 2 * dot(transformed_ray.direction, sphere_to_ray);
+  const auto a = dot(transformed_ray.DIRECTION, transformed_ray.DIRECTION);
+  const auto b = 2 * dot(transformed_ray.DIRECTION, sphere_to_ray);
   const auto c = dot(sphere_to_ray, sphere_to_ray) - 1;
   const auto discriminant = b * b - 4 * a * c;
 

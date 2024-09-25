@@ -8,7 +8,7 @@ Computations prepare_computations(const Intersection &intersection,
   comps.object = &intersection.object();
 
   comps.point = position(ray, comps.t);
-  comps.eyev = -ray.direction;
+  comps.eyev = -ray.DIRECTION;
 
   comps.normalv = comps.object->normal(comps.point);
   if (dot(comps.normalv, comps.eyev) < 0) {

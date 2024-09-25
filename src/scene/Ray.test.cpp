@@ -12,28 +12,28 @@ TEST(Ray, accessOrigin) {
   Point origin(1, 2, 3);
   Vector direction(4, 5, 6);
   Ray r(origin, direction);
-  r.origin;
+  r.ORIGIN;
 }
 
 TEST(Ray, matchGivenOrigin) {
   Point origin(1, 2, 3);
   Vector direction(4, 5, 6);
   Ray r(origin, direction);
-  ASSERT_EQ(r.origin, origin);
+  ASSERT_EQ(r.ORIGIN, origin);
 }
 
 TEST(Ray, accessDirection) {
   Point origin(1, 2, 3);
   Vector direction(4, 5, 6);
   Ray r(origin, direction);
-  r.direction;
+  r.DIRECTION;
 }
 
 TEST(Ray, matchGivenDirection) {
   Point origin(1, 2, 3);
   Vector direction(4, 5, 6);
   Ray r(origin, direction);
-  ASSERT_EQ(r.direction, direction);
+  ASSERT_EQ(r.DIRECTION, direction);
 }
 
 TEST(Ray, callPosition) {
@@ -70,14 +70,14 @@ TEST(TransformRay, translateARay) {
   Ray r(Point(1, 2, 3), Vector(0, 1, 0));
   auto m = translate(3, 4, 5);
   Ray r2 = transform(r, m);
-  ASSERT_EQ(r2.origin, Point(4, 6, 8));
-  ASSERT_EQ(r2.direction, Vector(0, 1, 0));
+  ASSERT_EQ(r2.ORIGIN, Point(4, 6, 8));
+  ASSERT_EQ(r2.DIRECTION, Vector(0, 1, 0));
 }
 
 TEST(TransformRay, scaleARay) {
   Ray r(Point(1, 2, 3), Vector(0, 1, 0));
   auto m = scale(2, 3, 4);
   Ray r2 = transform(r, m);
-  ASSERT_EQ(r2.origin, Point(2, 6, 12));
-  ASSERT_EQ(r2.direction, Vector(0, 3, 0));
+  ASSERT_EQ(r2.ORIGIN, Point(2, 6, 12));
+  ASSERT_EQ(r2.DIRECTION, Vector(0, 3, 0));
 }

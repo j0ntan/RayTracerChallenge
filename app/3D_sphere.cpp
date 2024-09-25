@@ -46,7 +46,7 @@ Pixels_t cast_rays(const Scene &scene, const Canvas &canvas) {
         const auto POINT_OF_INTERSECTION = position(RAY, intersection->time());
         const auto NORMAL_V =
             intersection->object().normal(POINT_OF_INTERSECTION);
-        const auto EYE_V = -RAY.direction;
+        const auto EYE_V = -RAY.DIRECTION;
         const auto PIXEL_COLOR =
             lighting(scene.object.material(), scene.source,
                      POINT_OF_INTERSECTION, EYE_V, NORMAL_V);
