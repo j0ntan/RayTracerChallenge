@@ -1,23 +1,76 @@
-#ifndef INTERSECTION_HPP
-#define INTERSECTION_HPP
+#pragma once
 
-#include <scene/Sphere.hpp>
+// forward declare for `Intersection` pointer member
+class Sphere;
 
+/**
+ * @brief
+ *
+ */
 class Intersection {
 public:
-  explicit Intersection(const double t, const Sphere &sphere);
+  /**
+   * @brief Construct a new Intersection object
+   *
+   * @param time
+   * @param sphere
+   */
+  Intersection(double time, const Sphere &sphere);
 
+  /**
+   * @brief
+   *
+   * @return double
+   */
   double time() const;
+
+  /**
+   * @brief
+   *
+   * @return const Sphere&
+   */
   const Sphere &object() const;
 
-  bool operator==(const Intersection &rhs) const;
-  bool operator!=(const Intersection &rhs) const;
-
 private:
-  double t;
-  const Sphere *obj;
+  /**
+   * @brief
+   *
+   */
+  double time_;
+
+  /**
+   * @brief
+   *
+   */
+  const Sphere *object_;
 };
 
-bool operator<(const Intersection &lhs, const Intersection &rhs);
+/**
+ * @brief
+ *
+ * @param lhs
+ * @param rhs
+ * @return true
+ * @return false
+ */
+bool operator==(const Intersection &lhs, const Intersection &rhs);
 
-#endif
+/**
+ * @brief
+ *
+ * @param lhs
+ * @param rhs
+ * @return true
+ * @return false
+ */
+bool operator!=(const Intersection &lhs, const Intersection &rhs);
+
+/**
+ * @brief
+ *
+ * @param lhs
+ * @param rhs
+ * @return true
+ * @return false
+ */
+bool operator<(const Intersection &lhs, const Intersection &rhs);

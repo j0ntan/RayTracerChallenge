@@ -1,95 +1,84 @@
 #include <algorithm>
-#include <gtest/gtest.h>
-#include <scene/Intersection.hpp>
-#include <scene/Sphere.hpp>
 #include <vector>
 
-TEST(Intersection, constructWithTimeValueAndSphere) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i(time_value, s);
+#include <gtest/gtest.h>
+
+#include <scene/Intersection.hpp>
+#include <scene/Sphere.hpp>
+
+TEST(IntersectionConstructor, initializeWithSphere) {
+  Sphere sphere;
+  Intersection intersection(0, sphere);
 }
 
-TEST(Intersection, accessTimeValue) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i(time_value, s);
-  const double t = i.time();
+TEST(IntersectionTime, accessTime) {
+  Sphere sphere;
+  Intersection intersection(0, sphere);
+  double time = intersection.time();
 }
 
-TEST(Intersection, matchTimeValue) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i(time_value, s);
-  ASSERT_EQ(i.time(), time_value);
+TEST(IntersectionTime, matchTimeValue) {
+  const double TIME = 1.0;
+  Sphere sphere;
+  Intersection intersection(TIME, sphere);
+
+  ASSERT_EQ(intersection.time(), TIME);
 }
 
-TEST(Intersection, accessSphere) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i(time_value, s);
-  Sphere copy(i.object());
+TEST(IntersectionObject, accessSphere) {
+  Sphere sphere;
+  Intersection intersection(1, sphere);
+  const Sphere &object = intersection.object();
 }
 
-TEST(Intersection, matchSphereObject) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i(time_value, s);
-  ASSERT_TRUE(&s == &i.object());
+TEST(IntersectionObject, matchSphereObject) {
+  Sphere sphere;
+  Intersection intersection(1, sphere);
+
+  ASSERT_EQ(&sphere, &intersection.object());
 }
 
-TEST(Intersection, equalToSameIntersection) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i1(time_value, s), i2(time_value, s);
-  ASSERT_EQ(i1, i2);
+TEST(IntersectionEqualityOperator, isEqualToSame) {
+  const double TIME_VALUE = 1.0;
+  Sphere sphere;
+  Intersection intersection1(TIME_VALUE, sphere),
+      intersection2(TIME_VALUE, sphere);
+  ASSERT_EQ(intersection1, intersection2);
 }
 
-TEST(Intersection, notEqualForDifferingTime) {
-  const double time_value = 1.0;
-  Sphere s;
-  Intersection i1(time_value, s), i2(time_value + 1, s);
-  ASSERT_NE(i1, i2);
+TEST(IntersectionEqualityOperator, isNotEqualForDifferingTime) {
+  const double TIME1 = 1.0, TIME2 = 2.0;
+  Sphere sphere;
+  Intersection intersection1(TIME1, sphere), intersection2(TIME2, sphere);
+  ASSERT_NE(intersection1, intersection2);
 }
 
-TEST(Intersection, notEqualForDifferingSpheres) {
-  const double time_value = 1.0;
-  Sphere s1, s2;
-  Intersection i1(time_value, s1), i2(time_value, s2);
-  ASSERT_NE(i1, i2);
+TEST(IntersectionEqualityOperator, isNotEqualForDifferingSpheres) {
+  const double TIME_VALUE = 1.0;
+  Sphere sphere1, sphere2;
+  Intersection intersection1(TIME_VALUE, sphere1),
+      intersection2(TIME_VALUE, sphere2);
+  ASSERT_NE(intersection1, intersection2);
 }
 
-TEST(Intersection, canBeAssigned) {
-  Sphere s;
-  Intersection i1(1, s), i2(2, s);
-  i2 = i1;
+TEST(IntersectionLessThanOperator, isComparable) {
+  Sphere sphere;
+  Intersection intersection1(1, sphere), intersection2(2, sphere);
+  bool result = intersection1 < intersection2;
 }
 
-TEST(Intersection, isEqualAfterAssignment) {
-  Sphere s;
-  Intersection i1(1, s), i2(2, s);
-  i2 = i1;
-  ASSERT_EQ(i1, i2);
+TEST(IntersectionLessThanOperator, compareCorrectly) {
+  double time1 = 1, time2 = 2;
+  Sphere sphere;
+  Intersection intersection1(time1, sphere), intersection2(time2, sphere);
+  ASSERT_TRUE(intersection1 < intersection2);
+  ASSERT_FALSE(intersection2 < intersection1);
 }
 
-TEST(Intersection, isComparible) {
-  Sphere s;
-  Intersection i1(1, s), i2(2, s);
-  i1 < i2;
-}
-
-TEST(Intersection, correctComparison) {
-  Sphere s;
-  Intersection i1(1, s), i2(2, s);
-  ASSERT_TRUE(i1 < i2);
-  ASSERT_FALSE(i2 < i1);
-}
-
-TEST(Intersection, isSortable) {
-  Sphere s;
-  Intersection i1(1, s);
-  Intersection i2(2, s);
-  Intersection i3(3, s);
-  std::vector<Intersection> v = {i1, i2, i3};
-  std::sort(v.begin(), v.end());
+TEST(IntersectionSortable, isSortable) {
+  double time1 = 1, time2 = 2;
+  Sphere sphere;
+  Intersection intersection1(time1, sphere), intersection2(time2, sphere);
+  std::vector<Intersection> intersections;
+  std::sort(intersections.begin(), intersections.end());
 }
