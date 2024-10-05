@@ -1,145 +1,142 @@
 #include <cmath>
+
 #include <gtest/gtest.h>
+
 #include <math/Transformations.hpp>
 #include <scene/Sphere.hpp>
 
-TEST(Sphere, defaultConstruct) { Sphere s; }
+TEST(SphereConstructor, defaultConstruct) { Sphere sphere; }
 
-TEST(Sphere, constructWithRadiusAndOrigin) { Sphere s(1.0, Point()); }
-
-TEST(Sphere, accessRadius) {
-  const Sphere s;
-  s.radius();
+TEST(SphereConstructor, initializeParameter) {
+  Material material{Color(1, 0, 0), 0.2, 0.8, 0.8, 190};
+  Sphere sphere(material);
 }
 
-TEST(Sphere, defaultUnityRadius) {
-  Sphere s;
-  ASSERT_EQ(s.radius(), 1.0);
+TEST(SphereRadius, accessRadius) {
+  const Sphere sphere;
+  double radius = sphere.RADIUS;
 }
 
-TEST(Sphere, radiusMatchesGivenValue) {
-  const double RADIUS = 1.23;
-  Sphere s(RADIUS, Point());
-  ASSERT_EQ(s.radius(), RADIUS);
+TEST(SphereRadius, matchDefaultRadius) {
+  Sphere sphere;
+
+  double expected = 1;
+  ASSERT_EQ(sphere.RADIUS, expected);
 }
 
-TEST(Sphere, accessOrigin) {
-  const Sphere s;
-  s.origin();
+TEST(SphereOrigin, accessOrigin) {
+  const Sphere sphere;
+  Point origin = sphere.ORIGIN;
 }
 
-TEST(Sphere, defaultZeroOrigin) {
-  Sphere s;
-  ASSERT_EQ(s.origin(), Point(0, 0, 0));
+TEST(SphereOrigin, matchDefaultOrigin) {
+  Sphere sphere;
+
+  Point expected(0, 0, 0);
+  ASSERT_EQ(sphere.ORIGIN, expected);
 }
 
-TEST(Sphere, originMatchesGivenValue) {
-  const Point ORIGIN(1, 2, 3);
-  Sphere s(0, ORIGIN);
-  ASSERT_EQ(s.origin(), ORIGIN);
+TEST(SphereTransformation, getTransformation) {
+  Sphere sphere;
+  Matrix<4> transformation = sphere.transformation();
 }
 
-TEST(Sphere, hasTransformation) {
-  Sphere s;
-  s.transformation();
+TEST(SphereTransformation, defaultTransformationIsIdentity) {
+  Sphere sphere;
+  ASSERT_EQ(sphere.transformation(), IDENTITY);
 }
 
-TEST(Sphere, transformationIsMatrix) {
-  Sphere s;
-  Matrix<4> m = s.transformation();
+TEST(SphereTransformation, applyTransformation) {
+  Sphere sphere;
+  Matrix<4> new_transformation;
+  sphere.apply_transformation(new_transformation);
 }
 
-TEST(Sphere, defaultTransformationIsIdentity) {
-  Sphere s;
-  ASSERT_EQ(s.transformation(), IDENTITY);
+TEST(SphereTransformation, matchAppliedTransformation) {
+  Sphere sphere;
+  Matrix<4> new_transformation = translate(1, 1, 1);
+  sphere.apply_transformation(new_transformation);
+
+  ASSERT_EQ(sphere.transformation(), new_transformation);
 }
 
-TEST(Sphere, setTransformationMatrix) {
-  Sphere s;
-  Matrix<4> m;
-  s.set_transformation(m);
+TEST(SphereNormal, getNormalAtPoint) {
+  const Sphere sphere;
+  Point point(1, 0, 0);
+  Vector normal = sphere.normal_at(point);
 }
 
-TEST(Sphere, transformationMatchesSetValue) {
-  Sphere s;
-  Matrix<4> m;
-  s.set_transformation(m);
-  ASSERT_EQ(s.transformation(), m);
+TEST(SphereNormal, matchNormalToPointOnXAxis) {
+  const Sphere sphere;
+  Point point(1, 0, 0);
+
+  Vector expected(1, 0, 0);
+  ASSERT_EQ(sphere.normal_at(point), expected);
 }
 
-TEST(NormalVector, getNormalAtPoint) {
-  const Sphere s;
-  s.normal(Point(1, 0, 0));
+TEST(SphereNormal, getNormalToPointOnYAxis) {
+  const Sphere sphere;
+  Point point(0, 1, 0);
+
+  Vector expected(0, 1, 0);
+  ASSERT_EQ(sphere.normal_at(point), expected);
 }
 
-TEST(NormalVector, getNormalAsAVector) {
-  const Sphere s;
-  Vector n = s.normal(Point(1, 0, 0));
+TEST(SphereNormal, getNormalToPointOnZAxis) {
+  const Sphere sphere;
+  Point point(0, 0, 1);
+
+  Vector expected(0, 0, 1);
+  ASSERT_EQ(sphere.normal_at(point), expected);
 }
 
-TEST(NormalVector, getNormalToPointOnXAxis) {
-  const Sphere s;
-  Vector n = s.normal(Point(1, 0, 0));
-  ASSERT_EQ(n, Vector(1, 0, 0));
+TEST(SphereNormal, getNormalToNonAxialPoint) {
+  const Sphere sphere;
+  Point point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3);
+
+  Vector expected(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3);
+  ASSERT_EQ(sphere.normal_at(point), expected);
 }
 
-TEST(NormalVector, getNormalToPointOnYAxis) {
-  const Sphere s;
-  Vector n = s.normal(Point(0, 1, 0));
-  ASSERT_EQ(n, Vector(0, 1, 0));
+TEST(SphereNormal, isNormalized) {
+  const Sphere sphere;
+  Point point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3);
+  Vector normal = sphere.normal_at(point);
+
+  ASSERT_EQ(normal, normal.normalize());
 }
 
-TEST(NormalVector, getNormalToPointOnZAxis) {
-  const Sphere s;
-  Vector n = s.normal(Point(0, 0, 1));
-  ASSERT_EQ(n, Vector(0, 0, 1));
+TEST(SphereNormal, matchNormalToTranslatedSphere) {
+  Sphere sphere;
+  sphere.apply_transformation(translate(0, 1, 0));
+  Point point(0, 1 + sqrt(2) / 2, -sqrt(2) / 2);
+
+  Vector expected(0, sqrt(2) / 2, -sqrt(2) / 2);
+  ASSERT_EQ(sphere.normal_at(point), expected);
 }
 
-TEST(NormalVector, getNormalToNonAxialPoint) {
-  const Sphere s;
-  Vector n = s.normal(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
-  ASSERT_EQ(n, Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+TEST(SphereNormal, matchNormalToTransformedSphere) {
+  Sphere sphere;
+  sphere.apply_transformation(scale(1, 0.5, 1) * rotate_z(PI / 5));
+  Point point(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
+
+  Vector expected(0, 0.97014, -0.24254);
+  ASSERT_EQ(sphere.normal_at(point), expected);
 }
 
-TEST(NormalVector, isNormalized) {
-  const Sphere s;
-  Vector n = s.normal(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
-  ASSERT_EQ(n, n.normalize());
+TEST(SphereMaterial, accessMaterial) {
+  Sphere sphere;
+  Material material = sphere.material;
 }
 
-TEST(NormalVector, normalToTranslatedSphere) {
-  Sphere s;
-  s.set_transformation(translate(0, 1, 0));
-  Vector n = s.normal(Point(0, 1 + sqrt(2) / 2, -sqrt(2) / 2));
-  ASSERT_EQ(n, Vector(0, sqrt(2) / 2, -sqrt(2) / 2));
+TEST(SphereMaterial, matchDefaultMaterial) {
+  const Sphere sphere;
+
+  Material expected = Material();
+  ASSERT_EQ(sphere.material, expected);
 }
 
-TEST(NormalVector, normalToTransformedSphere) {
-  Sphere s;
-  s.set_transformation(scale(1, 0.5, 1) * rotate_z(PI / 5));
-  Vector n = s.normal(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
-  ASSERT_EQ(n, Vector(0, 0.97014, -0.24254));
-}
-
-TEST(Material, accessMaterial) {
-  Sphere s;
-  Material material = s.material();
-}
-
-TEST(Material, hasDefaultMaterial) {
-  const Sphere s;
-  ASSERT_EQ(s.material(), Material());
-}
-
-TEST(Material, assignMaterial) {
-  Sphere s;
-  s.set_material(Material());
-}
-
-TEST(Material, matchesAssignedMaterial) {
-  Material m;
-  m.color = Color(.5, .5, .5);
-  Sphere s;
-  s.set_material(m);
-  ASSERT_EQ(s.material(), m);
+TEST(SphereMaterial, modifyMaterialAttributes) {
+  Sphere sphere;
+  sphere.material.color = Color(1, 1, 0);
 }

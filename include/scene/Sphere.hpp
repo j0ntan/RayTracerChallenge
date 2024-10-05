@@ -1,34 +1,103 @@
-#ifndef SPHERE_HPP
-#define SPHERE_HPP
+#pragma once
 
 #include <math/Matrix.hpp>
 #include <math/Point.hpp>
 #include <math/Vector.hpp>
 #include <scene/Material.hpp>
 
-class Sphere {
+/**
+ * @brief
+ *
+ */
+class Shape {
 public:
-  Sphere();
-  explicit Sphere(const double radius, const Point &origin);
+  /**
+   * @brief Construct a new Shape object
+   *
+   */
+  Shape();
 
-  double radius() const;
-  Point origin() const;
+  /**
+   * @brief Construct a new Shape object
+   *
+   * @param material
+   */
+  Shape(Material material);
 
-  Vector normal(const Point &point) const;
+  /**
+   * @brief
+   *
+   * @param point
+   * @return Vector
+   */
+  virtual Vector normal_at(const Point &point) const = 0;
 
+  /**
+   * @brief
+   *
+   * @return Matrix<4>
+   */
   Matrix<4> transformation() const;
 
-  void set_transformation(const Matrix<4> &m);
+  /**
+   * @brief Set the transformation object
+   *
+   * @param new_transformation
+   */
+  void apply_transformation(const Matrix<4> &new_transformation);
 
-  Material material() const;
+  virtual ~Shape() = default;
 
-  void set_material(const Material &material);
+  /**
+   * @brief
+   *
+   */
+  const Point ORIGIN = Point(0, 0, 0);
 
-private:
-  const double r;
-  const Point origin_;
-  Matrix<4> transform;
-  Material material_;
+  /**
+   * @brief
+   *
+   */
+  Material material;
+
+protected:
+  /**
+   * @brief
+   *
+   */
+  Matrix<4> transformation_ = IDENTITY;
 };
 
-#endif
+/**
+ * @brief
+ *
+ */
+class Sphere final : public Shape {
+public:
+  /**
+   * @brief Construct a new Sphere object
+   *
+   */
+  Sphere() = default;
+
+  /**
+   * @brief Construct a new Sphere object
+   *
+   * @param material
+   */
+  Sphere(Material material);
+
+  /**
+   * @brief
+   *
+   * @param point
+   * @return Vector
+   */
+  virtual Vector normal_at(const Point &point) const;
+
+  /**
+   * @brief
+   *
+   */
+  const double RADIUS = 1;
+};

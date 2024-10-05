@@ -22,9 +22,9 @@ TEST(defaultWorld, hasDefaultProperties) {
 }
 
 bool operator==(const Sphere &lhs, const Sphere &rhs) {
-  return lhs.origin() == rhs.origin() && lhs.radius() == rhs.radius() &&
+  return lhs.ORIGIN == rhs.ORIGIN && lhs.RADIUS == rhs.RADIUS &&
          lhs.transformation() == rhs.transformation() &&
-         lhs.material() == rhs.material();
+         lhs.material == rhs.material;
 }
 
 bool operator==(const Light &lhs, const Light &rhs) {
@@ -34,13 +34,11 @@ bool operator==(const Light &lhs, const Light &rhs) {
 TEST(defaultWorld, matchesDefaultConfiguration) {
   const Light light{Point{-10, 10, -10}, Color{1, 1, 1}};
   Sphere s1;
-  Material material;
-  material.color = Color{0.8, 1.0, 0.6};
-  material.diffuse = 0.7;
-  material.specular = 0.2;
-  s1.set_material(material);
+  s1.material.color = Color{0.8, 1.0, 0.6};
+  s1.material.diffuse = 0.7;
+  s1.material.specular = 0.2;
   Sphere s2;
-  s2.set_transformation(scale(0.5, .5, .5));
+  s2.apply_transformation(scale(0.5, .5, .5));
 
   auto w = default_world();
   const auto w_light = w.light_sources().front();
@@ -88,7 +86,7 @@ TEST(Shading, shadeAnIntersectionInShadow) {
   w.add_light_source(Light(Point(0, 0, -10), Color(1, 1, 1)));
   Sphere s1, s2;
   w.add_sphere(s1);
-  s2.set_transformation(translate(0, 0, 10));
+  s2.apply_transformation(translate(0, 0, 10));
   w.add_sphere(s2);
   auto r = Ray{Point{0, 0, 5}, Vector{0, 0, 1}};
   auto i = Intersection(4, s2);
@@ -113,20 +111,21 @@ TEST(ColorAt, colorOnHit) {
 
 TEST(ColorAt, colorWithIntersectionBehindRay) {
   auto w = default_world();
-  auto outer = w.objects().back();
-  auto outer_material = outer.material();
-  outer_material.ambient = 1;
-  outer.set_material(outer_material);
-  auto inner = w.objects().front();
-  auto inner_material = inner.material();
-  inner_material.ambient = 1;
-  inner.set_material(inner_material);
+  auto objects = w.objects();
+
+  Sphere &outer = objects.back();
+  outer.material.ambient = 1;
+  Sphere &inner = objects.front();
+  inner.material.ambient = 1;
+
   w.clear_spheres();
   w.add_sphere(inner);
   w.add_sphere(outer);
-  auto r = Ray{Point{0, 0, .75}, Vector{0, 0, -1}};
+
+  Ray r = Ray{Point{0, 0, .75}, Vector{0, 0, -1}};
   Color c = color_at(w, r);
-  ASSERT_EQ(c, inner.material().color);
+
+  ASSERT_EQ(c, inner.material.color);
 }
 
 TEST(AddingShadows, callShadowDetectFunction) {

@@ -121,7 +121,7 @@ TEST(Hit, getsLowestNonNegativeIntersection) {
 TEST(ApplyRayTransformation, scaledSphereAndRayIntersection) {
   Ray r(Point(0, 0, -5), Vector(0, 0, 1));
   Sphere s;
-  s.set_transformation(scale(2, 2, 2));
+  s.apply_transformation(scale(2, 2, 2));
   auto xs = intersect(s, r);
   ASSERT_EQ(xs.size(), 2);
   ASSERT_EQ(xs[0].time(), 3);
@@ -131,7 +131,7 @@ TEST(ApplyRayTransformation, scaledSphereAndRayIntersection) {
 TEST(ApplyRayTransformation, translatedSphereAndRayIntersection) {
   Ray r(Point(0, 0, -5), Vector(0, 0, 1));
   Sphere s;
-  s.set_transformation(translate(5, 0, 0));
+  s.apply_transformation(translate(5, 0, 0));
   auto xs = intersect(s, r);
   ASSERT_EQ(xs.size(), 0);
 }

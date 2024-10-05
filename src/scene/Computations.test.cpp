@@ -19,8 +19,8 @@ TEST(Computations, hasComponents) {
 }
 
 bool operator==(const Sphere &lhs, const Sphere &rhs) {
-  return lhs.radius() == rhs.radius() && lhs.origin() == rhs.origin() &&
-         lhs.material() == rhs.material() &&
+  return lhs.RADIUS == rhs.RADIUS && lhs.ORIGIN == rhs.ORIGIN &&
+         lhs.material == rhs.material &&
          lhs.transformation() == rhs.transformation();
 }
 
@@ -58,7 +58,7 @@ TEST(Precompute, intersectsOnInside) {
 TEST(Offset, hitShouldOffsetPoint) {
   auto r = Ray(Point{0, 0, -5}, Vector{0, 0, 1});
   Sphere shape;
-  shape.set_transformation(translate(0, 0, 1));
+  shape.apply_transformation(translate(0, 0, 1));
   auto i = Intersection(5, shape);
   auto comps = prepare_computations(i, r);
   ASSERT_LT(comps.over_point.z(), -EPSILON / 2);

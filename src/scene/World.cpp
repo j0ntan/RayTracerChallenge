@@ -19,13 +19,11 @@ void World::clear_light_sources() { light_sources_.clear(); }
 
 World default_world() {
   World w;
-  Material m;
-  m.color = Color{.8, 1, .6};
-  m.diffuse = .7;
-  m.specular = .2;
   Sphere s1, s2;
-  s1.set_material(m);
-  s2.set_transformation(scale(.5, .5, .5));
+  s1.material.color = Color{.8, 1, .6};
+  s1.material.diffuse = 0.7;
+  s1.material.specular = 0.2;
+  s2.apply_transformation(scale(.5, .5, .5));
   w.add_sphere(s2);
   w.add_sphere(s1);
   w.add_light_source(Light{Point{-10, 10, -10}, Color{1, 1, 1}});
@@ -52,9 +50,9 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray) {
 Color shade_hit(const World &world, const Computations &computations) {
   const auto SHADOWED = is_shadowed(world, computations.over_point);
 
-  return lighting(computations.object->material(),
-                  world.light_sources().front(), computations.point,
-                  computations.eyev, computations.normalv, SHADOWED);
+  return lighting(computations.object->material, world.light_sources().front(),
+                  computations.point, computations.eyev, computations.normalv,
+                  SHADOWED);
 }
 
 Color color_at(const World &world, const Ray &ray) {

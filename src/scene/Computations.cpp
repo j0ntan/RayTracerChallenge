@@ -10,7 +10,7 @@ Computations prepare_computations(const Intersection &intersection,
   comps.point = position(ray, comps.t);
   comps.eyev = -ray.DIRECTION;
 
-  comps.normalv = comps.object->normal(comps.point);
+  comps.normalv = comps.object->normal_at(comps.point);
   if (dot(comps.normalv, comps.eyev) < 0) {
     comps.inside = true;
     comps.normalv = -comps.normalv;

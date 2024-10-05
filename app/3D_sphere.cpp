@@ -16,11 +16,11 @@ struct Scene {
 
 double calculate_wall_size(const Scene &scene) {
   const auto DISTANCE_TO_SPHERE =
-      (scene.object.origin() - scene.viewpoint).magnitude();
+      (scene.object.ORIGIN - scene.viewpoint).magnitude();
   const auto DISTANCE_TO_WALL =
       (Point(0, 0, scene.wall_z_coordinate) - scene.viewpoint).magnitude();
   const double SHADOW_DIAMETER =
-      (scene.object.radius() / DISTANCE_TO_SPHERE * DISTANCE_TO_WALL) *
+      (scene.object.RADIUS / DISTANCE_TO_SPHERE * DISTANCE_TO_WALL) *
       2;                         // based on similar triangles
   return 1.25 * SHADOW_DIAMETER; // make wall slightly larger than shadow
 }
@@ -45,11 +45,11 @@ Pixels_t cast_rays(const Scene &scene, const Canvas &canvas) {
       if (auto intersection = hit(INTERSECTIONS)) {
         const auto POINT_OF_INTERSECTION = position(RAY, intersection->time());
         const auto NORMAL_V =
-            intersection->object().normal(POINT_OF_INTERSECTION);
+            intersection->object().normal_at(POINT_OF_INTERSECTION);
         const auto EYE_V = -RAY.DIRECTION;
         const auto PIXEL_COLOR =
-            lighting(scene.object.material(), scene.source,
-                     POINT_OF_INTERSECTION, EYE_V, NORMAL_V);
+            lighting(scene.object.material, scene.source, POINT_OF_INTERSECTION,
+                     EYE_V, NORMAL_V);
         pixels.push_back(std::make_pair(Point(x, y, 0), PIXEL_COLOR));
       }
     }
@@ -68,15 +68,12 @@ int main() {
   const auto SHRINK_AND_ROTATE = rotate_z(PI / 4) * scale(0.5, 1, 1);
   const auto SHRINK_AND_SKEW = shear(1, 0, 0, 0, 0, 0) * scale(0.5, 1, 1);
 
-  Material material;
-  material.color = Color(0.5, 0, 0);
-  material.specular = 1;
-  material.ambient = 0.05;
-  material.diffuse = 0.7;
-
   Sphere sphere;
-  sphere.set_material(material);
-  sphere.set_transformation(IDENTITY);
+  sphere.material.color = Color(0.5, 0, 0);
+  sphere.material.specular = 1;
+  sphere.material.ambient - 0.5;
+  sphere.material.diffuse = 0.7;
+  sphere.apply_transformation(IDENTITY);
 
   const Scene SCENE = {Point(0, 0, -5), sphere, 10,
                        Light(Point(-10, 10, -10), Color(1, 1, 1))};

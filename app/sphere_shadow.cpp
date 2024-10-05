@@ -12,11 +12,11 @@ struct Scene {
 
 double calculate_wall_size(const Scene &scene) {
   const auto DISTANCE_TO_SPHERE =
-      (scene.object.origin() - scene.viewpoint).magnitude();
+      (scene.object.ORIGIN - scene.viewpoint).magnitude();
   const auto DISTANCE_TO_WALL =
       (Point(0, 0, scene.wall_z_coordinate) - scene.viewpoint).magnitude();
   const double SHADOW_DIAMETER =
-      (scene.object.radius() / DISTANCE_TO_SPHERE * DISTANCE_TO_WALL) * 2;
+      (scene.object.RADIUS / DISTANCE_TO_SPHERE * DISTANCE_TO_WALL) * 2;
   return 1.25 * SHADOW_DIAMETER; // make wall slightly larger than shadow
 }
 
@@ -54,7 +54,7 @@ int main() {
   const auto SHRINK_AND_SKEW = shear(1, 0, 0, 0, 0, 0) * scale(0.5, 1, 1);
 
   Sphere sphere;
-  sphere.set_transformation(IDENTITY);
+  sphere.apply_transformation(IDENTITY);
 
   const Scene SCENE = {Point(0, 0, -5), sphere, 10};
 

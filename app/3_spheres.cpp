@@ -13,46 +13,38 @@ World create_world() {
   World world;
 
   Sphere floor;
-  floor.set_transformation(scale(10, 0.01, 10));
-  Material floor_mat;
-  floor_mat.color = Color{1, 0.9, 0.9};
-  floor_mat.specular = 0;
-  floor.set_material(floor_mat);
+  floor.apply_transformation(scale(10, 0.01, 10));
+  floor.material.color = Color{1, 0.9, 0.9};
+  floor.material.specular = 0;
 
   Sphere left_wall;
-  left_wall.set_transformation(translate(0, 0, 5) * rotate_y(-QUARTER_PI) *
-                               rotate_x(HALF_PI) * scale(10, 0.01, 10));
-  left_wall.set_material(floor_mat);
+  left_wall.apply_transformation(translate(0, 0, 5) * rotate_y(-QUARTER_PI) *
+                                 rotate_x(HALF_PI) * scale(10, 0.01, 10));
+  left_wall.material = floor.material;
 
   Sphere right_wall;
-  right_wall.set_transformation(translate(0, 0, 5) * rotate_y(QUARTER_PI) *
-                                rotate_x(HALF_PI) * scale(10, 0.01, 10));
-  right_wall.set_material(floor_mat);
+  right_wall.apply_transformation(translate(0, 0, 5) * rotate_y(QUARTER_PI) *
+                                  rotate_x(HALF_PI) * scale(10, 0.01, 10));
+  right_wall.material = floor.material;
 
   Sphere middle;
-  middle.set_transformation(translate(-0.5, 1, 0.5));
-  Material middle_mat;
-  middle_mat.color = Color{0.1, 1, 0.5};
-  middle_mat.diffuse = 0.7;
-  middle_mat.specular = 0.3;
-  middle.set_material(middle_mat);
+  middle.apply_transformation(translate(-0.5, 1, 0.5));
+  middle.material.color = Color{0.1, 1, 0.5};
+  middle.material.diffuse = 0.7;
+  middle.material.specular = 0.3;
 
   Sphere right;
-  right.set_transformation(translate(1.5, 0.5, -0.5) * scale(0.5, 0.5, 0.5));
-  Material right_mat;
-  right_mat.color = Color{0.5, 1, 0.1};
-  right_mat.diffuse = 0.7;
-  right_mat.specular = 0.3;
-  right.set_material(right_mat);
+  right.apply_transformation(translate(1.5, 0.5, -0.5) * scale(0.5, 0.5, 0.5));
+  right.material.color = Color{0.5, 1, 0.1};
+  right.material.diffuse = 0.7;
+  right.material.specular = 0.3;
 
   Sphere left;
-  left.set_transformation(translate(-1.5, 0.33, -0.75) *
-                          scale(0.33, 0.33, 0.33));
-  Material left_mat;
-  left_mat.color = Color{1, 0.8, 0.1};
-  left_mat.diffuse = 0.7;
-  left_mat.specular = 0.3;
-  left.set_material(left_mat);
+  left.apply_transformation(translate(-1.5, 0.33, -0.75) *
+                            scale(0.33, 0.33, 0.33));
+  left.material.color = Color{1, 0.8, 0.1};
+  left.material.diffuse = 0.7;
+  left.material.specular = 0.3;
 
   Light light(Point(-10, 10, -10), Color(1, 1, 1));
 

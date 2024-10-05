@@ -1,27 +1,23 @@
+#include <math/Transformations.hpp>
 #include <scene/Sphere.hpp>
 
-Sphere::Sphere()
-    : r{1.0}, origin_{Point(0, 0, 0)}, transform{IDENTITY}, material_{} {}
+Shape::Shape() : material{Material()} {}
 
-Sphere::Sphere(const double radius, const Point &origin)
-    : r{radius}, origin_{origin}, transform{IDENTITY}, material_{} {}
+Shape::Shape(Material material) : material{material} {}
 
-double Sphere::radius() const { return r; }
+Matrix<4> Shape::transformation() const { return transformation_; }
 
-Point Sphere::origin() const { return origin_; }
+void Shape::apply_transformation(const Matrix<4> &new_transformation) {
+  transformation_ = new_transformation;
+}
 
-Vector Sphere::normal(const Point &point) const {
-  auto object_point = Point(inverse(transform) * point);
-  auto object_normal = Vector(object_point - origin_);
-  auto world_normal = Vector(transpose(inverse(transform)) * object_normal);
+Sphere::Sphere(Material material) : Shape{material} {}
+
+Vector Sphere::normal_at(const Point &point) const {
+  auto object_point = Point(inverse(transformation_) * point);
+  auto object_normal = Vector(object_point - ORIGIN);
+  auto world_normal =
+      Vector(transpose(inverse(transformation_)) * object_normal);
   world_normal[3] = 0;
   return world_normal.normalize();
 }
-
-Matrix<4> Sphere::transformation() const { return transform; }
-
-void Sphere::set_transformation(const Matrix<4> &m) { transform = m; }
-
-Material Sphere::material() const { return material_; }
-
-void Sphere::set_material(const Material &material) { material_ = material; }
