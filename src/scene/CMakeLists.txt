@@ -5,13 +5,10 @@ add_library(Material Material.cpp)
 target_link_libraries(Material Color)
 
 add_library(Sphere Sphere.cpp)
-target_link_libraries(Sphere Vector Matrix Material)
+target_link_libraries(Sphere Point Vector Matrix Material Ray Intersection)
 
 add_library(Intersection Intersection.cpp)
 target_link_libraries(Intersection Sphere)
-
-add_library(Intersections Intersections.cpp)
-target_link_libraries(Intersections Sphere Ray Intersection Transformations)
 
 add_library(Light Light.cpp)
 target_link_libraries(Light Point Color)
@@ -24,7 +21,8 @@ target_link_libraries(Computations Float_compare Point Sphere Vector
     Intersection)
 
 add_library(World World.cpp)
-target_link_libraries(World Light Intersections Computations Lighting)
+target_link_libraries(World Light Computations Lighting Intersection Sphere
+    Transformations)
 
 add_library(View View.cpp)
 target_link_libraries(View Point Vector Transformations)
@@ -45,10 +43,6 @@ gtest_discover_tests(test_Sphere)
 add_executable(test_Intersection Intersection.test.cpp)
 target_link_libraries(test_Intersection Intersection GTest::gtest_main)
 gtest_discover_tests(test_Intersection)
-
-add_executable(test_Intersections Intersections.test.cpp)
-target_link_libraries(test_Intersections Intersections GTest::gtest_main)
-gtest_discover_tests(test_Intersections)
 
 add_executable(test_Light Light.test.cpp)
 target_link_libraries(test_Light Light GTest::gtest_main)

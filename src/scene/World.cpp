@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <math/Transformations.hpp>
 #include <scene/Computations.hpp>
-#include <scene/Intersections.hpp>
 #include <scene/Lighting.hpp>
 #include <scene/World.hpp>
 
@@ -35,7 +34,7 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray) {
 
   const auto OBJECTS = world.objects();
   for (const auto &object : OBJECTS) {
-    auto obj_intersections = intersect(object, ray);
+    auto obj_intersections = object.intersect(ray);
     intersections.insert(intersections.end(), obj_intersections.begin(),
                          obj_intersections.end());
   }

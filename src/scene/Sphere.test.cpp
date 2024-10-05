@@ -140,3 +140,88 @@ TEST(SphereMaterial, modifyMaterialAttributes) {
   Sphere sphere;
   sphere.material.color = Color(1, 1, 0);
 }
+
+TEST(SphereIntersect, intersectRay) {
+  Sphere sphere;
+  std::vector<Intersection> intersections =
+      sphere.intersect(Ray(Point(), Vector()));
+}
+
+TEST(SphereIntersect, matchTwoIntersectionPoints) {
+  Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere sphere;
+  auto intersections = sphere.intersect(ray);
+
+  double expected_t1 = 4, expected_t2 = 6;
+  ASSERT_EQ(intersections.size(), 2);
+  ASSERT_FLOAT_EQ(intersections[0].time(), expected_t1);
+  ASSERT_FLOAT_EQ(intersections[1].time(), expected_t2);
+}
+
+TEST(SphereIntersect, matchTangentIntersection) {
+  Ray ray(Point(0, 1, -5), Vector(0, 0, 1));
+  Sphere sphere;
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_EQ(intersections.size(), 2);
+  ASSERT_FLOAT_EQ(intersections[0].time(), 5.0);
+  ASSERT_FLOAT_EQ(intersections[1].time(), 5.0);
+}
+
+TEST(SphereIntersect, matchNoIntersectionOnRayMiss) {
+  Ray ray(Point(0, 2, -5), Vector(0, 0, 1));
+  Sphere sphere;
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_EQ(intersections.size(), 0);
+}
+
+TEST(SphereIntersect, intersectRayInsideSphere) {
+  Ray ray(Point(0, 0, 0), Vector(0, 0, 1));
+  Sphere sphere;
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_EQ(intersections.size(), 2);
+  ASSERT_FLOAT_EQ(intersections[0].time(), -1.0);
+  ASSERT_FLOAT_EQ(intersections[1].time(), 1.0);
+}
+
+TEST(SphereIntersect, intersectSphereBehindRay) {
+  Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
+  Sphere sphere;
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_EQ(intersections.size(), 2);
+  ASSERT_FLOAT_EQ(intersections[0].time(), -6.0);
+  ASSERT_FLOAT_EQ(intersections[1].time(), -4.0);
+}
+
+TEST(SphereIntersect, setTheObjectOnIntersection) {
+  Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere sphere;
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_EQ(intersections.size(), 2);
+  ASSERT_EQ(&intersections[0].object(), &sphere);
+  ASSERT_EQ(&intersections[1].object(), &sphere);
+}
+
+TEST(SphereIntersect, intersectScaledSphere) {
+  Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere sphere;
+  sphere.apply_transformation(scale(2, 2, 2));
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_EQ(intersections.size(), 2);
+  ASSERT_EQ(intersections[0].time(), 3);
+  ASSERT_EQ(intersections[1].time(), 7);
+}
+
+TEST(SphereIntersect, intersectTranslatedSphere) {
+  Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+  Sphere sphere;
+  sphere.apply_transformation(translate(5, 0, 0));
+  auto intersections = sphere.intersect(ray);
+
+  ASSERT_TRUE(intersections.empty());
+}

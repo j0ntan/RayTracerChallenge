@@ -1,6 +1,5 @@
 #include <graphics/Canvas.hpp>
 #include <math/Transformations.hpp>
-#include <scene/Intersections.hpp>
 #include <scene/Light.hpp>
 #include <scene/Lighting.hpp>
 #include <scene/Ray.hpp>
@@ -41,7 +40,7 @@ Pixels_t cast_rays(const Scene &scene, const Canvas &canvas) {
       const Point POINT_ON_WALL(WORLD_X, WORLD_Y, scene.wall_z_coordinate);
       const Ray RAY(scene.viewpoint,
                     Vector(POINT_ON_WALL - scene.viewpoint).normalize());
-      const auto INTERSECTIONS = intersect(scene.object, RAY);
+      const auto INTERSECTIONS = scene.object.intersect(RAY);
       if (auto intersection = hit(INTERSECTIONS)) {
         const auto POINT_OF_INTERSECTION = position(RAY, intersection->time());
         const auto NORMAL_V =

@@ -2,7 +2,6 @@
 #include <math/Point.hpp>
 #include <math/Transformations.hpp>
 #include <scene/Computations.hpp>
-#include <scene/Intersections.hpp>
 #include <scene/Ray.hpp>
 #include <utility/Float_compare.hpp>
 

@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <scene/Intersection.hpp>
 
 Intersection::Intersection(const double time, const Sphere &sphere)
@@ -17,4 +19,14 @@ bool operator!=(const Intersection &lhs, const Intersection &rhs) {
 
 bool operator<(const Intersection &lhs, const Intersection &rhs) {
   return lhs.time() < rhs.time();
+}
+
+std::optional<Intersection> hit(std::vector<Intersection> intersections) {
+  std::sort(intersections.begin(), intersections.end());
+
+  for (const auto &i : intersections)
+    if (i.time() >= 0)
+      return std::make_optional(i);
+
+  return std::nullopt;
 }

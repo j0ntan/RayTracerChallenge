@@ -1,6 +1,5 @@
 #include <graphics/Canvas.hpp>
 #include <math/Transformations.hpp>
-#include <scene/Intersections.hpp>
 #include <scene/Ray.hpp>
 #include <scene/Sphere.hpp>
 
@@ -34,7 +33,7 @@ std::vector<Point> cast_rays(const Scene &scene, const Canvas &canvas) {
       const Point POINT_ON_WALL(WORLD_X, WORLD_Y, scene.wall_z_coordinate);
       const Ray RAY(scene.viewpoint,
                     Vector(POINT_ON_WALL - scene.viewpoint).normalize());
-      const auto INTERSECTIONS = intersect(scene.object, RAY);
+      const auto INTERSECTIONS = scene.object.intersect(RAY);
       if (hit(INTERSECTIONS))
         points.push_back(Point(x, y, 0));
     }

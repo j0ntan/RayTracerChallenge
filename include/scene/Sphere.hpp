@@ -1,9 +1,13 @@
 #pragma once
 
+#include <vector>
+
 #include <math/Matrix.hpp>
 #include <math/Point.hpp>
 #include <math/Vector.hpp>
+#include <scene/Intersection.hpp>
 #include <scene/Material.hpp>
+#include <scene/Ray.hpp>
 
 /**
  * @brief
@@ -94,6 +98,14 @@ public:
    * @return Vector
    */
   virtual Vector normal_at(const Point &point) const;
+
+  /**
+   * @brief
+   *
+   * @param ray
+   * @return std::vector<Intersection>
+   */
+  std::vector<Intersection> intersect(const Ray &ray) const;
 
   /**
    * @brief

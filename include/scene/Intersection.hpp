@@ -1,5 +1,8 @@
 #pragma once
 
+#include <optional>
+#include <vector>
+
 // forward declare for `Intersection` pointer member
 class Sphere;
 
@@ -74,3 +77,11 @@ bool operator!=(const Intersection &lhs, const Intersection &rhs);
  * @return false
  */
 bool operator<(const Intersection &lhs, const Intersection &rhs);
+
+/**
+ * @brief
+ *
+ * @param intersections
+ * @return std::optional<Intersection>
+ */
+std::optional<Intersection> hit(std::vector<Intersection> intersections);
