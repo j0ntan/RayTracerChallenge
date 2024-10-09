@@ -71,7 +71,7 @@ Color color_at(const World &world, const Ray &ray) {
 }
 
 bool is_shadowed(const World &world, const Point &point) {
-  auto v = world.light_sources().front().position - point;
+  auto v = world.light_sources().front().POSITION - point;
   auto distance = v.magnitude();
   auto direction = v.normalize();
 

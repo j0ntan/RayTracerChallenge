@@ -1,4 +1,5 @@
 #include <cmath>
+
 #include <scene/Lighting.hpp>
 
 Color lighting(const Material &surface_mat, const Light &source,
@@ -6,9 +7,9 @@ Color lighting(const Material &surface_mat, const Light &source,
                const Vector &surface_norm, bool in_shadow) {
   Color ambient, diffuse, specular; // defaulted to black
 
-  const auto EFFECTIVE_COLOR = surface_mat.color * source.intensity;
+  const auto EFFECTIVE_COLOR = surface_mat.color * source.INTENSITY;
 
-  const auto LIGHT_V = Vector(source.position - illuminated).normalize();
+  const auto LIGHT_V = Vector(source.POSITION - illuminated).normalize();
 
   ambient = EFFECTIVE_COLOR * surface_mat.ambient;
 
@@ -20,7 +21,7 @@ Color lighting(const Material &surface_mat, const Light &source,
         dot(reflect(-LIGHT_V, surface_norm), eye);
 
     if (REFLECTION_PROJECTION > 0)
-      specular = source.intensity * surface_mat.specular *
+      specular = source.INTENSITY * surface_mat.specular *
                  pow(REFLECTION_PROJECTION, surface_mat.shininess);
   }
 

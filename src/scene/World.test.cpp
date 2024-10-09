@@ -28,7 +28,7 @@ bool operator==(const Sphere &lhs, const Sphere &rhs) {
 }
 
 bool operator==(const Light &lhs, const Light &rhs) {
-  return lhs.position == rhs.position && lhs.intensity == rhs.intensity;
+  return lhs.POSITION == rhs.POSITION && lhs.INTENSITY == rhs.INTENSITY;
 }
 
 TEST(defaultWorld, matchesDefaultConfiguration) {
