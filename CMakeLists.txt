@@ -20,7 +20,3 @@ FetchContent_MakeAvailable(googletest)
 
 # Add googletest targets
 include(GoogleTest)
-
-add_subdirectory(src)
-
-add_subdirectory(app)
