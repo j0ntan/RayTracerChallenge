@@ -20,3 +20,9 @@ FetchContent_MakeAvailable(googletest)
 
 # Add googletest targets
 include(GoogleTest)
+
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+include_directories(${INCLUDE_DIR})
+
+add_subdirectory(src/Math)
+add_subdirectory(app)
