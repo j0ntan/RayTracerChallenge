@@ -1,2 +1,2 @@
 add_executable(projectile projectile.cpp)
-target_link_libraries(projectile Vector)
+target_link_libraries(projectile Vector Canvas)
