@@ -10,6 +10,9 @@ target_link_libraries(Point PUBLIC Tuple PRIVATE Float_compare)
 add_library(Vector Vector.cpp)
 target_link_libraries(Vector PUBLIC Point PRIVATE Float_compare)
 
+add_library(Matrix Matrix.cpp)
+target_link_libraries(Matrix PUBLIC Tuple PRIVATE Float_compare)
+
 # Tests
 add_executable(test_Float_compare utility/Float_compare.test.cpp)
 target_link_libraries(test_Float_compare Float_compare GTest::gtest_main)
@@ -26,3 +29,7 @@ gtest_discover_tests(test_Point)
 add_executable(test_Vector Vector.test.cpp)
 target_link_libraries(test_Vector Vector GTest::gtest_main)
 gtest_discover_tests(test_Vector)
+
+add_executable(test_Matrix Matrix.test.cpp)
+target_link_libraries(test_Matrix Matrix GTest::gtest_main)
+gtest_discover_tests(test_Matrix)
