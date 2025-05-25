@@ -26,4 +26,5 @@ include_directories(${INCLUDE_DIR})
 
 add_subdirectory(src/Math)
 add_subdirectory(src/Graphics)
+add_subdirectory(src/Interactions)
 add_subdirectory(app)
