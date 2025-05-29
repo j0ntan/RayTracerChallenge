@@ -6,3 +6,6 @@ target_link_libraries(analog_clock Transformations Point Canvas)
 
 add_executable(sphere_shadow sphere_shadow.cpp)
 target_link_libraries(sphere_shadow Canvas Transformations Interactions)
+
+add_executable(3D_sphere 3D_sphere.cpp)
+target_link_libraries(3D_sphere Lighting Interactions Transformations  Canvas)

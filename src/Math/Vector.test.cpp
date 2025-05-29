@@ -1,4 +1,5 @@
 #include <cmath>
+#include <numbers>
 #include <Math/Vector.hpp>
 #include <gtest/gtest.h>
 
@@ -176,4 +177,36 @@ TEST(VectorCrossProduct, calculateCrossProduct)
 
     ASSERT_EQ((cross(a, b)), (Vector{-1, 2, -1}));
     ASSERT_EQ((cross(b, a)), (Vector{1, -2, 1}));
+}
+
+/*
+Scenario: Reflecting a vector approaching at 45°
+    Given v <- vector(1, -1, 0)
+        And n <- vector(0, 1, 0)
+    When r <- reflect(v, n)
+    Then r = vector(1, 1, 0)
+*/
+TEST(Reflect, reflectIncidentAt45Degrees)
+{
+    auto v = Vector(1, -1, 0);
+    auto n = Vector(0, 1, 0);
+
+    auto r = reflect(v, n);
+    ASSERT_EQ(r, Vector(1, 1, 0));
+}
+
+/*
+Scenario: Reflecting a vector off a slanted surface
+    Given v <- vector(0, -1, 0)
+        And n <- vector(sqrt(2) / 2, sqrt(2) / 2, 0)
+    When r <- reflect(v, n)
+    Then r = vector(1, 0, 0)
+*/
+TEST(Reflect, reflectOffSlantedSurface)
+{
+    auto v = Vector(0, -1, 0);
+    auto n = Vector(std::numbers::sqrt2 / 2, std::numbers::sqrt2 / 2, 0);
+
+    auto r = reflect(v, n);
+    ASSERT_EQ(r, Vector(1, 0, 0));
 }

@@ -87,6 +87,24 @@ Point operator-(const Point &point, const Vector &displacement);
 Vector operator-(const Vector &lhs, const Vector &rhs);
 
 /**
+ * @brief Overload the * operator to scale a vector
+ *
+ * @param vector The vector to scale
+ * @param scalar The scaling factor
+ * @return Vector The resulting scaled vector
+ */
+Vector operator*(const Vector &vector, double scalar);
+
+/**
+ * @brief Overload the * operator to scale a vector
+ *
+ * @param scalar The scaling factor
+ * @param vector The vector to scale
+ * @return Vector The resulting scaled vector
+ */
+Vector operator*(double scalar, const Vector &vector);
+
+/**
  * @brief Calculate the magnitude or length of a vector
  *
  * The value is calculated using the classical Pythagorean formula and the
@@ -122,3 +140,13 @@ double dot(const Vector &lhs, const Vector &rhs);
  * @return Vector Resulting vector of the cross product calculation
  */
 Vector cross(const Vector &lhs, const Vector &rhs);
+
+/**
+ * @brief Calculate the reflection vector for a given incident vector & surface
+ * normal
+ *
+ * @param incident The incident vector, which is the incoming direction of light
+ * @param normal The surface normal vector at the point of reflection
+ * @return Vector The resulting reflection vector
+ */
+Vector reflect(const Vector &incident, const Vector &normal);

@@ -34,6 +34,16 @@ Vector operator-(const Vector &lhs, const Vector &rhs)
     return Vector(static_cast<Tuple>(lhs) - static_cast<Tuple>(rhs));
 }
 
+Vector operator*(const Vector &vector, double scalar)
+{
+    return Vector(static_cast<Tuple>(vector) * scalar);
+}
+
+Vector operator*(double scalar, const Vector &vector)
+{
+    return vector * scalar;
+}
+
 double magnitude(const Vector &vector)
 {
     return std::sqrt(dot(vector, vector));
@@ -54,4 +64,9 @@ Vector cross(const Vector &lhs, const Vector &rhs)
     return Vector(lhs.y() * rhs.z() - lhs.z() * rhs.y(),
                   lhs.z() * rhs.x() - lhs.x() * rhs.z(),
                   lhs.x() * rhs.y() - lhs.y() * rhs.x());
+}
+
+Vector reflect(const Vector &incident, const Vector &normal)
+{
+    return incident - normal * 2 * dot(incident, normal);
 }

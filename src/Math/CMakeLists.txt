@@ -19,6 +19,9 @@ target_link_libraries(Transformations Matrix)
 add_library(Ray Ray.cpp)
 target_link_libraries(Ray Vector Matrix)
 
+add_library(Sphere Sphere.cpp)
+target_link_libraries(Sphere Matrix Vector Material)
+
 # Tests
 add_executable(test_Float_compare utility/Float_compare.test.cpp)
 target_link_libraries(test_Float_compare Float_compare GTest::gtest_main)
@@ -50,6 +53,6 @@ target_link_libraries(test_Ray Ray Transformations GTest::gtest_main)
 gtest_discover_tests(test_Ray)
 
 add_executable(test_Sphere Sphere.test.cpp)
-target_link_libraries(test_Sphere Transformations Interactions
-    GTest::gtest_main)
+target_link_libraries(test_Sphere Sphere MaterialCmp Transformations
+    Interactions GTest::gtest_main)
 gtest_discover_tests(test_Sphere)
