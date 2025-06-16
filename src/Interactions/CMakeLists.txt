@@ -1,6 +1,6 @@
 add_library(Interactions Interactions.cpp)
 target_include_directories(Interactions PUBLIC .)
-target_link_libraries(Interactions Ray Sphere)
+target_link_libraries(Interactions PUBLIC Ray Sphere World PRIVATE Lighting)
 
 add_library(Lighting Lighting.cpp)
 target_include_directories(Lighting PUBLIC .)

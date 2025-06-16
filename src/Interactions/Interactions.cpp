@@ -1,6 +1,7 @@
 #include <cmath>
 #include <algorithm>
 #include <Interactions.hpp>
+#include <Lighting.hpp>
 
 std::vector<Intersection>
 intersections(const std::vector<Intersection> &set)
@@ -45,4 +46,70 @@ std::optional<Intersection> hit(const std::vector<Intersection> &intersections)
     return (positive_hit_it == intersections.end())
                ? std::nullopt
                : std::make_optional(*positive_hit_it);
+}
+
+std::vector<Intersection> intersect_world(const World &world, const Ray &ray)
+{
+    std::vector<Intersection> all_intersections;
+    for (const auto &OBJECT : world.objects)
+    {
+        auto intersections = intersect(*OBJECT, ray);
+        all_intersections.insert(all_intersections.end(),
+                                 intersections.cbegin(), intersections.cend());
+    }
+
+    return intersections(all_intersections);
+}
+
+Computations prepare_computations(const Intersection &intersection,
+                                  const Ray &ray)
+{
+    // instantiate a data structure for storing some precomputed values
+    auto comps = Computations();
+
+    // copy the intersection's properties, for convenience
+    comps.t = intersection.t;
+    comps.object = intersection.object;
+
+    // precompute some useful values
+    comps.point = position(ray, comps.t);
+    comps.eyev = -ray.direction;
+    comps.normalv = comps.object->normal_at(comps.point);
+
+    if (dot(comps.normalv, comps.eyev) < 0)
+    {
+        comps.inside = true;
+        comps.normalv = -comps.normalv;
+    }
+    else
+    {
+        comps.inside = false;
+    }
+
+    return comps;
+}
+
+Color shade_hit(const World &world, const Computations &comps)
+{
+    return lighting(comps.object->material, *world.light, comps.point,
+                    comps.eyev, comps.normalv);
+}
+
+Color color_at(const World &world, const Ray &ray)
+{
+    Color color;
+
+    auto intersections = intersect_world(world, ray);
+
+    if (auto the_hit = hit(intersections))
+    {
+        auto computations = prepare_computations(*the_hit, ray);
+        color = shade_hit(world, computations);
+    }
+    else
+    {
+        // return black
+    }
+
+    return color;
 }

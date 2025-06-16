@@ -4,6 +4,8 @@
 #include <optional>
 #include <Math/Ray.hpp>
 #include <Intersection.hpp>
+#include <World/World.hpp>
+#include <World/Computations.hpp>
 
 /**
  * @brief Sorts a set of intersections in ascending order
@@ -34,3 +36,41 @@ std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray);
  * 'hit
  */
 std::optional<Intersection> hit(const std::vector<Intersection> &intersections);
+
+/**
+ * @brief Calculates the intersections of a ray with all objects in a world
+ *
+ * @param world The world containing objects to intersect
+ * @param ray The ray that intersects with the world
+ * @return std::vector<Intersection> The set of intersections found in the world
+ */
+std::vector<Intersection> intersect_world(const World &world, const Ray &ray);
+
+/**
+ * @brief Collects precomputed intersection data to reuse in further
+ * calculations
+ *
+ * @param intersection An existing intersection
+ * @param ray The ray that produced the intersection
+ * @return Computations The precomputed values for the intersection
+ */
+Computations prepare_computations(const Intersection &intersection,
+                                  const Ray &ray);
+
+/**
+ * @brief Returns the color at the intersection that produced the computations
+ *
+ * @param world The world containing intersected objects
+ * @param computations The precomputed values for the intersection
+ * @return Color The color shade for the hit
+ */
+Color shade_hit(const World &world, const Computations &computations);
+
+/**
+ * @brief Intersects a ray with the world and returns the color at the hit point
+ *
+ * @param world The world containing objects to intersect
+ * @param ray The ray to intersect with the world
+ * @return Color The color at the intersection point, or black if no hit occurs
+ */
+Color color_at(const World &world, const Ray &ray);

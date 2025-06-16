@@ -14,7 +14,7 @@ add_library(Matrix Matrix.cpp)
 target_link_libraries(Matrix PUBLIC Tuple PRIVATE Float_compare)
 
 add_library(Transformations Transformations.cpp)
-target_link_libraries(Transformations Matrix)
+target_link_libraries(Transformations Matrix Vector)
 
 add_library(Ray Ray.cpp)
 target_link_libraries(Ray Vector Matrix)
@@ -44,8 +44,7 @@ target_link_libraries(test_Matrix Matrix GTest::gtest_main)
 gtest_discover_tests(test_Matrix)
 
 add_executable(test_Transformations Transformations.test.cpp)
-target_link_libraries(test_Transformations Transformations Vector
-    GTest::gtest_main)
+target_link_libraries(test_Transformations Transformations GTest::gtest_main)
 gtest_discover_tests(test_Transformations)
 
 add_executable(test_Ray Ray.test.cpp)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Math/Matrix.hpp>
+#include <Math/Vector.hpp>
 
 /**
  * @brief Create a translation matrix
@@ -62,3 +63,5 @@ Matrix<4> rotation_z(double theta);
  */
 Matrix<4> shearing(
     double x_y, double x_z, double y_x, double y_z, double z_x, double z_y);
+
+Matrix<4> view_transform(const Point &from, const Point &to, const Vector &up);

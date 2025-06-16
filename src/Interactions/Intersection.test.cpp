@@ -243,3 +243,72 @@ TEST(Hit, chooseLowestPositiveTime)
     auto i = hit(xs);
     ASSERT_EQ(i, i4);
 }
+
+/*
+Scenario: Precomputing the state of an intersection
+    Given r <- ray(point(0, 0, -5), vector(0, 0, 1))
+        And shape <- sphere()
+        And i <- intersection(4, shape)
+    When comps <- prepare_computations(i, r)
+    Then comps.t = i.t
+        And comps.object = i.object
+        And comps.point = point(0, 0, -1)
+        And comps.eyev = vector(0, 0, -1)
+        And comps.normalv = vector(0, 0, -1)
+*/
+TEST(PrepareComputations, precomputerIntersectionState)
+{
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto shape = Sphere();
+    auto i = Intersection(4, &shape);
+
+    auto comps = prepare_computations(i, r);
+    ASSERT_EQ(comps.t, i.t);
+    ASSERT_EQ(comps.object, i.object);
+    ASSERT_EQ(comps.point, Point(0, 0, -1));
+    ASSERT_EQ(comps.eyev, Vector(0, 0, -1));
+    ASSERT_EQ(comps.normalv, Vector(0, 0, -1));
+}
+
+/*
+Scenario: The hit, when an intersection occurs on the outside
+    Given r <- ray(point(0, 0, -5), vector(0, 0, 1))
+        And shape <- sphere()
+        And i <- intersection(4, shape)
+    When comps <- prepare_computations(i, r)
+    Then comps.inside = false
+*/
+TEST(PrepareComputations, detectOutsideIntersection)
+{
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto shape = Sphere();
+    auto i = Intersection(4, &shape);
+
+    auto comps = prepare_computations(i, r);
+    ASSERT_EQ(comps.inside, false);
+}
+
+/*
+Scenario: The hit, when an intersection occurs on the inside
+    Given r <- ray(point(0, 0, 0), vector(0, 0, 1))
+        And shape <- sphere()
+        And i <- intersection(1, shape)
+    When comps <- prepare_computations(i, r)
+    Then comps.point = point(0, 0, 1)
+        And comps.eyev = vector(0, 0, -1)
+        And comps.inside = true
+            # normal would have been (0, 0, 1), but is inverted!
+        And comps.normalv = vector(0, 0, -1)
+*/
+TEST(PrepareComputations, detectInsideIntersection)
+{
+    auto r = Ray(Point(0, 0, 0), Vector(0, 0, 1));
+    auto shape = Sphere();
+    auto i = Intersection(1, &shape);
+
+    auto comps = prepare_computations(i, r);
+    ASSERT_EQ(comps.point, Point(0, 0, 1));
+    ASSERT_EQ(comps.eyev, Vector(0, 0, -1));
+    ASSERT_EQ(comps.inside, true);
+    ASSERT_EQ(comps.normalv, Vector(0, 0, -1));
+}
