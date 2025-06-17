@@ -13,8 +13,9 @@
  * @param point The point on the surface being lit
  * @param eye The eye vector, pointing from the lit point to the viewer
  * @param normal The normal vector at the lit point on the surface
+ * @param in_shadow Indicates whether the point is in shadow
  * @return Color The resulting color after applying lighting calculations
  */
 Color lighting(const Material &material, const PointLight &light,
                const Point &point, const Vector eye_vector,
-               const Vector &normal);
+               const Vector &normal, bool in_shadow = false);

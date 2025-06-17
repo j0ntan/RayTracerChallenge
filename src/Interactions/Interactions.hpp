@@ -74,3 +74,13 @@ Color shade_hit(const World &world, const Computations &computations);
  * @return Color The color at the intersection point, or black if no hit occurs
  */
 Color color_at(const World &world, const Ray &ray);
+
+/**
+ * @brief Checks if a point in the world is shadowed by any object
+ *
+ * @param world The world containing objects
+ * @param point The point to check for shadowing
+ * @return true if the point is shadowed by an object in the world
+ * @return false if the point is not shadowed
+ */
+bool is_shadowed(const World &world, const Point &point);

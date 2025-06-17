@@ -46,4 +46,11 @@ struct Computations
      *
      */
     bool inside;
+
+    /**
+     * @brief A point slightly above the point of intersection, for preventing
+     * the acne effect
+     *
+     */
+    Point over_point;
 };

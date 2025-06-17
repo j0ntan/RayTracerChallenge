@@ -1,6 +1,12 @@
 #pragma once
 
 /**
+ * @brief Minimum allowed difference of two equal floating-point numbers
+ *
+ */
+const double EPSILON = 0.00001;
+
+/**
  * @brief Compare 2 floating-point numbers for equality
  *
  * @param number1 First number compared

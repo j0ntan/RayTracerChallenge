@@ -204,3 +204,92 @@ TEST(color_at, colorWithIntersectionBehindRay)
     auto c = color_at(w, r);
     ASSERT_EQ(c, Color(0.38066, 0.47583, 0.2855));
 }
+
+/*
+Scenario: There is no shadow when nothing is collinear with point and light
+    Given w <- default_world()
+        And p <- point(0, 10, 0)
+    Then is_shadowed(w, p) is false
+*/
+TEST(is_shadowed, nothingBetweenPointAndLight)
+{
+    auto w = default_world();
+    auto p = Point(0, 10, 0);
+
+    ASSERT_FALSE(is_shadowed(w, p));
+}
+
+/*
+Scenario: The shadow when an object is between the point and the light
+    Given w <- default_world()
+        And p <- point(10, -10, 10)
+    Then is_shadowed(w, p) is true
+*/
+TEST(is_shadowed, objectBetweenPointAndLight)
+{
+    auto w = default_world();
+    auto p = Point(10, -10, 10);
+
+    ASSERT_TRUE(is_shadowed(w, p));
+}
+
+/*
+Scenario: There is no shadow when an object is behind the light
+    Given w <- default_world()
+        And p <- point(-20, 20, -20)
+    Then is_shadowed(w, p) is false
+*/
+TEST(is_shadowed, objectBehindLight)
+{
+    auto w = default_world();
+    auto p = Point(-20, 20, -20);
+
+    ASSERT_FALSE(is_shadowed(w, p));
+}
+
+/*
+Scenario: There is no shadow when an object is behind the point
+    Given w <- default_world()
+        And p <- point(-2, 2, -2)
+    Then is_shadowed(w, p) is false
+*/
+TEST(is_shadowed, objectBehindPoint)
+{
+    auto w = default_world();
+    auto p = Point(-2, 2, -2);
+
+    ASSERT_FALSE(is_shadowed(w, p));
+}
+
+/*
+Scenario: shade_hit() is given an intersection in shadow
+    Given w <- world()
+        And w.light <- point_light(point(0, 0, -10), color(1, 1, 1))
+        And s1 <- sphere()
+        And s1 is added to w
+        And s2 <- sphere() with:
+            | transform | translation(0, 0, 10) |
+        And s2 is added to w
+        And r <- ray(point(0, 0, 5), vector(0, 0, 1))
+        And i <- intersection(4, s2)
+    When comps <- prepare_computations(i, r)
+        And c <- shade_hit(w, comps)
+    Then c = color(0.1, 0.1, 0.1)
+*/
+TEST(shade_hit, givenIntersectionInShadow)
+{
+    auto w = World();
+    w.light =
+        std::make_shared<PointLight>(Point(0, 0, -10), Color(1, 1, 1));
+    auto s1 = Sphere();
+    w.objects.push_back(std::make_shared<Sphere>(s1));
+    auto s2 = Sphere();
+    s2.transform = translation(0, 0, 10);
+    w.objects.push_back(std::make_shared<Sphere>(s2));
+    auto r = Ray(Point(0, 0, 5), Vector(0, 0, 1));
+    auto i = Intersection(4, w.objects.back().get());
+
+    auto comps = prepare_computations(i, r);
+    auto c = shade_hit(w, comps);
+    ASSERT_EQ(c, Color(0.1, 0.1, 0.1));
+}

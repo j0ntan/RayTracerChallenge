@@ -3,7 +3,7 @@
 
 Color lighting(const Material &material, const PointLight &light,
                const Point &point, const Vector eye_vector,
-               const Vector &normal)
+               const Vector &normal, bool in_shadow)
 {
     // combine the surface color with the light's color/intensity
     auto effective_color = material.color * light.intensity;
@@ -20,7 +20,7 @@ Color lighting(const Material &material, const PointLight &light,
     auto light_dot_normal = dot(lightv, normal);
 
     Color diffuse, specular;
-    if (light_dot_normal < 0)
+    if (light_dot_normal < 0 || in_shadow)
     {
         diffuse = Color{};
         specular = Color{};

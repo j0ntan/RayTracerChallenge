@@ -1,4 +1,6 @@
 #include <Interactions.hpp>
+#include <Float_compare.hpp>
+#include <Math/Transformations.hpp>
 #include <gtest/gtest.h>
 
 /*
@@ -311,4 +313,26 @@ TEST(PrepareComputations, detectInsideIntersection)
     ASSERT_EQ(comps.eyev, Vector(0, 0, -1));
     ASSERT_EQ(comps.inside, true);
     ASSERT_EQ(comps.normalv, Vector(0, 0, -1));
+}
+
+/*
+Scenario: The hit should offset the point
+    Given r <- ray(point(0, 0, -5), vector(0, 0, 1))
+        And shape <- sphere() with:
+            | transform | translation(0, 0, 1) |
+        And i <- intersection(5, shape)
+    When comps <- prepare_computations(i, r)
+    Then comps.over_point.z < -EPSILON/2
+        And comps.point.z > comps.over_point.z
+*/
+TEST(PrepareComputations, hitShouldOffsetPoint)
+{
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto shape = Sphere();
+    shape.transform = translation(0, 0, 1);
+    auto i = Intersection(5, &shape);
+
+    auto comps = prepare_computations(i, r);
+    ASSERT_LT(comps.over_point.z(), -EPSILON / 2);
+    ASSERT_GT(comps.point.z(), comps.over_point.z());
 }

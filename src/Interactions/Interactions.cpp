@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <Interactions.hpp>
 #include <Lighting.hpp>
+#include <Float_compare.hpp>
 
 std::vector<Intersection>
 intersections(const std::vector<Intersection> &set)
@@ -86,13 +87,17 @@ Computations prepare_computations(const Intersection &intersection,
         comps.inside = false;
     }
 
+    comps.over_point = comps.point + comps.normalv * EPSILON;
+
     return comps;
 }
 
 Color shade_hit(const World &world, const Computations &comps)
 {
-    return lighting(comps.object->material, *world.light, comps.point,
-                    comps.eyev, comps.normalv);
+    auto shadowed = is_shadowed(world, comps.over_point);
+
+    return lighting(comps.object->material, *world.light, comps.over_point,
+                    comps.eyev, comps.normalv, shadowed);
 }
 
 Color color_at(const World &world, const Ray &ray)
@@ -112,4 +117,18 @@ Color color_at(const World &world, const Ray &ray)
     }
 
     return color;
+}
+
+bool is_shadowed(const World &world, const Point &point)
+{
+    auto v = world.light->position - point;
+    auto distance = magnitude(v);
+    auto direction = normalize(v);
+
+    auto r = Ray(point, direction);
+    auto intersections = intersect_world(world, r);
+
+    auto h = hit(intersections);
+
+    return h && h->t < distance;
 }

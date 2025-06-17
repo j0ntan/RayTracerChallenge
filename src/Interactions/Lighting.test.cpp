@@ -116,3 +116,28 @@ TEST(Lighting, lightBehindSurface)
     auto result = lighting(m, light, position, eyev, normalv);
     ASSERT_EQ(result, Color(0.1, 0.1, 0.1));
 }
+
+/*
+Background:
+    Given m <- material()
+        And position <- point(0, 0, 0)
+Scenario: Lighting with the surface in shadow
+    Given eyev <- vector(0, 0, -1)
+        And normalv <- vector(0, 0, -1)
+        And light <- point_light(point(0, 0, -10), color(1, 1, 1))
+        And in_shadow <- true
+    When result <- lighting(m, light, position, eyev, normalv, in_shadow)
+    Then result = color(0.1, 0.1, 0.1)
+*/
+TEST(Lighting, surfaceInShadow)
+{
+    auto m = Material();
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, 0, -1);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight(Point(0, 0, -10), Color(1, 1, 1));
+    auto in_shadow = true;
+
+    auto result = lighting(m, light, position, eyev, normalv, in_shadow);
+    ASSERT_EQ(result, Color(0.1, 0.1, 0.1));
+}
