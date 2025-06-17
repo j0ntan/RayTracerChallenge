@@ -19,6 +19,9 @@ target_link_libraries(Transformations Matrix Vector)
 add_library(Ray Ray.cpp)
 target_link_libraries(Ray Vector Matrix)
 
+add_library(Shape INTERFACE ${INCLUDE_DIR}/Math/Shape.hpp)
+target_link_libraries(Shape INTERFACE Ray Material)
+
 add_library(Sphere Sphere.cpp)
 target_link_libraries(Sphere Matrix Vector Material)
 
@@ -55,3 +58,8 @@ add_executable(test_Sphere Sphere.test.cpp)
 target_link_libraries(test_Sphere Sphere MaterialCmp Transformations
     Interactions GTest::gtest_main)
 gtest_discover_tests(test_Sphere)
+
+add_executable(test_Shape Shape.test.cpp)
+target_link_libraries(test_Shape Shape MaterialCmp Transformations
+    GTest::gtest_main)
+gtest_discover_tests(test_Shape)
