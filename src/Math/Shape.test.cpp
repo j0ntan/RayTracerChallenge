@@ -13,6 +13,11 @@ class test_shape : public Shape
     {
         return Vector();
     }
+
+    std::vector<Intersection> local_intersect(const Ray &ray) const override
+    {
+        return std::vector<Intersection>();
+    }
 };
 
 /*

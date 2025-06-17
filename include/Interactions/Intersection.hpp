@@ -1,6 +1,10 @@
 #pragma once
 
-#include <Math/Sphere.hpp>
+/**
+ * @brief Forward declare Sphere
+ *
+ */
+class Sphere;
 
 /**
  * @brief Represents a single intersection between a ray and a sphere

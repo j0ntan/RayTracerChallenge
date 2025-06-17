@@ -16,25 +16,8 @@ intersections(const std::vector<Intersection> &set)
 
 std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray)
 {
-    auto transformed_ray = transform(ray, inverse(sphere.transform));
-
-    auto sphere_to_ray = transformed_ray.origin - Point(0, 0, 0);
-
-    auto a = dot(transformed_ray.direction, transformed_ray.direction);
-    auto b = 2 * dot(transformed_ray.direction, sphere_to_ray);
-    auto c = dot(sphere_to_ray, sphere_to_ray) - 1;
-
-    auto discriminant = (b * b) - 4 * a * c;
-
-    if (discriminant < 0)
-    {
-        return std::vector<Intersection>();
-    }
-
-    auto t1 = (-b - std::sqrt(discriminant)) / (2 * a);
-    auto t2 = (-b + std::sqrt(discriminant)) / (2 * a);
-
-    return {Intersection{t1, &sphere}, Intersection{t2, &sphere}};
+    auto local_ray = transform(ray, inverse(sphere.transform));
+    return sphere.local_intersect(local_ray);
 }
 
 std::optional<Intersection> hit(const std::vector<Intersection> &intersections)

@@ -1,8 +1,9 @@
 #pragma once
 
-#include <Math/Matrix.hpp>
-#include <Math/Vector.hpp>
+#include <vector>
+#include <Math/Ray.hpp>
 #include <World/Material.hpp>
+#include <Interactions/Intersection.hpp>
 
 /**
  * @brief A sphere object used to build the ray tracer world
@@ -29,4 +30,12 @@ struct Sphere
      * @return Vector The normal vector at the point
      */
     Vector normal_at(const Point &point) const;
+
+    /**
+     * @brief Calculates the intersection of a ray and a sphere
+     *
+     * @param ray The ray to intersect
+     * @return std::vector<Intersection> The set of intersections, if any
+     */
+    std::vector<Intersection> local_intersect(const Ray &ray) const;
 };

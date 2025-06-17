@@ -3,6 +3,7 @@
 #include <vector>
 #include <Math/Ray.hpp>
 #include <World/Material.hpp>
+#include <Interactions/Intersection.hpp>
 
 /**
  * @brief Shape abstraction for ray tracer world objects
@@ -37,4 +38,14 @@ struct Shape
      * @return Vector The normal vector at the point
      */
     virtual Vector normal_at(const Point &point) const = 0;
+
+    /**
+     * @brief Calculates the intersection of a ray and a shape
+     *
+     * This abstract method will be implemented by concrete shape subclasses.
+     *
+     * @param ray The ray to intersect
+     * @return std::vector<Intersection> The set of intersections, if any
+     */
+    virtual std::vector<Intersection> local_intersect(const Ray &ray) const = 0;
 };

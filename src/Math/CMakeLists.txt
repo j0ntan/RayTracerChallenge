@@ -23,7 +23,8 @@ add_library(Shape INTERFACE ${INCLUDE_DIR}/Math/Shape.hpp)
 target_link_libraries(Shape INTERFACE Ray Material)
 
 add_library(Sphere Sphere.cpp)
-target_link_libraries(Sphere Matrix Vector Material)
+target_link_libraries(Sphere PUBLIC Matrix Vector Material 
+    PRIVATE Transformations)
 
 # Tests
 add_executable(test_Float_compare utility/Float_compare.test.cpp)
