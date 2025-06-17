@@ -3,7 +3,7 @@
 #include <vector>
 #include <optional>
 #include <Math/Ray.hpp>
-#include <Intersection.hpp>
+#include <Interactions/Intersection.hpp>
 #include <World/World.hpp>
 #include <World/Computations.hpp>
 
