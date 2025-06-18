@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <memory>
-#include <Math/Sphere.hpp>
+#include <Math/Shape.hpp>
 #include <World/PointLight.hpp>
 
 /**
@@ -11,7 +11,7 @@
  */
 struct World
 {
-    std::vector<std::shared_ptr<Sphere>> objects;
+    std::vector<std::shared_ptr<Shape>> objects;
     std::shared_ptr<PointLight> light = nullptr;
 };
 

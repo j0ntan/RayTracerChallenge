@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <World/World.hpp>
 #include <Math/Transformations.hpp>
+#include <Math/Sphere.hpp>
 #include <MaterialCmp.hpp>
 #include <Interactions.hpp>
 #include <gtest/gtest.h>
@@ -38,8 +39,9 @@ bool operator==(const Sphere &lhs, const Sphere &rhs)
 bool contains_sphere(const World &world, const Sphere &sphere)
 {
     return std::find_if(world.objects.cbegin(), world.objects.cend(),
-                        [&](const std::shared_ptr<Sphere> &s)
-                        { return (*s) == sphere; }) != world.objects.end();
+                        [&](const std::shared_ptr<Shape> &s)
+                        { return *static_cast<Sphere *>(s.get()) ==
+                                 sphere; }) != world.objects.end();
 }
 
 /*

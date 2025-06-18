@@ -1,6 +1,12 @@
 #pragma once
 
-#include <Math/Sphere.hpp>
+#include <Math/Vector.hpp>
+
+/**
+ * @brief Forward declare Shape
+ *
+ */
+class Shape;
 
 /**
  * @brief Pprecomputed intersection data to be used in calculations
@@ -18,7 +24,7 @@ struct Computations
      * @brief The object that was hit
      *
      */
-    const Sphere *object;
+    const Shape *object;
 
     /**
      * @brief The point of intersection in world coordinates

@@ -1,6 +1,7 @@
 #include <numbers>
 #include <fstream>
 #include <Math/Transformations.hpp>
+#include <Math/Sphere.hpp>
 #include <World/Camera.hpp>
 
 /**

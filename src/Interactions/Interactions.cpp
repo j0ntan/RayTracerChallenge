@@ -3,6 +3,7 @@
 #include <Interactions.hpp>
 #include <Lighting.hpp>
 #include <Float_compare.hpp>
+#include <Math/Shape.hpp>
 
 std::vector<Intersection>
 intersections(const std::vector<Intersection> &set)
@@ -14,10 +15,10 @@ intersections(const std::vector<Intersection> &set)
     return sorted;
 }
 
-std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray)
+std::vector<Intersection> intersect(const Shape &shape, const Ray &ray)
 {
-    auto local_ray = transform(ray, inverse(sphere.transform));
-    return sphere.local_intersect(local_ray);
+    auto local_ray = transform(ray, inverse(shape.transform));
+    return shape.local_intersect(local_ray);
 }
 
 std::optional<Intersection> hit(const std::vector<Intersection> &intersections)

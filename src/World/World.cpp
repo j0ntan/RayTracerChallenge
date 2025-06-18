@@ -1,5 +1,6 @@
 #include <World/World.hpp>
 #include <Math/Transformations.hpp>
+#include <Math/Sphere.hpp>
 
 World default_world()
 {

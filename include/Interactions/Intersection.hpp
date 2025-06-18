@@ -1,10 +1,10 @@
 #pragma once
 
 /**
- * @brief Forward declare Sphere
+ * @brief Forward declare Shape
  *
  */
-class Sphere;
+class Shape;
 
 /**
  * @brief Represents a single intersection between a ray and a sphere
@@ -22,5 +22,5 @@ struct Intersection
      * @brief The object that was intersected
      *
      */
-    const Sphere *object;
+    const Shape *object;
 };

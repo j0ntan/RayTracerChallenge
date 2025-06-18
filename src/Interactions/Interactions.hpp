@@ -17,13 +17,13 @@ std::vector<Intersection>
 intersections(const std::vector<Intersection> &intersections);
 
 /**
- * @brief Calculates the intersection of a ray and a sphere
+ * @brief Calculates the intersection of a ray and a shape
  *
- * @param sphere The sphere to intersect with
+ * @param sphere The shape to intersect with
  * @param ray The ray to intersect
  * @return std::vector<Intersection> The set of intersections, if any
  */
-std::vector<Intersection> intersect(const Sphere &sphere, const Ray &ray);
+std::vector<Intersection> intersect(const Shape &shape, const Ray &ray);
 
 /**
  * @brief Finds & returns the 'hit' from a set of intersections

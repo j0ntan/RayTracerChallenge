@@ -1,6 +1,7 @@
 #include <Interactions.hpp>
 #include <Float_compare.hpp>
 #include <Math/Transformations.hpp>
+#include <Math/Sphere.hpp>
 #include <gtest/gtest.h>
 
 /*
