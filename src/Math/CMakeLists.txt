@@ -61,6 +61,6 @@ target_link_libraries(test_Sphere Sphere MaterialCmp Transformations
 gtest_discover_tests(test_Sphere)
 
 add_executable(test_Shape Shape.test.cpp)
-target_link_libraries(test_Shape Shape MaterialCmp Transformations
+target_link_libraries(test_Shape Shape MaterialCmp Transformations Interactions
     GTest::gtest_main)
 gtest_discover_tests(test_Shape)

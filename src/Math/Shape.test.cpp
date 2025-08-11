@@ -1,14 +1,18 @@
 #include <Math/Shape.hpp>
 #include <Math/Transformations.hpp>
 #include <MaterialCmp.hpp>
+#include <Interactions.hpp>
 #include <gtest/gtest.h>
+
+Ray global_ray;
 
 /**
  * @brief Concrete shape for testing some shape properties
  *
  */
-class test_shape : public Shape
+class test_shape final : public Shape
 {
+public:
     Vector normal_at(const Point &point) const override
     {
         return Vector();
@@ -16,8 +20,11 @@ class test_shape : public Shape
 
     std::vector<Intersection> local_intersect(const Ray &ray) const override
     {
+        global_ray = ray;
         return std::vector<Intersection>();
     }
+
+    Ray &saved_ray = global_ray;
 };
 
 /*
@@ -75,4 +82,46 @@ TEST(ShapeMaterial, assignMaterial)
 
     s.material = m;
     ASSERT_EQ(s.material, m);
+}
+
+/*
+Scenario: Intersecting a scaled shape with a ray
+    Given r = ray(point(0, 0, -5), vector(0, 0, 1))
+        And s = test_shape()
+    When set_transform(s, scaling(2, 2, 2))
+        And xs = intersect(s, r)
+    Then s.saved_ray.origin = point(0, 0, -2.5)
+        And s.saved_ray.direction = vector(0, 0, 0.5)
+*/
+TEST(ShapeIntersect, scaledShapeAndRay)
+{
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto s = test_shape();
+
+    s.transform = scaling(2, 2, 2);
+    auto xs = intersect(s, r);
+
+    ASSERT_EQ(s.saved_ray.origin, Point(0, 0, -2.5));
+    ASSERT_EQ(s.saved_ray.direction, Vector(0, 0, 0.5));
+}
+
+/*
+Scenario: Intersecting a translated shape with a ray
+    Given r = ray(point(0, 0, -5), vector(0, 0, 1))
+        And s = test_shape()
+    When set_transform(s, translation(5, 0, 0))
+        And xs = intersect(s, r)
+    Then s.saved_ray.origin = point(-5, 0, -5)
+        And s.saved_ray.direction = vector(0, 0, 1)
+*/
+TEST(ShapeIntersect, translatedShapeAndRay)
+{
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto s = test_shape();
+
+    s.transform = translation(5, 0, 0);
+    auto xs = intersect(s, r);
+
+    ASSERT_EQ(s.saved_ray.origin, Point(-5, 0, -5));
+    ASSERT_EQ(s.saved_ray.direction, Vector(0, 0, 1));
 }
