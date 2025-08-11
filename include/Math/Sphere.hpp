@@ -16,18 +16,18 @@ struct Sphere : public Shape
     ~Sphere() = default;
 
     /**
-     * @brief Create the unit normal vector at the given point on the sphere
-     *
-     * @param point The point on the sphere's surface
-     * @return Vector The normal vector at the point
-     */
-    Vector normal_at(const Point &point) const override;
-
-    /**
      * @brief Calculates the intersection of a ray and a sphere
      *
      * @param ray The ray to intersect
      * @return std::vector<Intersection> The set of intersections, if any
      */
     std::vector<Intersection> local_intersect(const Ray &ray) const override;
+
+    /**
+     * @brief Sphere's implementation for calculating the normal vector
+     *
+     * @param point
+     * @return Vector
+     */
+    virtual Vector local_normal_at(const Point &point) const override;
 };

@@ -32,12 +32,22 @@ struct Shape
     /**
      * @brief Create the unit normal vector at the given point for the shape
      *
-     * This abstract method will be implemented by concrete shape subclasses.
+     * This method will call the `local_normal_at` method to calculate the
+     * subclass-specific implementation for the normal vector.
      *
      * @param point The point on the shape's surface
      * @return Vector The normal vector at the point
      */
-    virtual Vector normal_at(const Point &point) const = 0;
+    virtual Vector normal_at(const Point &point) const;
+
+    /**
+     * @brief Shape-specific subclass implementation for calculating the normal
+     * vector
+     *
+     * @param point The point on the shape's surface
+     * @return Vector The normal vector at the point
+     */
+    virtual Vector local_normal_at(const Point &point) const = 0;
 
     /**
      * @brief Calculates the intersection of a ray and a shape

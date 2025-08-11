@@ -19,11 +19,11 @@ target_link_libraries(Transformations Matrix Vector)
 add_library(Ray Ray.cpp)
 target_link_libraries(Ray Vector Matrix)
 
-add_library(Shape INTERFACE ${INCLUDE_DIR}/Math/Shape.hpp)
-target_link_libraries(Shape INTERFACE Ray Material)
+add_library(Shape Shape.cpp)
+target_link_libraries(Shape PUBLIC Ray Material)
 
 add_library(Sphere Sphere.cpp)
-target_link_libraries(Sphere PUBLIC Matrix Vector Material 
+target_link_libraries(Sphere PUBLIC Matrix Vector Material Shape
     PRIVATE Transformations)
 
 # Tests
