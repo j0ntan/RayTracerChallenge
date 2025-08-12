@@ -26,6 +26,9 @@ add_library(Sphere Sphere.cpp)
 target_link_libraries(Sphere PUBLIC Matrix Vector Material Shape
     PRIVATE Transformations)
 
+add_library(Plane Plane.cpp)
+target_link_libraries(Plane PUBLIC Shape PRIVATE Float_compare)
+
 # Tests
 add_executable(test_Float_compare utility/Float_compare.test.cpp)
 target_link_libraries(test_Float_compare Float_compare GTest::gtest_main)
@@ -64,3 +67,7 @@ add_executable(test_Shape Shape.test.cpp)
 target_link_libraries(test_Shape Shape MaterialCmp Transformations Interactions
     GTest::gtest_main)
 gtest_discover_tests(test_Shape)
+
+add_executable(test_Plane Plane.test.cpp)
+target_link_libraries(test_Plane Plane MaterialCmp GTest::gtest_main)
+gtest_discover_tests(test_Plane)
