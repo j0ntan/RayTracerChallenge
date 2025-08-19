@@ -1,5 +1,8 @@
 #include <Graphics/Color.hpp>
 
+const Color Color::BLACK(0, 0, 0);
+const Color Color::WHITE(1, 1, 1);
+
 Color::Color(double red, double green, double blue) : Tuple{red, green, blue, 0}
 {
 }
