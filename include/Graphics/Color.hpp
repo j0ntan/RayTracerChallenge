@@ -57,6 +57,13 @@ public:
      */
     double blue() const;
 
+    /**
+     * @brief Basic color constants provided for convenience
+     *
+     */
+    static const Color BLACK;
+    static const Color WHITE;
+
 private:
     // make inaccessible from the Color interface
     using Tuple::w;
