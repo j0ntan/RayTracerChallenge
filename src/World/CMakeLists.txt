@@ -9,7 +9,8 @@ target_include_directories(MaterialCmp INTERFACE .)
 target_link_libraries(MaterialCmp INTERFACE Material Float_compare)
 
 add_library(World World.cpp)
-target_link_libraries(World PUBLIC Sphere PointLight PRIVATE Transformations)
+target_link_libraries(World PUBLIC Sphere Plane PointLight
+    PRIVATE Transformations)
 
 add_library(Camera Camera.cpp)
 target_link_libraries(Camera PUBLIC Ray Canvas World PRIVATE Interactions)
