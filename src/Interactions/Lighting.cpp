@@ -5,8 +5,18 @@ Color lighting(const Material &material, const PointLight &light,
                const Point &point, const Vector eye_vector,
                const Vector &normal, bool in_shadow)
 {
+    Color color;
+    if (material.pattern.has_value())
+    {
+        color = material.pattern->stripe_at(point);
+    }
+    else
+    {
+        color = material.color;
+    }
+
     // combine the surface color with the light's color/intensity
-    auto effective_color = material.color * light.intensity;
+    auto effective_color = color * light.intensity;
 
     // find the direction to the light source
     auto lightv = normalize(light.position - point);

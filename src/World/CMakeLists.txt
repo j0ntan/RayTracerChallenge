@@ -2,7 +2,7 @@ add_library(PointLight INTERFACE ${INCLUDE_DIR}/World/PointLight.hpp)
 target_link_libraries(PointLight INTERFACE Point Color)
 
 add_library(Material INTERFACE ${INCLUDE_DIR}/World/Material.hpp)
-target_link_libraries(Material INTERFACE Color)
+target_link_libraries(Material INTERFACE Color StripePattern)
 
 add_library(MaterialCmp INTERFACE MaterialCmp.hpp)
 target_include_directories(MaterialCmp INTERFACE .)

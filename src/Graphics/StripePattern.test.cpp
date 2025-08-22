@@ -1,4 +1,5 @@
-#include <StripePattern.hpp>
+#include <Graphics/StripePattern.hpp>
+#include <Math/Transformations.hpp>
 #include <gtest/gtest.h>
 
 /*
@@ -78,4 +79,63 @@ TEST(StripeAt, alternatesInX)
     ASSERT_EQ(pattern.stripe_at(Point(-0.1, 0, 0)), Color::BLACK);
     ASSERT_EQ(pattern.stripe_at(Point(-1, 0, 0)), Color::BLACK);
     ASSERT_EQ(pattern.stripe_at(Point(-1.1, 0, 0)), Color::WHITE);
+}
+
+/*
+Scenario: Stripes with an object transformation
+    Given object ← sphere()
+        And set_transform(object, scaling(2, 2, 2))
+        And pattern ← stripe_pattern(white, black)
+    When c ← stripe_at_object(pattern, object, point(1.5, 0, 0))
+    Then c = white
+*/
+TEST(StripePatternTransformation, hasObjectTransformation)
+{
+    auto object = Sphere();
+    object.transform = scaling(2, 2, 2);
+    auto pattern = StripePattern(Color::WHITE, Color::BLACK);
+
+    auto c = stripe_at_object(pattern, object, Point(1.5, 0, 0));
+
+    ASSERT_EQ(c, Color::WHITE);
+}
+
+/*
+Scenario: Stripes with a pattern transformation
+    Given object ← sphere()
+        And pattern ← stripe_pattern(white, black)
+        And set_pattern_transform(pattern, scaling(2, 2, 2))
+    When c ← stripe_at_object(pattern, object, point(1.5, 0, 0))
+    Then c = white
+*/
+TEST(StripePatternTransformation, hasPatternTransformation)
+{
+    auto object = Sphere();
+    auto pattern = StripePattern(Color::WHITE, Color::BLACK);
+    pattern.transform = scaling(2, 2, 2);
+
+    auto c = stripe_at_object(pattern, object, Point(1.5, 0, 0));
+
+    ASSERT_EQ(c, Color::WHITE);
+}
+
+/*
+Scenario: Stripes with both an object and a pattern transformation
+    Given object ← sphere()
+        And set_transform(object, scaling(2, 2, 2))
+        And pattern ← stripe_pattern(white, black)
+        And set_pattern_transform(pattern, translation(0.5, 0, 0))
+    When c ← stripe_at_object(pattern, object, point(2.5, 0, 0))
+    Then c = white
+*/
+TEST(StripePatternTransformation, hasObjectAndPatternTransformation)
+{
+    auto object = Sphere();
+    object.transform = scaling(2, 2, 2);
+    auto pattern = StripePattern(Color::WHITE, Color::BLACK);
+    pattern.transform = translation(0.5, 0, 0);
+
+    auto c = stripe_at_object(pattern, object, Point(2.5, 0, 0));
+
+    ASSERT_EQ(c, Color::WHITE);
 }
