@@ -1,7 +1,7 @@
-add_library(PointLight INTERFACE ${INCLUDE_DIR}/World/PointLight.hpp)
+add_library(PointLight INTERFACE PointLight.hpp)
 target_link_libraries(PointLight INTERFACE Point Color)
 
-add_library(Material INTERFACE ${INCLUDE_DIR}/World/Material.hpp)
+add_library(Material INTERFACE Material.hpp)
 target_link_libraries(Material INTERFACE Color)
 
 add_library(MaterialCmp INTERFACE MaterialCmp.hpp)
