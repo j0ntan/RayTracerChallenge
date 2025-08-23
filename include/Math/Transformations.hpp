@@ -64,4 +64,14 @@ Matrix<4> rotation_z(double theta);
 Matrix<4> shearing(
     double x_y, double x_z, double y_x, double y_z, double z_x, double z_y);
 
+/**
+ * @brief Create a view transformation matrix for the camera
+ *
+ *
+ *
+ * @param from The location of the eye in the scene
+ * @param to The point in the scene to look at
+ * @param up A vector roughly pointing in the up direction
+ * @return Matrix<4> The corresponding view transformation matrix
+ */
 Matrix<4> view_transform(const Point &from, const Point &to, const Vector &up);
