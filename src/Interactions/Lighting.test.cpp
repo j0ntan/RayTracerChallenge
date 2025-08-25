@@ -1,5 +1,5 @@
 #include <numbers>
-#include <Lighting.hpp>
+#include <Interactions/Lighting.hpp>
 #include <gtest/gtest.h>
 
 /*

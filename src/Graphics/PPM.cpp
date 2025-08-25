@@ -1,6 +1,6 @@
 #include <cmath>
 #include <string_view>
-#include <PPM.hpp>
+#include <Graphics/PPM.hpp>
 
 std::string PPM::write_header(std::size_t width, std::size_t height)
 {

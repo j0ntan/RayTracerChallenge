@@ -14,4 +14,4 @@ add_executable(3_spheres 3_spheres.cpp)
 target_link_libraries(3_spheres Transformations Camera)
 
 add_executable(hexagonal_planes hexagonal_planes.cpp)
-target_link_libraries(hexagonal_planes Transformations Camera)
+target_link_libraries(hexagonal_planes Plane Transformations Camera)

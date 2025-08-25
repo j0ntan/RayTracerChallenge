@@ -1,8 +1,8 @@
 #include <utility>
 #include <Math/Transformations.hpp>
 #include <Math/Sphere.hpp>
-#include <Interactions.hpp>
-#include <Lighting.hpp>
+#include <Interactions/Interactions.hpp>
+#include <Interactions/Lighting.hpp>
 #include <Graphics/Canvas.hpp>
 
 struct Scene

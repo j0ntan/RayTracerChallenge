@@ -2,7 +2,7 @@
 #include <numbers>
 #include <MaterialCmp.hpp>
 #include <Math/Transformations.hpp>
-#include <Interactions.hpp>
+#include <Interactions/Interactions.hpp>
 #include <Math/Sphere.hpp>
 #include <gtest/gtest.h>
 

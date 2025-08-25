@@ -1,11 +1,9 @@
 add_library(Interactions Interactions.cpp)
-target_include_directories(Interactions PUBLIC .)
 target_link_libraries(Interactions PUBLIC Ray Sphere World PRIVATE Lighting
     Float_compare)
 
 add_library(Lighting Lighting.cpp)
-target_include_directories(Lighting PUBLIC .)
-target_link_libraries(Lighting PRIVATE Material PointLight Vector)
+target_link_libraries(Lighting Material PointLight Vector)
 
 # Tests
 add_executable(test_Intersection Intersection.test.cpp)

@@ -1,6 +1,6 @@
 #include <cmath>
 #include <World/Camera.hpp>
-#include <Interactions.hpp>
+#include <Interactions/Interactions.hpp>
 
 Camera::Camera(std::size_t hsize, std::size_t vsize, double field_of_view)
     : hsize{hsize}, vsize{vsize}, field_of_view{field_of_view}

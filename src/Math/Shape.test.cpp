@@ -2,7 +2,7 @@
 #include <Math/Shape.hpp>
 #include <Math/Transformations.hpp>
 #include <MaterialCmp.hpp>
-#include <Interactions.hpp>
+#include <Interactions/Interactions.hpp>
 #include <gtest/gtest.h>
 
 Ray global_ray;

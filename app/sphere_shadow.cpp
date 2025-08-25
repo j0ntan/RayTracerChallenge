@@ -1,4 +1,4 @@
-#include <Interactions.hpp>
+#include <Interactions/Interactions.hpp>
 #include <Math/Sphere.hpp>
 #include <Math/Transformations.hpp>
 #include <Graphics/Canvas.hpp>

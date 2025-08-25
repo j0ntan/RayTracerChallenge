@@ -1,4 +1,4 @@
-#include <PPM.hpp>
+#include <Graphics/PPM.hpp>
 #include <gtest/gtest.h>
 
 TEST(PPMheader, matchHeader)

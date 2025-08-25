@@ -2,7 +2,6 @@ add_library(Color Color.cpp)
 target_link_libraries(Color Tuple)
 
 add_library(PPM PPM.cpp)
-target_include_directories(PPM PUBLIC .)
 target_link_libraries(PPM Color)
 
 add_library(Canvas Canvas.cpp)

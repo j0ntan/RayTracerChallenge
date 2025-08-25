@@ -4,13 +4,13 @@ target_link_libraries(PointLight INTERFACE Point Color)
 add_library(Material INTERFACE Material.hpp)
 target_link_libraries(Material INTERFACE Color)
 
-add_library(MaterialCmp INTERFACE MaterialCmp.hpp)
-target_include_directories(MaterialCmp INTERFACE .)
+add_library(MaterialCmp INTERFACE utility/MaterialCmp.hpp)
+target_include_directories(MaterialCmp INTERFACE utility)
 target_link_libraries(MaterialCmp INTERFACE Material Float_compare)
 
 add_library(World World.cpp)
-target_link_libraries(World PUBLIC Sphere Plane PointLight
-    PRIVATE Transformations)
+target_link_libraries(World PUBLIC Shape PointLight
+    PRIVATE Sphere Transformations)
 
 add_library(Camera Camera.cpp)
 target_link_libraries(Camera PUBLIC Ray Canvas World PRIVATE Interactions)

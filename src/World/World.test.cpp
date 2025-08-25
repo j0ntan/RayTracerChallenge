@@ -3,7 +3,7 @@
 #include <Math/Transformations.hpp>
 #include <Math/Sphere.hpp>
 #include <MaterialCmp.hpp>
-#include <Interactions.hpp>
+#include <Interactions/Interactions.hpp>
 #include <gtest/gtest.h>
 
 /**

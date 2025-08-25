@@ -1,6 +1,6 @@
 #include <cmath>
 #include <fstream>
-#include <PPM.hpp>
+#include <Graphics/PPM.hpp>
 #include <Graphics/Canvas.hpp>
 
 namespace

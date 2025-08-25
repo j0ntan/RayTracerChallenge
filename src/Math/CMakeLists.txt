@@ -35,7 +35,7 @@ target_link_libraries(test_Float_compare Float_compare GTest::gtest_main)
 gtest_discover_tests(test_Float_compare)
 
 add_executable(test_Tuple Tuple.test.cpp)
-target_link_libraries(test_Tuple Tuple Vector GTest::gtest_main)
+target_link_libraries(test_Tuple Tuple Point Vector GTest::gtest_main)
 gtest_discover_tests(test_Tuple)
 
 add_executable(test_Point Point.test.cpp)

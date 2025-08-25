@@ -1,5 +1,5 @@
 #include <cmath>
-#include <Lighting.hpp>
+#include <Interactions/Lighting.hpp>
 
 Color lighting(const Material &material, const PointLight &light,
                const Point &point, const Vector eye_vector,

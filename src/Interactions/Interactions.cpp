@@ -1,7 +1,7 @@
 #include <cmath>
 #include <algorithm>
-#include <Interactions.hpp>
-#include <Lighting.hpp>
+#include <Interactions/Interactions.hpp>
+#include <Interactions/Lighting.hpp>
 #include <Float_compare.hpp>
 #include <Math/Shape.hpp>
 
