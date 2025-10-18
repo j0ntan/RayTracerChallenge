@@ -8,7 +8,7 @@ add_library(Canvas Canvas.cpp)
 target_link_libraries(Canvas PRIVATE PPM)
 
 add_library(StripePattern StripePattern.cpp)
-target_link_libraries(StripePattern Color Point)
+target_link_libraries(StripePattern Color Point Matrix Shape)
 
 # Tests
 add_executable(test_Color Color.test.cpp)
@@ -25,5 +25,6 @@ gtest_discover_tests(test_Canvas)
 
 add_executable(test_StripePattern StripePattern.test.cpp)
 target_include_directories(test_StripePattern PRIVATE .)
-target_link_libraries(test_StripePattern StripePattern GTest::gtest_main)
+target_link_libraries(test_StripePattern StripePattern Sphere Transformations
+    GTest::gtest_main)
 gtest_discover_tests(test_StripePattern)

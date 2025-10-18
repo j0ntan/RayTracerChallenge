@@ -1,0 +1,32 @@
+#include <World/Material.hpp>
+
+Material::Material(const Material &material)
+    : color{material.color}, ambient{material.ambient},
+      diffuse{material.diffuse}, specular{material.specular},
+      shininess{material.shininess}, pattern{nullptr}
+{
+    if (material.pattern)
+    {
+        pattern = std::make_unique<StripePattern>(*(material.pattern));
+    }
+}
+
+Material &Material::operator=(const Material &rhs)
+{
+    if (this != &rhs)
+    {
+        color = rhs.color;
+        ambient = rhs.ambient;
+        diffuse = rhs.diffuse;
+        specular = rhs.specular;
+        shininess = rhs.shininess;
+        pattern = nullptr;
+
+        if (rhs.pattern)
+        {
+            pattern = std::make_unique<StripePattern>(*(rhs.pattern));
+        }
+    }
+
+    return *this;
+}

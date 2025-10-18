@@ -17,4 +17,11 @@ bool operator==(const Material &lhs, const Material &rhs)
            float_equals(lhs.diffuse, rhs.diffuse) &&
            float_equals(lhs.specular, rhs.specular) &&
            float_equals(lhs.shininess, rhs.shininess);
+
+    /**
+     * @note We will not compare the material's pattern property for material
+     * equality. This comparator is only needed for certain tests; it is not
+     * used in the main ray tracer program. No need to add complexity.
+     *
+     */
 }

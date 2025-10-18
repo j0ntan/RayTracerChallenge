@@ -1,8 +1,8 @@
 add_library(PointLight INTERFACE PointLight.hpp)
 target_link_libraries(PointLight INTERFACE Point Color)
 
-add_library(Material INTERFACE Material.hpp)
-target_link_libraries(Material INTERFACE Color)
+add_library(Material Material.cpp)
+target_link_libraries(Material Color StripePattern)
 
 add_library(MaterialCmp INTERFACE utility/MaterialCmp.hpp)
 target_include_directories(MaterialCmp INTERFACE utility)

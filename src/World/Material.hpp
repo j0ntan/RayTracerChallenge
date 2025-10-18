@@ -1,6 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <Graphics/Color.hpp>
+#include <Graphics/StripePattern.hpp>
 
 /**
  * @brief Defines the reflective properties for world objects
@@ -16,4 +18,41 @@ struct Material
     double diffuse = {0.9};
     double specular = {0.9};
     double shininess = {200};
+    std::unique_ptr<StripePattern> pattern;
+
+    /**
+     * @brief Default construct a new Material object
+     *
+     */
+    Material() = default;
+
+    /**
+     * @brief Copy construct a new Material object
+     *
+     * @param material The material to copy from
+     */
+    Material(const Material &material);
+
+    /**
+     * @brief Move construct a new Material object
+     *
+     * @param material The material to move from
+     */
+    Material(Material &&material) = default;
+
+    /**
+     * @brief Copy assignment operator
+     *
+     * @param rhs The right-hand side material
+     * @return Material& The assigned material
+     */
+    Material &operator=(const Material &rhs);
+
+    /**
+     * @brief Move assignment operator
+     *
+     * @param rhs The right-hand side material
+     * @return Material& The assigned material
+     */
+    Material &operator=(Material &&rhs) = default;
 };
