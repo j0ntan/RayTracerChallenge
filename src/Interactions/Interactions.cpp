@@ -80,8 +80,8 @@ Color shade_hit(const World &world, const Computations &comps)
 {
     auto shadowed = is_shadowed(world, comps.over_point);
 
-    return lighting(comps.object->material, *world.light, comps.over_point,
-                    comps.eyev, comps.normalv, shadowed);
+    return lighting(*comps.object, *world.light, comps.over_point, comps.eyev,
+                    comps.normalv, shadowed);
 }
 
 Color color_at(const World &world, const Ray &ray)

@@ -57,8 +57,9 @@ cast_rays(Scene &scene, const Canvas &canvas)
                 auto point = position(RAY, HIT->t);
                 auto normal = HIT->object->normal_at(point);
                 auto eye = -RAY.direction;
-                auto color = lighting(HIT->object->material, scene.source,
-                                      scene.viewpoint, eye, normal);
+                auto color =
+                    lighting(*HIT->object, scene.source, scene.viewpoint, eye,
+                             normal);
                 pixels.emplace_back(std::make_pair(Point(x, y, 0), color));
             }
         }

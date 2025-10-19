@@ -12,5 +12,5 @@ target_link_libraries(test_Intersection Interactions Float_compare
 gtest_discover_tests(test_Intersection)
 
 add_executable(test_Lighting Lighting.test.cpp)
-target_link_libraries(test_Lighting Lighting GTest::gtest_main)
+target_link_libraries(test_Lighting Lighting Sphere GTest::gtest_main)
 gtest_discover_tests(test_Lighting)

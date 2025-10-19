@@ -3,12 +3,14 @@
 #include <Math/Vector.hpp>
 #include <World/Material.hpp>
 #include <World/PointLight.hpp>
+#include <Math/Shape.hpp>
 
 /**
  * @brief Calculate the color that is reflected at a point on a surface with a
  * given light source
  *
  * @param material The material properties of the object being lit
+ * @param object The object being lit
  * @param light The light point source
  * @param point The point on the surface being lit
  * @param eye The eye vector, pointing from the lit point to the viewer
@@ -16,6 +18,6 @@
  * @param in_shadow Indicates whether the point is in shadow
  * @return Color The resulting color after applying lighting calculations
  */
-Color lighting(const Material &material, const PointLight &light,
-               const Point &point, const Vector eye_vector,
-               const Vector &normal, bool in_shadow = false);
+Color lighting(const Shape &object, const PointLight &light, const Point &point,
+               const Vector eye_vector, const Vector &normal,
+               bool in_shadow = false);

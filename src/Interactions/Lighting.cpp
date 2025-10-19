@@ -1,18 +1,17 @@
 #include <cmath>
 #include <Interactions/Lighting.hpp>
 
-Color lighting(const Material &material, const PointLight &light,
-               const Point &point, const Vector eye_vector,
-               const Vector &normal, bool in_shadow)
+Color lighting(const Shape &object, const PointLight &light, const Point &point,
+               const Vector eye_vector, const Vector &normal, bool in_shadow)
 {
     Color color;
-    if (material.pattern)
+    if (object.material.pattern)
     {
-        color = material.pattern->stripe_at(point);
+        color = object.material.pattern->stripe_at_object(object, point);
     }
     else
     {
-        color = material.color;
+        color = object.material.color;
     }
 
     // combine the surface color with the light's color/intensity
@@ -22,7 +21,7 @@ Color lighting(const Material &material, const PointLight &light,
     auto lightv = normalize(light.position - point);
 
     // compute the ambient contribution
-    auto ambient = effective_color * material.ambient;
+    auto ambient = effective_color * object.material.ambient;
 
     // light_dot_normal represents the cosine of the angle between the
     // light vector and the normal vector. A negative number means the
@@ -38,7 +37,7 @@ Color lighting(const Material &material, const PointLight &light,
     else
     {
         // compute the diffuse contribution
-        diffuse = effective_color * material.diffuse * light_dot_normal;
+        diffuse = effective_color * object.material.diffuse * light_dot_normal;
 
         // reflect_dot_eye represents the cosine of the angle between the
         // reflection vector and the eye vector. A negative number means the
@@ -52,8 +51,8 @@ Color lighting(const Material &material, const PointLight &light,
         else
         {
             // compute the specular contribution
-            auto factor = std::pow(reflect_dot_eye, material.shininess);
-            specular = light.intensity * material.specular * factor;
+            auto factor = std::pow(reflect_dot_eye, object.material.shininess);
+            specular = light.intensity * object.material.specular * factor;
         }
     }
 
