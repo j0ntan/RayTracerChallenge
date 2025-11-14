@@ -4,7 +4,7 @@
 #include <World/Material.hpp>
 
 /**
- * @brief Overload the = operator for two materials
+ * @brief Overload the == operator for two materials
  *
  * @param lhs The left-hand side material
  * @param rhs The right-hand side material

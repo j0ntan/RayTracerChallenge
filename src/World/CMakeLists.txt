@@ -21,7 +21,7 @@ target_link_libraries(test_PointLight PointLight GTest::gtest_main)
 gtest_discover_tests(test_PointLight)
 
 add_executable(test_Material Material.test.cpp)
-target_link_libraries(test_Material Material MaterialCmp GTest::gtest_main)
+target_link_libraries(test_Material Material GTest::gtest_main)
 gtest_discover_tests(test_Material)
 
 add_executable(test_World World.test.cpp)

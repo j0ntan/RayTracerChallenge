@@ -1,4 +1,3 @@
-#include <MaterialCmp.hpp>
 #include <World/Material.hpp>
 #include <gtest/gtest.h>
 
