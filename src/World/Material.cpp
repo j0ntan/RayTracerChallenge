@@ -7,7 +7,7 @@ Material::Material(const Material &material)
 {
     if (material.pattern)
     {
-        pattern = std::make_unique<StripePattern>(*(material.pattern));
+        pattern = material.pattern->clone();
     }
 }
 
@@ -24,7 +24,7 @@ Material &Material::operator=(const Material &rhs)
 
         if (rhs.pattern)
         {
-            pattern = std::make_unique<StripePattern>(*(rhs.pattern));
+            pattern = rhs.pattern->clone();
         }
     }
 

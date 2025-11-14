@@ -40,9 +40,9 @@ TEST(StripeAt, constantInY)
 {
     auto pattern = StripePattern(Color::WHITE, Color::BLACK);
 
-    ASSERT_EQ(pattern.stripe_at(Point(0, 0, 0)), Color::WHITE);
-    ASSERT_EQ(pattern.stripe_at(Point(0, 1, 0)), Color::WHITE);
-    ASSERT_EQ(pattern.stripe_at(Point(0, 2, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 0, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 1, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 2, 0)), Color::WHITE);
 }
 
 /*
@@ -56,9 +56,9 @@ TEST(StripeAt, constantInZ)
 {
     auto pattern = StripePattern(Color::WHITE, Color::BLACK);
 
-    ASSERT_EQ(pattern.stripe_at(Point(0, 0, 0)), Color::WHITE);
-    ASSERT_EQ(pattern.stripe_at(Point(0, 0, 1)), Color::WHITE);
-    ASSERT_EQ(pattern.stripe_at(Point(0, 0, 2)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 0, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 0, 1)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 0, 2)), Color::WHITE);
 }
 
 /*
@@ -75,12 +75,12 @@ TEST(StripeAt, alternatesInX)
 {
     auto pattern = StripePattern(Color::WHITE, Color::BLACK);
 
-    ASSERT_EQ(pattern.stripe_at(Point(0, 0, 0)), Color::WHITE);
-    ASSERT_EQ(pattern.stripe_at(Point(0.9, 0, 0)), Color::WHITE);
-    ASSERT_EQ(pattern.stripe_at(Point(1, 0, 0)), Color::BLACK);
-    ASSERT_EQ(pattern.stripe_at(Point(-0.1, 0, 0)), Color::BLACK);
-    ASSERT_EQ(pattern.stripe_at(Point(-1, 0, 0)), Color::BLACK);
-    ASSERT_EQ(pattern.stripe_at(Point(-1.1, 0, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0, 0, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(0.9, 0, 0)), Color::WHITE);
+    ASSERT_EQ(pattern.pattern_at(Point(1, 0, 0)), Color::BLACK);
+    ASSERT_EQ(pattern.pattern_at(Point(-0.1, 0, 0)), Color::BLACK);
+    ASSERT_EQ(pattern.pattern_at(Point(-1, 0, 0)), Color::BLACK);
+    ASSERT_EQ(pattern.pattern_at(Point(-1.1, 0, 0)), Color::WHITE);
 }
 
 /*
@@ -95,9 +95,10 @@ TEST(StripePatternTransformation, hasObjectTransformation)
 {
     auto object = Sphere();
     object.transform = scaling(2, 2, 2);
-    auto pattern = StripePattern(Color::WHITE, Color::BLACK);
+    object.material.pattern =
+        std::make_unique<StripePattern>(Color::WHITE, Color::BLACK);
 
-    auto c = pattern.stripe_at_object(object, Point(1.5, 0, 0));
+    auto c = object.pattern_at(Point(1.5, 0, 0));
 
     ASSERT_EQ(c, Color::WHITE);
 }
@@ -113,10 +114,11 @@ Scenario: Stripes with a pattern transformation
 TEST(StripePatternTransformation, hasPatternTransformation)
 {
     auto object = Sphere();
-    auto pattern = StripePattern(Color::WHITE, Color::BLACK);
-    pattern.transform = scaling(2, 2, 2);
+    object.material.pattern =
+        std::make_unique<StripePattern>(Color::WHITE, Color::BLACK);
+    object.material.pattern->transform = scaling(2, 2, 2);
 
-    auto c = pattern.stripe_at_object(object, Point(1.5, 0, 0));
+    auto c = object.pattern_at(Point(1.5, 0, 0));
 
     ASSERT_EQ(c, Color::WHITE);
 }
@@ -134,10 +136,11 @@ TEST(StripePatternTransformation, hasObjectAndPatternTransformation)
 {
     auto object = Sphere();
     object.transform = scaling(2, 2, 2);
-    auto pattern = StripePattern(Color::WHITE, Color::BLACK);
-    pattern.transform = translation(0.5, 0, 0);
+    object.material.pattern =
+        std::make_unique<StripePattern>(Color::WHITE, Color::BLACK);
+    object.material.pattern->transform = translation(0.5, 0, 0);
 
-    auto c = pattern.stripe_at_object(object, Point(2.5, 0, 0));
+    auto c = object.pattern_at(Point(2.5, 0, 0));
 
     ASSERT_EQ(c, Color::WHITE);
 }

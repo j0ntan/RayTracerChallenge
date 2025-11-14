@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Math/Vector.hpp>
+#include <Math/Shape.hpp>
 #include <World/Material.hpp>
 #include <World/PointLight.hpp>
 #include <Math/Shape.hpp>

@@ -2,6 +2,7 @@
 #include <Interactions/Lighting.hpp>
 #include <gtest/gtest.h>
 #include <Math/Sphere.hpp>
+#include <Graphics/StripePattern.hpp>
 
 /*
 Background:

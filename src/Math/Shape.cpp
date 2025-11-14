@@ -9,3 +9,11 @@ Vector Shape::normal_at(const Point &point) const
 
     return normalize(world_normal);
 }
+
+Color Shape::pattern_at(const Point &world_point) const
+{
+    auto object_point = inverse(transform) * world_point;
+    auto pattern_point = inverse(material.pattern->transform) * object_point;
+
+    return material.pattern->pattern_at(pattern_point);
+}

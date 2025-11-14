@@ -7,7 +7,7 @@ Color lighting(const Shape &object, const PointLight &light, const Point &point,
     Color color;
     if (object.material.pattern)
     {
-        color = object.material.pattern->stripe_at_object(object, point);
+        color = object.pattern_at(point);
     }
     else
     {

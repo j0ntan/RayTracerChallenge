@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <Graphics/Color.hpp>
-#include <Graphics/StripePattern.hpp>
+#include <Graphics/Pattern.hpp>
 
 /**
  * @brief Defines the reflective properties for world objects
@@ -18,7 +18,7 @@ struct Material
     double diffuse = {0.9};
     double specular = {0.9};
     double shininess = {200};
-    std::unique_ptr<StripePattern> pattern;
+    std::unique_ptr<Pattern> pattern;
 
     /**
      * @brief Default construct a new Material object

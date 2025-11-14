@@ -58,4 +58,12 @@ struct Shape
      * @return std::vector<Intersection> The set of intersections, if any
      */
     virtual std::vector<Intersection> local_intersect(const Ray &ray) const = 0;
+
+    /**
+     * @brief Get the color from the material's pattern at the given world point
+     *
+     * @param world_point The point in world space
+     * @return Color The color at the specified point
+     */
+    Color pattern_at(const Point &world_point) const;
 };

@@ -7,8 +7,11 @@ target_link_libraries(PPM Color)
 add_library(Canvas Canvas.cpp)
 target_link_libraries(Canvas PRIVATE PPM)
 
+add_library(Pattern INTERFACE Pattern.hpp)
+target_link_libraries(Pattern INTERFACE Point Color Matrix)
+
 add_library(StripePattern StripePattern.cpp)
-target_link_libraries(StripePattern Color Point Matrix Shape)
+target_link_libraries(StripePattern Pattern)
 
 # Tests
 add_executable(test_Color Color.test.cpp)
@@ -22,6 +25,12 @@ gtest_discover_tests(test_PPM)
 add_executable(test_Canvas Canvas.test.cpp)
 target_link_libraries(test_Canvas Canvas GTest::gtest_main)
 gtest_discover_tests(test_Canvas)
+
+add_executable(test_Pattern Pattern.test.cpp)
+target_include_directories(test_Pattern PRIVATE .)
+target_link_libraries(test_Pattern Pattern Sphere Transformations
+    GTest::gtest_main)
+gtest_discover_tests(test_Pattern)
 
 add_executable(test_StripePattern StripePattern.test.cpp)
 target_include_directories(test_StripePattern PRIVATE .)
