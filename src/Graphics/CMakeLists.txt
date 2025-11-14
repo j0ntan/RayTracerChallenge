@@ -13,6 +13,15 @@ target_link_libraries(Pattern INTERFACE Point Color Matrix)
 add_library(StripePattern StripePattern.cpp)
 target_link_libraries(StripePattern Pattern)
 
+add_library(GradientPattern GradientPattern.cpp)
+target_link_libraries(GradientPattern Pattern)
+
+add_library(RingPattern RingPattern.cpp)
+target_link_libraries(RingPattern Pattern)
+
+add_library(CheckerPattern CheckerPattern.cpp)
+target_link_libraries(CheckerPattern Pattern)
+
 # Tests
 add_executable(test_Color Color.test.cpp)
 target_link_libraries(test_Color Color GTest::gtest_main)
@@ -37,3 +46,18 @@ target_include_directories(test_StripePattern PRIVATE .)
 target_link_libraries(test_StripePattern StripePattern Sphere Transformations
     GTest::gtest_main)
 gtest_discover_tests(test_StripePattern)
+
+add_executable(test_GradientPattern GradientPattern.test.cpp)
+target_include_directories(test_GradientPattern PRIVATE .)
+target_link_libraries(test_GradientPattern GradientPattern GTest::gtest_main)
+gtest_discover_tests(test_GradientPattern)
+
+add_executable(test_RingPattern RingPattern.test.cpp)
+target_include_directories(test_RingPattern PRIVATE .)
+target_link_libraries(test_RingPattern RingPattern GTest::gtest_main)
+gtest_discover_tests(test_RingPattern)
+
+add_executable(test_CheckerPattern CheckerPattern.test.cpp)
+target_include_directories(test_CheckerPattern PRIVATE .)
+target_link_libraries(test_CheckerPattern CheckerPattern GTest::gtest_main)
+gtest_discover_tests(test_CheckerPattern)
