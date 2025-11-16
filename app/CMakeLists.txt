@@ -15,3 +15,16 @@ target_link_libraries(3_spheres Transformations Camera)
 
 add_executable(hexagonal_planes hexagonal_planes.cpp)
 target_link_libraries(hexagonal_planes Plane Transformations Camera)
+
+FetchContent_Declare(PerlinNoise
+    GIT_REPOSITORY  https://github.com/Reputeless/PerlinNoise
+    GIT_TAG         master
+    GIT_SHALLOW     TRUE
+    UPDATE_DISCONNECTED TRUE
+    EXCLUDE_FROM_ALL
+)
+FetchContent_MakeAvailable(PerlinNoise)
+add_executable(mixed_patterns mixed_patterns.cpp)
+target_include_directories(mixed_patterns PRIVATE ${perlinnoise_SOURCE_DIR})
+target_link_libraries(mixed_patterns Plane Transformations StripePattern
+    RingPattern Camera)
