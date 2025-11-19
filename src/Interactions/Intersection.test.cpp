@@ -1,7 +1,10 @@
+#include <cmath>
+#include <memory>
 #include <Interactions/Interactions.hpp>
 #include <Float_compare.hpp>
 #include <Math/Transformations.hpp>
 #include <Math/Sphere.hpp>
+#include <Math/Plane.hpp>
 #include <gtest/gtest.h>
 
 /*
@@ -336,4 +339,24 @@ TEST(PrepareComputations, hitShouldOffsetPoint)
     auto comps = prepare_computations(i, r);
     ASSERT_LT(comps.over_point.z(), -EPSILON / 2);
     ASSERT_GT(comps.point.z(), comps.over_point.z());
+}
+
+/*
+Scenario: Precomputing the reflection vector
+    Given shape <- plane()
+        And r <- ray(point(0, 1, -1), vector(0, -sqrt(2)/2, sqrt(2)/2))
+        And i <- intersection(sqrt(2), shape)
+    When comps <- prepare_computations(i, r)
+    Then comps.reflectv = vector(0, sqrt(2)/2, sqrt(2)/2)
+*/
+TEST(PrepareComputations, precomputeReflectionVector)
+{
+    auto shape = std::make_shared<Plane>();
+    auto r = Ray(Point(0, 1, -1),
+                 Vector(0, -std::sqrt(2) / 2, std::sqrt(2) / 2));
+    auto i = Intersection(sqrt(2), shape.get());
+
+    auto comps = prepare_computations(i, r);
+
+    ASSERT_EQ(comps.reflectv, Vector(0, std::sqrt(2) / 2, std::sqrt(2) / 2));
 }

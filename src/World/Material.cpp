@@ -3,7 +3,8 @@
 Material::Material(const Material &material)
     : color{material.color}, ambient{material.ambient},
       diffuse{material.diffuse}, specular{material.specular},
-      shininess{material.shininess}, pattern{nullptr}
+      shininess{material.shininess}, pattern{nullptr},
+      reflective{material.reflective}
 {
     if (material.pattern)
     {
@@ -20,6 +21,7 @@ Material &Material::operator=(const Material &rhs)
         diffuse = rhs.diffuse;
         specular = rhs.specular;
         shininess = rhs.shininess;
+        reflective = rhs.reflective;
         pattern = nullptr;
 
         if (rhs.pattern)

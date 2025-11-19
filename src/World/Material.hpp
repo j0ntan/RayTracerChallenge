@@ -19,6 +19,7 @@ struct Material
     double specular = {0.9};
     double shininess = {200};
     std::unique_ptr<Pattern> pattern;
+    double reflective = {0.0};
 
     /**
      * @brief Default construct a new Material object

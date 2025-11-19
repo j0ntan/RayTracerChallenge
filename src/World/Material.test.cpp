@@ -21,3 +21,14 @@ TEST(MaterialComponents, matchDefaultMaterialValues)
     ASSERT_FLOAT_EQ(m.specular, 0.9);
     ASSERT_FLOAT_EQ(m.shininess, 200.0);
 }
+
+/*
+Scenario: Reflectivity for the default material
+    Given m = material()
+    Then m.reflective = 0.0
+*/
+TEST(MaterialReflection, defaultReflectivity)
+{
+    auto m = Material();
+    ASSERT_EQ(m.reflective, 0.0);
+}

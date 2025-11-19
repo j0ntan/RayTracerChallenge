@@ -73,6 +73,8 @@ Computations prepare_computations(const Intersection &intersection,
 
     comps.over_point = comps.point + comps.normalv * EPSILON;
 
+    comps.reflectv = reflect(ray.direction, comps.normalv);
+
     return comps;
 }
 
