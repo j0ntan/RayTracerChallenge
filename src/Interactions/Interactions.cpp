@@ -118,3 +118,17 @@ bool is_shadowed(const World &world, const Point &point)
 
     return h && h->t < distance;
 }
+
+Color reflected_color(const World &world, const Computations &computations)
+{
+    Color color;
+
+    if (!float_equals(computations.object->material.reflective, 0))
+    {
+        auto reflect_ray = Ray(computations.over_point, computations.reflectv);
+        color = color_at(world, reflect_ray);
+        color = color * computations.object->material.reflective;
+    }
+
+    return color;
+}

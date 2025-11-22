@@ -84,3 +84,12 @@ Color color_at(const World &world, const Ray &ray);
  * @return false if the point is not shadowed
  */
 bool is_shadowed(const World &world, const Point &point);
+
+/**
+ * @brief Calculates the color contribution from reflection at the intersection
+ *
+ * @param world The world containing objects
+ * @param computations The precomputed values for the intersection
+ * @return Color The color contribution from reflection
+ */
+Color reflected_color(const World &world, const Computations &computations);

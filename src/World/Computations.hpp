@@ -59,4 +59,10 @@ struct Computations
      *
      */
     Point over_point;
+
+    /**
+     * @brief The reflection vector at the point of intersection
+     *
+     */
+    Vector reflectv;
 };

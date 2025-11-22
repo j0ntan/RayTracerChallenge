@@ -1,7 +1,9 @@
 #include <algorithm>
+#include <cmath>
 #include <World/World.hpp>
 #include <Math/Transformations.hpp>
 #include <Math/Sphere.hpp>
+#include <Math/Plane.hpp>
 #include <MaterialCmp.hpp>
 #include <Interactions/Interactions.hpp>
 #include <gtest/gtest.h>
@@ -294,4 +296,59 @@ TEST(shade_hit, givenIntersectionInShadow)
     auto comps = prepare_computations(i, r);
     auto c = shade_hit(w, comps);
     ASSERT_EQ(c, Color(0.1, 0.1, 0.1));
+}
+
+/*
+Scenario: The reflected color for a nonreflective material
+    Given w <- default_world()
+        And r <- ray(point(0, 0, 0), vector(0, 0, 1))
+        And shape <- the second object in w
+        And shape.material.ambient <- 1
+        And i <- intersection(1, shape)
+    When comps <- prepare_computations(i, r)
+        And color <- reflected_color(w, comps)
+    Then color = color(0, 0, 0)
+*/
+TEST(ReflectedColor, colorForNonreflectiveMaterial)
+{
+    auto w = default_world();
+    auto r = Ray(Point(0, 0, 0), Vector(0, 0, 1));
+    auto shape = w.objects[1];
+    shape->material.ambient = 1;
+    auto i = Intersection(1, shape.get());
+
+    auto comps = prepare_computations(i, r);
+    auto color = reflected_color(w, comps);
+
+    ASSERT_EQ(color, Color(0, 0, 0));
+}
+
+/*
+Scenario: The reflected color for a reflective material
+    Given w <- default_world()
+        And shape <- plane() with:
+            | material.reflective | 0.5                   |
+            | transform           | translation(0, -1, 0) |
+        And shape is added to w
+        And r <- ray(point(0, 0, -3), vector(0, -sqrt(2)/2, sqrt(2)/2))
+        And i <- intersection(sqrt(2), shape)
+    When comps <- prepare_computations(i, r)
+        And color <- reflected_color(w, comps)
+    Then color = color(0.19032, 0.2379, 0.14274)
+*/
+TEST(ReflectedColor, colorForReflectiveMaterial)
+{
+    auto w = default_world();
+    auto shape = std::make_shared<Plane>();
+    shape->material.reflective = 0.5;
+    shape->transform = translation(0, -1, 0);
+    w.objects.push_back(shape);
+    auto r = Ray(Point(0, 0, -3),
+                 Vector(0, -std::sqrt(2) / 2, std::sqrt(2) / 2));
+    auto i = Intersection(std::sqrt(2), shape.get());
+
+    auto comps = prepare_computations(i, r);
+    auto color = reflected_color(w, comps);
+
+    ASSERT_EQ(color, Color(0.19032, 0.2379, 0.14274));
 }

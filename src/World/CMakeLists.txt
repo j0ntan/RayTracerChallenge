@@ -26,7 +26,7 @@ gtest_discover_tests(test_Material)
 
 add_executable(test_World World.test.cpp)
 target_link_libraries(test_World Transformations MaterialCmp Interactions
-    GTest::gtest_main)
+    Plane GTest::gtest_main)
 gtest_discover_tests(test_World)
 
 add_executable(test_Camera Camera.test.cpp)

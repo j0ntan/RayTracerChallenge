@@ -8,7 +8,7 @@ target_link_libraries(Lighting Material PointLight Vector)
 # Tests
 add_executable(test_Intersection Intersection.test.cpp)
 target_link_libraries(test_Intersection Interactions Float_compare 
-    Transformations GTest::gtest_main)
+    Transformations Plane GTest::gtest_main)
 gtest_discover_tests(test_Intersection)
 
 add_executable(test_Lighting Lighting.test.cpp)
