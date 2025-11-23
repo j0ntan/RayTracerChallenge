@@ -31,3 +31,11 @@ struct Sphere : public Shape
      */
     virtual Vector local_normal_at(const Point &point) const override;
 };
+
+/**
+ * @brief Create a sphere with glass-like properties, i.e. transparency and
+ * refractive index of 1.0 and 1.5, respectively
+ *
+ * @return Sphere The glass sphere
+ */
+Sphere glass_sphere();

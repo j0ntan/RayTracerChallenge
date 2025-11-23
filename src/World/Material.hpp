@@ -20,6 +20,8 @@ struct Material
     double shininess = {200};
     std::unique_ptr<Pattern> pattern;
     double reflective = {0.0};
+    double transparency = {0.0};
+    double refractive_index = {1.0};
 
     /**
      * @brief Default construct a new Material object

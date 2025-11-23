@@ -32,3 +32,17 @@ TEST(MaterialReflection, defaultReflectivity)
     auto m = Material();
     ASSERT_EQ(m.reflective, 0.0);
 }
+
+/*
+Scenario: Transparency and Refractive Index for the default material
+    Given m <- material()
+    Then m.transparency = 0.0
+        And m.refractive_index = 1.0
+*/
+TEST(MaterialTransparency, TransparencyAndRefractiveIndexForDefaultMaterial)
+{
+    auto m = Material();
+
+    ASSERT_FLOAT_EQ(m.transparency, 0.0);
+    ASSERT_FLOAT_EQ(m.refractive_index, 1.0);
+}

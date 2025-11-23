@@ -27,3 +27,12 @@ Vector Sphere::local_normal_at(const Point &point) const
 {
     return point - Point(0, 0, 0);
 }
+
+Sphere glass_sphere()
+{
+    Sphere glass;
+    glass.material.transparency = 1.0;
+    glass.material.refractive_index = 1.5;
+
+    return glass;
+}

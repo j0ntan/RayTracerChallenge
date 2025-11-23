@@ -192,3 +192,19 @@ TEST(SphereMaterial, isAssignable)
     s.material = m;
     ASSERT_EQ(s.material, m);
 }
+
+/*
+Scenario: A helper for producing a sphere with a glassy material
+    Given s <- glass_sphere()
+    Then s.transform = identity_matrix
+        And s.material.transparency = 1.0
+        And s.material.refractive_index = 1.5
+*/
+TEST(GlassSphere, produceSphereWithGlassyMaterial)
+{
+    auto s = glass_sphere();
+
+    ASSERT_EQ(s.transform, IDENTITY);
+    ASSERT_FLOAT_EQ(s.material.transparency, 1.0);
+    ASSERT_FLOAT_EQ(s.material.refractive_index, 1.5);
+}
