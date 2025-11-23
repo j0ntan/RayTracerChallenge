@@ -352,3 +352,95 @@ TEST(ReflectedColor, colorForReflectiveMaterial)
 
     ASSERT_EQ(color, Color(0.19032, 0.2379, 0.14274));
 }
+
+/*
+Scenario: shade_hit() with a reflective material
+    Given w <- default_world()
+        And shape <- plane() with:
+            | material.reflective | 0.5                   |
+            | transform           | translation(0, -1, 0) |
+        And shape is added to w
+        And r <- ray(point(0, 0, -3), vector(0, -sqrt(2)/2, sqrt(2)/2))
+        And i <- intersection(sqrt(2), shape)
+    When comps <- prepare_computations(i, r)
+        And color <- shade_hit(w, comps)
+    Then color = color(0.87677, 0.92436, 0.82918)
+*/
+TEST(ReflectedColor, shadeHitWithReflectiveMaterial)
+{
+    auto w = default_world();
+    auto shape = std::make_shared<Plane>();
+    shape->material.reflective = 0.5;
+    shape->transform = translation(0, -1, 0);
+    w.objects.push_back(shape);
+    auto r = Ray(Point(0, 0, -3),
+                 Vector(0, -std::sqrt(2) / 2, std::sqrt(2) / 2));
+    auto i = Intersection(std::sqrt(2), shape.get());
+
+    auto comps = prepare_computations(i, r);
+    auto color = shade_hit(w, comps);
+
+    ASSERT_EQ(color, Color(0.87677, 0.92436, 0.82918));
+}
+
+/*
+Scenario: color_at() with mutually reflective surfaces
+    Given w <- world()
+        And w.light <- point_light(point(0, 0, 0), color(1, 1, 1))
+        And lower <- plane() with:
+            | material.reflective | 1                     |
+            | transform           | translation(0, -1, 0) |
+        And lower is added to w
+        And upper <- plane() with:
+            | material.reflective | 1                    |
+            | transform           | translation(0, 1, 0) |
+        And upper is added to w
+        And r <- ray(point(0, 0, 0), vector(0, 1, 0))
+    Then color_at(w, r) should terminate successfully
+*/
+TEST(ReflectedColor, colorWithMutuallyReflectiveSurfaces)
+{
+    auto w = World();
+    w.light = std::make_shared<PointLight>(Point(0, 0, 0), Color(1, 1, 1));
+    auto lower = std::make_shared<Plane>();
+    lower->material.reflective = 1;
+    lower->transform = translation(0, -1, 0);
+    w.objects.push_back(lower);
+    auto upper = std::make_shared<Plane>();
+    upper->material.reflective = 1;
+    upper->transform = translation(0, 1, 0);
+    w.objects.push_back(upper);
+    auto r = Ray(Point(0, 0, 0), Vector(0, 1, 0));
+
+    ASSERT_NO_THROW(color_at(w, r));
+}
+
+/*
+Scenario: The reflected color at the maximum recursive depth
+    Given w <- default_world()
+        And shape <- plane() with:
+            | material.reflective | 0.5                   |
+            | transform           | translation(0, -1, 0) |
+        And shape is added to w
+        And r <- ray(point(0, 0, -3), vector(0, -sqrt(2)/2, sqrt(2)/2))
+        And i <- intersection(sqrt(2), shape)
+    When comps <- prepare_computations(i, r)
+        And color <- reflected_color(w, comps, 0)
+    Then color = color(0, 0, 0)
+*/
+TEST(ReflectedColor, reflectedColorAtMaxRecursiveDepth)
+{
+    auto w = default_world();
+    auto shape = std::make_shared<Plane>();
+    shape->material.reflective = 0.5;
+    shape->transform = translation(0, -1, 0);
+    w.objects.push_back(shape);
+    auto r = Ray(Point(0, 0, -3),
+                 Vector(0, -std::sqrt(2) / 2, std::sqrt(2) / 2));
+    auto i = Intersection(std::sqrt(2), shape.get());
+
+    auto comps = prepare_computations(i, r);
+    auto color = reflected_color(w, comps, 0);
+
+    ASSERT_EQ(color, Color(0, 0, 0));
+}

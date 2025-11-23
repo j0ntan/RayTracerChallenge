@@ -78,15 +78,19 @@ Computations prepare_computations(const Intersection &intersection,
     return comps;
 }
 
-Color shade_hit(const World &world, const Computations &comps)
+Color shade_hit(const World &world, const Computations &comps, int remaining)
 {
     auto shadowed = is_shadowed(world, comps.over_point);
 
-    return lighting(*comps.object, *world.light, comps.over_point, comps.eyev,
-                    comps.normalv, shadowed);
+    auto surface = lighting(*comps.object, *world.light, comps.over_point,
+                            comps.eyev, comps.normalv, shadowed);
+
+    auto reflected = reflected_color(world, comps, remaining);
+
+    return surface + reflected;
 }
 
-Color color_at(const World &world, const Ray &ray)
+Color color_at(const World &world, const Ray &ray, int remaining)
 {
     Color color;
 
@@ -95,7 +99,7 @@ Color color_at(const World &world, const Ray &ray)
     if (auto the_hit = hit(intersections))
     {
         auto computations = prepare_computations(*the_hit, ray);
-        color = shade_hit(world, computations);
+        color = shade_hit(world, computations, remaining);
     }
     else
     {
@@ -119,14 +123,16 @@ bool is_shadowed(const World &world, const Point &point)
     return h && h->t < distance;
 }
 
-Color reflected_color(const World &world, const Computations &computations)
+Color reflected_color(const World &world, const Computations &computations,
+                      int remaining)
 {
     Color color;
 
-    if (!float_equals(computations.object->material.reflective, 0))
+    if (!float_equals(computations.object->material.reflective, 0) &&
+        remaining > 0)
     {
         auto reflect_ray = Ray(computations.over_point, computations.reflectv);
-        color = color_at(world, reflect_ray);
+        color = color_at(world, reflect_ray, remaining - 1);
         color = color * computations.object->material.reflective;
     }
 
