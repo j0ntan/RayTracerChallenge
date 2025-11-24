@@ -71,4 +71,10 @@ struct Computations
      *
      */
     double n1, n2;
+
+    /**
+     * @brief A point slightly below the point of intersection, for refraction
+     *
+     */
+    Point under_point;
 };

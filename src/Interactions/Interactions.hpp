@@ -109,3 +109,14 @@ bool is_shadowed(const World &world, const Point &point);
  */
 Color reflected_color(const World &world, const Computations &computations,
                       int remaining = MAX_RECURSIVE_DEPTH);
+
+/**
+ * @brief Calculates the color contribution from refraction at the intersection
+ *
+ * @param world The world containing objects
+ * @param computations The precomputed values for the intersection
+ * @param remaining The number of recursive refraction calculations remaining
+ * @return Color The color contribution from refraction
+ */
+Color refracted_color(const World &world, const Computations &computations,
+                      int remaining = MAX_RECURSIVE_DEPTH);

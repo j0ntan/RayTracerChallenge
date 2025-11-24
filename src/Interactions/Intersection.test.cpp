@@ -413,3 +413,80 @@ TEST(RefractiveIndex, findN1AndN2AtIntersections)
         ASSERT_FLOAT_EQ(comps.n2, n2_vals[i]);
     }
 }
+
+/*
+Scenario: The under point is offset below the surface
+    Given r <- ray(point(0, 0, -5), vector(0, 0, 1))
+        And shape <- glass_sphere() with:
+            | transform | translation(0, 0, 1) |
+        And i <- intersection(5, shape)
+        And xs <- intersections(i)
+    When comps <- prepare_computations(i, r, xs)
+    Then comps.under_point.z > EPSILON/2
+        And comps.point.z < comps.under_point.z
+*/
+TEST(UnderPoint, pointIsOffsetBelowTheSurface)
+{
+
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto shape = glass_sphere();
+    shape.transform = translation(0, 0, 1);
+    auto i = Intersection(5, &shape);
+    auto xs = intersections({i});
+
+    auto comps = prepare_computations(i, r, xs);
+
+    ASSERT_GT(comps.under_point.z(), EPSILON / 2);
+    ASSERT_LT(comps.point.z(), comps.under_point.z());
+}
+
+/*
+Scenario: The refracted color with an opaque surface
+    Given w <- default_world()
+        And shape <- the first object in w
+        And r <- ray(point(0, 0, -5), vector(0, 0, 1))
+        And xs <- intersections(4:shape, 6:shape)
+    When comps <- prepare_computations(xs[0], r, xs)
+        And c <- refracted_color(w, comps, 5)
+    Then c = color(0, 0, 0)
+*/
+TEST(RefractedColor, colorWithAnOpaqueSurface)
+{
+    auto w = default_world();
+    const Shape *shape = w.objects.front().get();
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto xs = intersections({{4, shape}, {6, shape}});
+
+    auto comps = prepare_computations(xs[0], r, xs);
+    auto c = refracted_color(w, comps, 5);
+
+    ASSERT_EQ(c, Color(0, 0, 0));
+}
+
+/*
+Scenario: The refracted color at the maximum recursive depth
+    Given w <- default_world()
+        And shape <- the first object in w
+        And shape has:
+            | material.transparency | 1.0 |
+            | material.refractive_index | 1.5 |
+        And r <- ray(point(0, 0, -5), vector(0, 0, 1))
+        And xs <- intersections(4:shape, 6:shape)
+    When comps <- prepare_computations(xs[0], r, xs)
+        And c <- refracted_color(w, comps, 0)
+    Then c = color(0, 0, 0)
+*/
+TEST(RefractedColor, colorAtMaximumRecursiveDepth)
+{
+    auto w = default_world();
+    Shape *shape = w.objects.front().get();
+    shape->material.transparency = 1.0;
+    shape->material.refractive_index = 1.5;
+    auto r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    auto xs = intersections({{4, shape}, {6, shape}});
+
+    auto comps = prepare_computations(xs[0], r, xs);
+    auto c = refracted_color(w, comps, 0);
+
+    ASSERT_EQ(c, Color(0, 0, 0));
+}

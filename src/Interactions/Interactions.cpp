@@ -81,6 +81,7 @@ Computations prepare_computations(
     }
 
     comps.over_point = comps.point + comps.normalv * EPSILON;
+    comps.under_point = comps.point - comps.normalv * EPSILON;
 
     comps.reflectv = reflect(ray.direction, comps.normalv);
 
@@ -191,6 +192,23 @@ Color reflected_color(const World &world, const Computations &computations,
         auto reflect_ray = Ray(computations.over_point, computations.reflectv);
         color = color_at(world, reflect_ray, remaining - 1);
         color = color * computations.object->material.reflective;
+    }
+
+    return color;
+}
+
+Color refracted_color(const World &world, const Computations &computations,
+                      int remaining)
+{
+    const bool IS_OPAQUE =
+        float_equals(computations.object->material.transparency, 0);
+    const bool AT_MAX_DEPTH = remaining == 0;
+
+    Color color(Color::WHITE);
+
+    if (IS_OPAQUE || AT_MAX_DEPTH)
+    {
+        color = Color::BLACK;
     }
 
     return color;
