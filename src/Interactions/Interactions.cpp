@@ -5,6 +5,14 @@
 #include <Float_compare.hpp>
 #include <Math/Shape.hpp>
 
+namespace
+{
+    bool operator==(const Intersection &lhs, const Intersection &rhs)
+    {
+        return float_equals(lhs.t, rhs.t) && lhs.object == rhs.object;
+    }
+}
+
 std::vector<Intersection>
 intersections(const std::vector<Intersection> &set)
 {
@@ -46,8 +54,9 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray)
     return intersections(all_intersections);
 }
 
-Computations prepare_computations(const Intersection &intersection,
-                                  const Ray &ray)
+Computations prepare_computations(
+    const Intersection &intersection, const Ray &ray,
+    std::vector<Intersection> all_intersections)
 {
     // instantiate a data structure for storing some precomputed values
     auto comps = Computations();
@@ -75,6 +84,52 @@ Computations prepare_computations(const Intersection &intersection,
 
     comps.reflectv = reflect(ray.direction, comps.normalv);
 
+    comps.n1 = comps.n2 = 1.0;
+    const auto &hit = intersection;
+    std::vector<const Shape *> containers;
+    if (all_intersections.empty())
+    {
+        all_intersections.push_back(intersection);
+    }
+    for (auto i : all_intersections)
+    {
+        if (i == hit)
+        {
+            if (containers.empty())
+            {
+                comps.n1 = 1.0;
+            }
+            else
+            {
+                comps.n1 = containers.back()->material.refractive_index;
+            }
+        }
+
+        if (std::find(containers.cbegin(), containers.cend(), i.object) !=
+            containers.cend())
+        {
+            std::erase(containers, i.object);
+        }
+        else
+        {
+            containers.push_back(i.object);
+        }
+
+        if (i == hit)
+        {
+            if (containers.empty())
+            {
+                comps.n2 = 1.0;
+            }
+            else
+            {
+                comps.n2 = containers.back()->material.refractive_index;
+            }
+
+            break;
+        }
+    }
+
     return comps;
 }
 
@@ -98,7 +153,9 @@ Color color_at(const World &world, const Ray &ray, int remaining)
 
     if (auto the_hit = hit(intersections))
     {
-        auto computations = prepare_computations(*the_hit, ray);
+        auto sorted_intersections = ::intersections(intersections);
+        auto computations = prepare_computations(*the_hit, ray,
+                                                 sorted_intersections);
         color = shade_hit(world, computations, remaining);
     }
     else

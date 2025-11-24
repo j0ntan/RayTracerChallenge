@@ -58,10 +58,12 @@ std::vector<Intersection> intersect_world(const World &world, const Ray &ray);
  *
  * @param intersection An existing intersection
  * @param ray The ray that produced the intersection
+ * @param all_intersections The set of all intersections (optional)
  * @return Computations The precomputed values for the intersection
  */
-Computations prepare_computations(const Intersection &intersection,
-                                  const Ray &ray);
+Computations prepare_computations(
+    const Intersection &intersection, const Ray &ray,
+    std::vector<Intersection> all_intersections = {});
 
 /**
  * @brief Returns the color at the intersection that produced the computations

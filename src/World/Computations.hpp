@@ -65,4 +65,10 @@ struct Computations
      *
      */
     Vector reflectv;
+
+    /**
+     * @brief The refractive indices on either side of the intersection
+     *
+     */
+    double n1, n2;
 };
