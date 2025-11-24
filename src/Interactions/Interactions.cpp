@@ -204,11 +204,28 @@ Color refracted_color(const World &world, const Computations &computations,
         float_equals(computations.object->material.transparency, 0);
     const bool AT_MAX_DEPTH = remaining == 0;
 
-    Color color(Color::WHITE);
+    // check for total internal reflection
+    auto n_ratio = computations.n1 / computations.n2;
+    auto cos_i = dot(computations.eyev, computations.normalv);
+    auto sin2_t = (n_ratio * n_ratio) * (1 - (cos_i * cos_i));
+    const bool AT_TOTAL_INTERNAL_REFLECTION = sin2_t > 1.0;
 
-    if (IS_OPAQUE || AT_MAX_DEPTH)
+    Color color(Color::BLACK);
+
+    // Spawn the refracted ray and calculate the refracted color
+    if (!IS_OPAQUE && !AT_MAX_DEPTH && !AT_TOTAL_INTERNAL_REFLECTION)
     {
-        color = Color::BLACK;
+        // Find cos_t via trig identity
+        auto cos_t = std::sqrt(1.0 - sin2_t);
+        // Compute the direction of the refracted ray
+        auto direction = computations.normalv * (n_ratio * cos_i - cos_t) -
+                         computations.eyev * n_ratio;
+        // Create the refracted ray
+        auto refract_ray = Ray(computations.under_point, direction);
+        // Find the color of the refracted ray, making sure to multiply
+        // by the transparency value to account for any opacity
+        color = color_at(world, refract_ray, remaining - 1) *
+                computations.object->material.transparency;
     }
 
     return color;

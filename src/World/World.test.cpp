@@ -444,3 +444,88 @@ TEST(ReflectedColor, reflectedColorAtMaxRecursiveDepth)
 
     ASSERT_EQ(color, Color(0, 0, 0));
 }
+
+/*
+Scenario: The refracted color under total internal reflection
+    Given w <- default_world()
+        And shape <- the first object in w
+        And shape has:
+            | material.transparency     | 1.0 |
+            | material.refractive_index | 1.5 |
+        And r <- ray(point(0, 0, sqrt(2)/2), vector(0, 1, 0))
+        And xs <- intersections(-sqrt(2)/2:shape, sqrt(2)/2:shape)
+    # NOTE: this time you're inside the sphere, so you need
+    # to look at the second intersection, xs[1], not xs[0]
+    When comps <- prepare_computations(xs[1], r, xs)
+        And c <- refracted_color(w, comps, 5)
+    Then c = color(0, 0, 0)
+*/
+TEST(RefractedColor, colorUnderTotalInternalReflection)
+{
+    auto w = default_world();
+    Shape *shape = w.objects.front().get();
+    shape->material.transparency = 1.0;
+    shape->material.refractive_index = 1.5;
+    auto r = Ray(Point(0, 0, std::sqrt(2) / 2), Vector(0, 1, 0));
+    auto xs = intersections({{-std::sqrt(2) / 2, shape}, {std::sqrt(2) / 2, shape}});
+
+    auto comps = prepare_computations(xs[1], r, xs);
+    auto c = refracted_color(w, comps, 5);
+
+    ASSERT_EQ(c, Color(0, 0, 0));
+}
+
+/*
+Scenario: The refracted color with a refracted ray
+    Given w <- default_world()
+        And A <- the first object in w
+        And A has:
+            | material.ambient | 1.0            |
+            | material.pattern | test_pattern() |
+        And B <- the second object in w
+        And B has:
+            | material.transparency | 1.0     |
+            | material.refractive_index | 1.5 |
+        And r <- ray(point(0, 0, 0.1), vector(0, 1, 0))
+        And xs <- intersections(-0.9899:A, -0.4899:B, 0.4899:B, 0.9899:A)
+    When comps <- prepare_computations(xs[2], r, xs)
+        And c <- refracted_color(w, comps, 5)
+    Then c = color(0, 0.99888, 0.04725)
+*/
+TEST(RefractedColor, colorWithARefractedRay)
+{
+    /**
+     * @brief Concrete pattern for testing some pattern properties
+     *
+     */
+    struct test_pattern final : public Pattern
+    {
+        virtual ~test_pattern() = default;
+
+        std::unique_ptr<Pattern> clone() const override
+        {
+            return std::make_unique<test_pattern>(*this);
+        }
+
+        Color pattern_at(const Point &point) const override
+        {
+            return Color(point.x(), point.y(), point.z());
+        }
+    };
+
+    auto w = default_world();
+    auto A = w.objects.front().get();
+    A->material.ambient = 1.0;
+    A->material.pattern = std::make_unique<test_pattern>();
+    auto B = w.objects.back().get();
+    B->material.transparency = 1.0;
+    B->material.refractive_index = 1.5;
+    auto r = Ray(Point(0, 0, 0.1), Vector(0, 1, 0));
+    auto xs = intersections(
+        {{-0.9899, A}, {-0.4899, B}, {0.4899, B}, {0.9899, A}});
+
+    auto comps = prepare_computations(xs[2], r, xs);
+    auto c = refracted_color(w, comps, 5);
+
+    ASSERT_EQ(c, Color(0, 0.99888, 0.04725));
+}

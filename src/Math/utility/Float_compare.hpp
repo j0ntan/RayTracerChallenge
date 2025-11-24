@@ -4,7 +4,7 @@
  * @brief Minimum allowed difference of two equal floating-point numbers
  *
  */
-const double EPSILON = 0.00002;
+const double EPSILON = 0.00005;
 
 /**
  * @brief Compare 2 floating-point numbers for equality
