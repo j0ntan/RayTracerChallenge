@@ -490,3 +490,68 @@ TEST(RefractedColor, colorAtMaximumRecursiveDepth)
 
     ASSERT_EQ(c, Color(0, 0, 0));
 }
+
+/*
+Scenario: The Schlick approximation under total internal reflection
+    Given shape <- glass_sphere()
+        And r <- ray(point(0, 0, sqrt(2)/2), vector(0, 1, 0))
+        And xs <- intersections(-sqrt(2)/2:shape, sqrt(2)/2:shape)
+    When comps <- prepare_computations(xs[1], r, xs)
+        And reflectance <- schlick(comps)
+    Then reflectance = 1.0
+*/
+TEST(FresnelEffect, schlickApproxUnderTotalInternalReflection)
+{
+    auto shape = glass_sphere();
+    auto r = Ray(Point(0, 0, std::sqrt(2) / 2), Vector(0, 1, 0));
+    auto xs = intersections(
+        {{-std::sqrt(2) / 2, &shape}, {std::sqrt(2) / 2, &shape}});
+
+    auto comps = prepare_computations(xs[1], r, xs);
+    auto reflectance = schlick(comps);
+
+    ASSERT_FLOAT_EQ(reflectance, 1.0);
+}
+
+/*
+Scenario: The Schlick approximation with a perpendicular viewing angle
+    Given shape <- glass_sphere()
+        And r <- ray(point(0, 0, 0), vector(0, 1, 0))
+        And xs <- intersections(-1:shape, 1:shape)
+    When comps <- prepare_computations(xs[1], r, xs)
+        And reflectance <- schlick(comps)
+    Then reflectance = 0.04
+*/
+TEST(FresnelEffect, schlickApproxWithPerpendicularViewingAngle)
+{
+    auto shape = glass_sphere();
+    auto r = Ray(Point(0, 0, 0), Vector(0, 1, 0));
+    auto xs = intersections({{-1, &shape}, {1, &shape}});
+
+    auto comps = prepare_computations(xs[1], r, xs);
+    auto reflectance = schlick(comps);
+
+    ASSERT_FLOAT_EQ(reflectance, 0.04);
+}
+
+/*
+Scenario: The Schlick approximation with small angle and n2 > n1
+    Given shape <- glass_sphere()
+        And r <- ray(point(0, 0.99, -2), vector(0, 0, 1))
+        And xs <- intersections(1.8589:shape)
+    When comps <- prepare_computations(xs[0], r, xs)
+        And reflectance <- schlick(comps)
+    Then reflectance = 0.48873
+*/
+TEST(FresnelEffect, schlickApproxWithSmallAngleAndN2GTN1)
+{
+    auto shape = glass_sphere();
+    auto r = Ray(Point(0, 0.99, -2), Vector(0, 0, 1));
+    auto xs = intersections({{1.8589, &shape}});
+
+    auto comps = prepare_computations(xs[0], r, xs);
+    auto reflectance = schlick(comps);
+
+    // rounding error with ASSERT_FLOAT_EQ
+    ASSERT_NEAR(reflectance, 0.48873, EPSILON);
+}

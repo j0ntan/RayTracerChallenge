@@ -232,3 +232,32 @@ Color refracted_color(const World &world, const Computations &computations,
 
     return color;
 }
+
+double schlick(const Computations &computations)
+{
+    // find the cosine of the angle between the eye and normal vectors
+    auto cos = dot(computations.eyev, computations.normalv);
+
+    // total internal reflection can only occur if n1 > n2
+    if (computations.n1 > computations.n2)
+    {
+        auto n = computations.n1 / computations.n2;
+        auto sin2_t = (n * n) * (1.0 - (cos * cos));
+        if (sin2_t > 1.0)
+        {
+            return 1.0;
+        }
+
+        // compute cosine of theta_t using trig identity
+        auto cos_t = std::sqrt(1.0 - sin2_t);
+
+        //  when n1 > n2, use cos(theta_t) instead
+        cos = cos_t;
+    }
+
+    auto r = (computations.n1 - computations.n2) /
+             (computations.n1 + computations.n2);
+    auto r0 = r * r;
+
+    return r0 + (1 - r0) * std::pow(1 - cos, 5);
+}

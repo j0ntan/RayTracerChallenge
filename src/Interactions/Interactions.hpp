@@ -120,3 +120,12 @@ Color reflected_color(const World &world, const Computations &computations,
  */
 Color refracted_color(const World &world, const Computations &computations,
                       int remaining = MAX_RECURSIVE_DEPTH);
+
+/**
+ * @brief Calculates the Schlick approximation for reflectance at an
+ * intersection
+ *
+ * @param computations The pre-computed values for the intersection
+ * @return double The reflectance value
+ */
+double schlick(const Computations &computations);
