@@ -143,7 +143,9 @@ Color shade_hit(const World &world, const Computations &comps, int remaining)
 
     auto reflected = reflected_color(world, comps, remaining);
 
-    return surface + reflected;
+    auto refracted = refracted_color(world, comps, remaining);
+
+    return surface + reflected + refracted;
 }
 
 Color color_at(const World &world, const Ray &ray, int remaining)
