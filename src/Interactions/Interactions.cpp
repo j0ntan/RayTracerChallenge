@@ -145,7 +145,17 @@ Color shade_hit(const World &world, const Computations &comps, int remaining)
 
     auto refracted = refracted_color(world, comps, remaining);
 
-    return surface + reflected + refracted;
+    Color retval = surface + reflected + refracted;
+
+    const auto &material = comps.object->material;
+    if (material.reflective > 0 && material.transparency > 0)
+    {
+        auto reflectance = schlick(comps);
+        retval = surface + reflected * reflectance +
+                 refracted * (1 - reflectance);
+    }
+
+    return retval;
 }
 
 Color color_at(const World &world, const Ray &ray, int remaining)
