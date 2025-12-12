@@ -28,3 +28,6 @@ add_executable(mixed_patterns mixed_patterns.cpp)
 target_include_directories(mixed_patterns PRIVATE ${perlinnoise_SOURCE_DIR})
 target_link_libraries(mixed_patterns Plane Transformations StripePattern
     RingPattern Camera)
+
+add_executable(marbles marbles.cpp)
+target_link_libraries(marbles Plane Transformations Camera CheckerPattern)
